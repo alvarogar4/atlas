@@ -1,0 +1,24 @@
+{
+  "name": "atlas",
+  "description": "Personal second brain assistant. Captures ideas, stores knowledge, recalls context, and acts as a proactive assistant that knows your preferences and history.",
+  "version": "2.0.0",
+  "author": {
+    "name": "Alvaro"
+  },
+  "keywords": [
+    "second-brain",
+    "knowledge-management",
+    "personal-assistant",
+    "memory",
+    "notes",
+    "ideas",
+    "recall",
+    "marketing",
+    "campaign",
+    "blog",
+    "content",
+    "strategy",
+    "business"
+  ],
+  "license": "MIT"
+}

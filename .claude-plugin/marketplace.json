@@ -1,0 +1,14 @@
+{
+  "name": "atlas-marketplace",
+  "owner": {
+    "name": "Alvaro"
+  },
+  "description": "Personal Atlas second brain plugin",
+  "plugins": [
+    {
+      "name": "atlas",
+      "source": "./",
+      "description": "Personal second brain assistant. Captures ideas, stores knowledge, recalls context, and acts as a proactive assistant that knows your preferences and history."
+    }
+  ]
+}

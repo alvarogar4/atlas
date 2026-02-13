@@ -1,0 +1,17 @@
+{
+  "name": "image-processing",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "crop": "tsx crop.ts",
+    "remove-bg": "tsx remove-bg.ts",
+    "optimize": "tsx optimize.ts",
+    "polish": "tsx polish.ts"
+  },
+  "dependencies": {
+    "@imgly/background-removal-node": "1.4.5",
+    "sharp": "0.34.5",
+    "tsx": "4.19.0"
+  }
+}
