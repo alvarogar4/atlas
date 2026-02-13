@@ -30,6 +30,35 @@
     └── active-project
 ```
 
+## External Projects
+
+Projects can also live outside the brain via per-project path variables:
+
+```env
+# In .env
+ATLAS_PATH_OBSESSIONDB=/path/to/obsessiondb
+ATLAS_PATH_GYMBROS=/path/to/gymbros
+```
+
+External project directories follow the same structure as `projects/{project-name}/`:
+
+```
+/path/to/external-project/
+├── README.md
+├── context.md
+├── strategy/
+├── competitors/
+└── marketing/
+    ├── content/
+    ├── calendars/
+    ├── audiences/
+    ├── themes/
+    ├── brand-voice.md
+    └── visual-identity.md
+```
+
+**Brain-level PARA** (inbox, areas, resources, archives) always uses `ATLAS_BRAIN_PATH`, regardless of which project is active.
+
 ## Project Structure
 
 Each project under `projects/{project-name}/`:

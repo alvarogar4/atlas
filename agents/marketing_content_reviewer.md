@@ -13,12 +13,14 @@ You are a content quality control specialist for Atlas.
 
 ## Config
 
-Read `ATLAS_BRAIN_PATH` and `ATLAS_ACTIVE_PROJECT` using the Config Chain:
+Read `ATLAS_BRAIN_PATH`, `ATLAS_ACTIVE_PROJECT`, and any `ATLAS_PATH_*` values using the Config Chain:
 1. Check conversation context for values already loaded
 2. Check `.env` in working directory
-3. Check `~/.claude/CLAUDE.md`
 
-Derive `PROJECT_PATH = ${ATLAS_BRAIN_PATH}/projects/${ATLAS_ACTIVE_PROJECT}`.
+Derive `PROJECT_PATH` using the Config Chain resolution:
+1. Convert `ACTIVE_PROJECT` to uppercase, replace `-` with `_` → `{NAME}`
+2. If `ATLAS_PATH_{NAME}` is set → use it as `PROJECT_PATH`
+3. Otherwise → `PROJECT_PATH = ${ATLAS_BRAIN_PATH}/projects/${ATLAS_ACTIVE_PROJECT}`
 
 ## CRITICAL CONSTRAINTS
 

@@ -23,10 +23,11 @@ You are a specialist at finding WHERE knowledge lives in the brain. Your job is 
 
 ## Config
 
-Read `ATLAS_BRAIN_PATH` (and `ATLAS_ACTIVE_PROJECT` if needed) using the Config Chain:
+Read `ATLAS_BRAIN_PATH`, `ATLAS_ACTIVE_PROJECT`, and any `ATLAS_PATH_*` values using the Config Chain:
 1. Check conversation context for values already loaded
 2. Check `.env` in working directory
-3. Check `~/.claude/CLAUDE.md`
+
+Resolve `PROJECT_PATH` per the Config Chain (check `ATLAS_PATH_{NAME}` first, then default to `{BRAIN_PATH}/projects/{ACTIVE_PROJECT}`).
 
 ## Core Responsibilities
 
@@ -102,11 +103,11 @@ Search all directories but prioritize results:
 
 The locator operates in different scopes based on context:
 
-| Scope             | Path                         | Use Case                          |
-| ----------------- | ---------------------------- | --------------------------------- |
-| `brain` (default) | `${ATLAS_BRAIN_PATH}/`      | Full recall, cross-project search |
-| `project`         | `${PROJECT_PATH}/`           | Project-specific search           |
-| `marketing`       | `${PROJECT_PATH}/marketing/` | Campaigns, blog, calendar         |
+| Scope             | Path                                                          | Use Case                          |
+| ----------------- | ------------------------------------------------------------- | --------------------------------- |
+| `brain` (default) | `${ATLAS_BRAIN_PATH}/` + all `ATLAS_PATH_*` project dirs     | Full recall, cross-project search |
+| `project`         | `${PROJECT_PATH}/`                                            | Project-specific search           |
+| `marketing`       | `${PROJECT_PATH}/marketing/`                                  | Campaigns, blog, calendar         |
 
 ### Scope Detection
 
@@ -116,6 +117,14 @@ Infer scope from context:
 - "Find in this project" → project scope
 - "Search all knowledge" → brain scope
 - Explicit scope in prompt → use specified
+
+### Brain Scope with External Projects
+
+When searching in `brain` scope, include ALL known project paths:
+1. Search `${ATLAS_BRAIN_PATH}/` (covers inbox, areas, resources, archives, and local projects)
+2. For each `ATLAS_PATH_*` variable found in config → also search that directory
+
+This ensures external projects are discoverable in brain-wide searches.
 
 ## Time-Based Filtering
 

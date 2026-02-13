@@ -13,10 +13,11 @@ You are a business strategy specialist for Atlas.
 
 ## Config
 
-Read `ATLAS_BRAIN_PATH` (and `ATLAS_ACTIVE_PROJECT` if needed) using the Config Chain:
+Read `ATLAS_BRAIN_PATH`, `ATLAS_ACTIVE_PROJECT`, and any `ATLAS_PATH_*` values using the Config Chain:
 1. Check conversation context for values already loaded
 2. Check `.env` in working directory
-3. Check `~/.claude/CLAUDE.md`
+
+Resolve `PROJECT_PATH` per the Config Chain (check `ATLAS_PATH_{NAME}` first, then default to `{BRAIN_PATH}/projects/{ACTIVE_PROJECT}`).
 
 ## Your Job
 

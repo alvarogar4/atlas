@@ -53,12 +53,12 @@ Reference in content as: `./resources/{filename}`
 
 Visual tools compose together for common workflows:
 
-| Scenario | Chain |
-|---|---|
-| Blog hero image | `guides/ai-prompting.md` → generate image → `tools/processing.md` (crop to 1200x600) → optimize |
-| Schema diagram | `tools/schema-generation.md` (HTML+CSS → PNG) → `tools/processing.md` (optimize) |
-| Photo for social | `tools/processing.md` (remove background → crop to 1080x1080 → polish → optimize) |
-| OG card | `guides/ai-prompting.md` → generate → `tools/processing.md` (crop to 1200x630) |
+| Scenario         | Chain                                                                                           |
+| ---------------- | ----------------------------------------------------------------------------------------------- |
+| Blog hero image  | `guides/ai-prompting.md` → generate image → `tools/processing.md` (crop to 1200x600) → optimize |
+| Schema diagram   | `tools/schema-generation.md` (HTML+CSS → PNG) → `tools/processing.md` (optimize)                |
+| Photo for social | `tools/processing.md` (remove background → crop to 1080x1080 → polish → optimize)               |
+| OG card          | `guides/ai-prompting.md` → generate → `tools/processing.md` (crop to 1200x630)                  |
 
 Always read the project's visual identity first for brand colors and style defaults.
 

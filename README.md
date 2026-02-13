@@ -137,9 +137,8 @@ Internal skill for image processing, schema diagrams, and AI prompt composition.
 
 ## Configuration
 
-After running `/atlas:second_brain:foundation setup`, your brain path is stored in one of:
-- `.env` file in your project (portable)
-- `~/.claude/CLAUDE.md` (Claude Code-specific)
+After running `/atlas:second_brain:foundation setup`, your brain path is stored in:
+- `.env` file in your project
 
 ```
 ATLAS_BRAIN_PATH=~/brain

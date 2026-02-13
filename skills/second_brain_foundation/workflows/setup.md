@@ -29,27 +29,11 @@ Wait for user's response before proceeding.
 
 ### 3. Save Configuration
 
-Ask the user where to store the config:
+Create or update `.env` in the current working directory:
 
-Options:
-1. `.env` file in current directory (portable, works with any tool)
-2. `~/.claude/CLAUDE.md` (Claude Code-specific)
-
-**If `.env`**: Create or update `.env`:
 ```
 ATLAS_BRAIN_PATH={USER_PROVIDED_PATH}
 ```
-
-**If `~/.claude/CLAUDE.md`**: Append Atlas configuration section:
-
-```markdown
-
-# Atlas Configuration
-
-ATLAS_BRAIN_PATH={USER_PROVIDED_PATH}
-```
-
-Use Edit tool — do not overwrite existing content.
 
 ### 4. Create Directory Structure
 
