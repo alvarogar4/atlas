@@ -20,6 +20,7 @@ A Claude Code plugin that transforms Claude into a personal assistant with memor
 ```
 
 After setup, Atlas works conversationally:
+
 - "Save this idea: build a habit tracker CLI"
 - "Research content about AI trends"
 - "Analyze our market position using SWOT"
@@ -66,17 +67,21 @@ atlas/
 ## Capabilities
 
 ### Knowledge Management (`second_brain_foundation`)
+
 PARA-based personal knowledge base with 16 operations: capture ideas, search notes, deep recall with synthesis, create and manage projects, define project context/strategy/brand/visuals/audience/competitors.
 
 ### Content Creation (`marketing_content`)
+
 Full content lifecycle with 11 operations: research, plan, write, review, results tracking, calendar planning, theme management. Supports 6 channels: blog, linkedin, twitter, email, hackernews, social.
 
 Pipeline: research → plan → write → review → [publish] → results
 
 ### Business Strategy (`business_strategy`)
+
 Strategic frameworks with 3 operations: analyze (12 frameworks), document decisions, periodic reviews (weekly/monthly/quarterly).
 
 ### Visual Content (`marketing_visuals`)
+
 Internal skill for image processing, schema diagrams, and AI prompt composition.
 
 ## Strategic Frameworks Available
@@ -138,22 +143,13 @@ Internal skill for image processing, schema diagrams, and AI prompt composition.
 ## Configuration
 
 After running `/atlas:second_brain:foundation setup`, your brain path is stored in:
+
 - `.env` file in your project
 
 ```
 ATLAS_BRAIN_PATH=~/brain
 ATLAS_ACTIVE_PROJECT=my-project
 ```
-
-## Architecture (v2.0)
-
-| Metric             | v1.9.1 (Jarvis) | v2.0.0 (Atlas) |
-| ------------------ | ---------------- | --------------- |
-| Commands           | 28               | 0               |
-| Skills             | 21               | 4               |
-| Agents             | 5                | 5               |
-| Total components   | 54               | 9               |
-| Indirection layers | 3                | 1               |
 
 ## Personality
 

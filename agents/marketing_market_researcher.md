@@ -14,6 +14,7 @@ You are an expert web research specialist for market intelligence and business r
 ## Config
 
 Read `ATLAS_BRAIN_PATH`, `ATLAS_ACTIVE_PROJECT`, and any `ATLAS_PATH_*` values using the Config Chain:
+
 1. Check conversation context for values already loaded
 2. Check `.env` in working directory
 
@@ -148,7 +149,6 @@ Organize by:
 ### Trends Identified
 
 1. **{Trend Name}**: {Description}
-
    - Evidence: {supporting data}
    - Implication: {what this means}
 
@@ -184,9 +184,9 @@ _Researched: {date} via Atlas market_researcher_
 
 ## Storage
 
-Save market research to: `${ATLAS_BRAIN_PATH}/resources/market/YYYY-MM-DD-{topic}.md`
+**When spawned as a subagent** (from content workflows or other agents): Do NOT create any files or folders. Return your findings as structured text. The calling agent owns file persistence.
 
-For competitor-specific research (project-scoped): `${PROJECT_PATH}/competitors/{competitor-name}.md`
+**When invoked standalone** (direct user request for market research): Save to the brain following the storage rules in `atlas:second_brain_foundation` skill.
 
 ## Examples
 

@@ -6,17 +6,17 @@
 
 Detect and fix these AI writing patterns:
 
-| Pattern | Example |
-|---------|---------|
-| Inflated symbolism | "beacon of hope", "tapestry of" |
-| Promotional language | "game-changing", "revolutionary" |
-| Superficial -ing | "highlighting the need", "underscoring" |
-| Vague attributions | "critics argue", "some say" |
-| Em dash overuse | Multiple em dashes per paragraph |
-| Rule of three | "X, Y, and Z" patterns overused |
-| AI vocabulary | "delve", "crucial", "landscape", "multifaceted" |
-| Negative parallelisms | "not just X but Y" |
-| Excessive conjunctions | "However", "Moreover", "Furthermore" overuse |
+| Pattern                | Example                                         |
+| ---------------------- | ----------------------------------------------- |
+| Inflated symbolism     | "beacon of hope", "tapestry of"                 |
+| Promotional language   | "game-changing", "revolutionary"                |
+| Superficial -ing       | "highlighting the need", "underscoring"         |
+| Vague attributions     | "critics argue", "some say"                     |
+| Em dash overuse        | Multiple em dashes per paragraph                |
+| Rule of three          | "X, Y, and Z" patterns overused                 |
+| AI vocabulary          | "delve", "crucial", "landscape", "multifaceted" |
+| Negative parallelisms  | "not just X but Y"                              |
+| Excessive conjunctions | "However", "Moreover", "Furthermore" overuse    |
 
 ## Checkpoint Enforcement (CRITICAL)
 
@@ -36,6 +36,7 @@ Execute **Setup** from SKILL.md.
 CONTENT_FOLDER=$(ls -d ${PROJECT_PATH}/marketing/content/*${topic}* 2>/dev/null | head -1)
 test -f "${CONTENT_FOLDER}/3_draft-${channel}.md"
 ```
+
 If missing → "I don't see a draft for this channel yet. Want to write it?"
 
 3. **Read draft and research into context:**
@@ -67,6 +68,7 @@ Review checklist:
    - Email: Subject line, CTA placement
    - Hacker News: NO marketing language, Show HN title format, first comment structure
 6. CTA effectiveness
+7. Flow & structure: ideas introduced in one section are resolved in corresponding sections, logical linear progression, no orphaned concepts
 
 Return:
 - Overall status: PASS / NEEDS_REVISION / BLOCKED
@@ -79,6 +81,7 @@ Return:
 5. **Apply reviewer fixes directly to draft:**
 
 For each issue found:
+
 1. Read the specific line(s)
 2. Apply the recommended fix
 3. Track what was changed
@@ -115,6 +118,7 @@ If no patterns found: "No AI writing patterns detected. Draft unchanged."
 7. **CHECKPOINT — STOP AND WAIT.** Present review results:
 
 **If BLOCKED:**
+
 ```
 Review: BLOCKED
 
@@ -123,9 +127,11 @@ Review: BLOCKED
 
 Next: Edit draft manually, then let me re-review.
 ```
+
 Save review file and STOP.
 
 **If NEEDS REVISION:**
+
 ```
 Review: NEEDS REVISION
 
@@ -136,9 +142,11 @@ Options:
 1. Fix and re-review
 2. Proceed to images anyway (not recommended)
 ```
+
 **STOP AND WAIT.**
 
 **If PASS:**
+
 ```
 Review: PASS
 
@@ -150,12 +158,12 @@ Content is ready for publication!
 
 9. **Recommend images** (only if PASS or user chose to proceed):
 
-| Channel | Recommendation |
-|---------|---------------|
-| blog | "Blog posts need a hero image and OG card for social sharing." |
-| linkedin | "LinkedIn posts with images get 2x engagement. You need an image." |
-| twitter | "Visual tweets perform better. Consider adding an image." |
-| email | "Plain text emails often have better deliverability. Images optional." |
+| Channel  | Recommendation                                                         |
+| -------- | ---------------------------------------------------------------------- |
+| blog     | "Blog posts need a hero image and OG card for social sharing."         |
+| linkedin | "LinkedIn posts with images get 2x engagement. You need an image."     |
+| twitter  | "Visual tweets perform better. Consider adding an image."              |
+| email    | "Plain text emails often have better deliverability. Images optional." |
 
 ```
 Create image prompts? (y/n)
@@ -192,24 +200,34 @@ After publishing, I can help track performance results.
 ## Review Status: {PASS | NEEDS REVISION | BLOCKED}
 
 ## Humanizer Check
+
 **Status**: {PASS | FIXED}
 **Patterns fixed**: {count}
 
 ## Checks
 
 ### Typos & Grammar
+
 **Status**: {PASS | ISSUES FOUND}
 
 ### Legal Risks
+
 **Status**: {PASS | ISSUES FOUND}
 
 ### Factual Accuracy
+
 **Status**: {PASS | ISSUES FOUND}
 
 ### Channel-Specific ({channel})
+
+**Status**: {PASS | ISSUES FOUND}
+
+### Flow & Structure
+
 **Status**: {PASS | ISSUES FOUND}
 
 ## Summary
+
 - Total issues: {count}
 - Blocking issues: {count}
 - AI patterns fixed: {count}

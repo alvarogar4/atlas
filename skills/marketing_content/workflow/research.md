@@ -134,6 +134,8 @@ Your choice?
 subagent_type: atlas:marketing:market_researcher
 prompt: "Research content topic: '{topic}'
 
+IMPORTANT: Do NOT create any files or folders. Return your findings as text only. The main agent will handle saving.
+
 Context from project:
 - Phase Objective: {from calendar}
 - Target themes: {from themes}

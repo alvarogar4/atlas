@@ -13,50 +13,79 @@ Generate pixel-perfect diagrams and schemas as PNG images from HTML+CSS.
    bun install  # first time only
    bun generate-pngs.mjs ${CONTENT_FOLDER}/resources
    ```
-3. **Verify and refine** (MANDATORY - do not skip):
-   - Read the generated PNG using the `Read` tool to visually inspect
-   - Check for: overlapping elements, inconsistent spacing, alignment issues, truncated text, visual balance
-   - If issues found: edit HTML/CSS → re-run generator → re-verify
-   - Only deliver when the diagram looks professional and refined
+3. **Quality check** (MANDATORY - do not skip):
+
+   Read the generated PNG using the `Read` tool and verify ALL of the following before delivering:
+
+   **Layout & spacing:**
+   - Content fills the canvas — no more than 5-8% margin on any side
+   - Grid/layout is centered both horizontally and vertically
+   - Elements are visually connected, not floating in isolation
+   - No large empty gaps between content sections
+
+   **Connections & lines:**
+   - Every arrow/line actually start from the source and reaches its target element (verify coordinates match)
+   - Prefer CSS connections (gradient divs, borders, pseudo-elements with `::before`/`::after`) over SVG paths — SVG coordinates easily desync from CSS-positioned elements
+   - If SVG is used: double-check that path start/end points align with the actual rendered position of HTML elements
+
+   **Text readability:**
+   - Body text: minimum 13px
+   - Headings/titles: minimum 16px
+   - Labels on small elements: minimum 11px
+   - All text has sufficient contrast against its background (WCAG tests)
+
+   **Visual consistency:**
+   - No emojis in professional/technical diagrams — use icons or shapes instead
+   - Consistent color usage following the color mapping below
+   - Consistent border-radius, padding, and shadow across similar elements
+
+   If ANY check fails: edit HTML/CSS → re-run generator → re-verify. Only deliver when all checks pass.
 
 ## Color Mapping
 
 Map visual-identity.md colors to CSS variables:
 
-| Visual Identity Field | CSS Variable |
-|-----------------------|-------------|
-| Base 100 (dark) | `--bg` |
-| Base 200 (dark) | `--surface`, `--bg-lighter` |
-| Base 300 (dark) | `--surface-border` |
-| Base 400 (dark) | `--muted` |
-| Title (dark) | `--foreground` |
-| Content (dark) | `--muted-fg` |
-| Primary (dark) | `--primary` |
-| Accent (dark) | `--accent` |
+| Visual Identity Field | CSS Variable                |
+| --------------------- | --------------------------- |
+| Base 100              | `--bg`                      |
+| Base 200              | `--surface`, `--bg-lighter` |
+| Base 300              | `--surface-border`          |
+| Base 400              | `--muted`                   |
+| Title                 | `--foreground`              |
+| Content               | `--muted-fg`                |
+| Primary               | `--primary`                 |
+| Accent                | `--accent`                  |
 
 ## Design Patterns
 
 **Box/Card:**
+
 ```css
 .card {
   background: var(--surface);
   border: 1px solid var(--surface-border);
   border-radius: 12px;
   padding: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
 }
 ```
 
 **Highlighted Box (primary):**
+
 ```css
 .highlight-box {
-  background: linear-gradient(135deg, var(--primary-dim) 0%, var(--primary-glow) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--primary-dim) 0%,
+    var(--primary-glow) 100%
+  );
   border: 1px solid var(--primary);
   border-radius: 10px;
 }
 ```
 
 **Glow Effect:**
+
 ```css
 .glow {
   box-shadow: 0 0 20px var(--primary-glow);
@@ -64,7 +93,30 @@ Map visual-identity.md colors to CSS variables:
 }
 ```
 
-**SVG Connections:**
+**CSS Connections (preferred):**
+
+```css
+/* Horizontal connector between elements */
+.connector {
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-glow));
+  align-self: center;
+  box-shadow: 0 0 6px var(--primary-glow);
+}
+/* Arrow tip via pseudo-element */
+.connector::after {
+  content: "";
+  position: absolute;
+  right: -4px;
+  top: -3px;
+  border: 4px solid transparent;
+  border-left-color: var(--primary-glow);
+}
+```
+
+**SVG Connections (use only when CSS layout can't express the path):**
+
 ```css
 .conn-line {
   stroke: var(--primary);
@@ -82,6 +134,7 @@ Map visual-identity.md colors to CSS variables:
 ```
 
 Examples:
+
 - `01-distributed-architecture.html`
 - `02-data-flow-diagram.html`
 - `03-before-after-comparison.html`

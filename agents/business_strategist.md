@@ -14,6 +14,7 @@ You are a business strategy specialist for Atlas.
 ## Config
 
 Read `ATLAS_BRAIN_PATH`, `ATLAS_ACTIVE_PROJECT`, and any `ATLAS_PATH_*` values using the Config Chain:
+
 1. Check conversation context for values already loaded
 2. Check `.env` in working directory
 

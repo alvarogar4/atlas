@@ -29,6 +29,7 @@ CONTENT_FOLDER=$(ls -d ${PROJECT_PATH}/marketing/content/*${topic}* 2>/dev/null 
 ```bash
 test -f "${CONTENT_FOLDER}/2_plan.md"
 ```
+
 If missing → "The content brief isn't ready yet. Want to create one?"
 
 4. **Read channel-specific writing guidelines** from `channels/{channel}.md`.
@@ -48,57 +49,36 @@ cat ${PROJECT_PATH}/marketing/brand-voice.md 2>/dev/null
 
 7. **Write content following the channel guidelines:**
 
-| Channel | Key Requirements |
-|---------|-----------------|
-| blog | Follow outline structure exactly, hit word count, cite sources inline |
-| linkedin | Hook in first 140 chars, use line breaks, 3-5 hashtags, personal stories |
-| twitter | First tweet must hook alone, 280 char limit per tweet, close threads |
-| email | Subject 30-50 chars, one clear CTA, conversational tone, plain text ready |
-| hackernews | Show HN title format, first comment structure, NO marketing language |
-| social | Platform-appropriate length, engagement-focused, clear CTA |
+| Channel    | Key Requirements                                                          |
+| ---------- | ------------------------------------------------------------------------- |
+| blog       | Follow outline structure exactly, hit word count, cite sources inline     |
+| linkedin   | Hook in first 140 chars, use line breaks, 3-5 hashtags, personal stories  |
+| twitter    | First tweet must hook alone, 280 char limit per tweet, close threads      |
+| email      | Subject 30-50 chars, one clear CTA, conversational tone, plain text ready |
+| hackernews | Show HN title format, first comment structure, NO marketing language      |
+| social     | Platform-appropriate length, engagement-focused, clear CTA                |
 
 Guidelines:
+
 - Follow the approved content brief exactly (use the channel-specific section)
 - Maintain consistent brand voice
 - Include proper citations/links where applicable
 - Match format requirements for the channel
 - Include clear call-to-action
 
-8. **CHECKPOINT — STOP AND WAIT.** Present draft summary:
+8. **Apply humanizer pass** (automatic — do NOT skip):
 
-**Blog:**
-```
-Draft complete! Title: {title} | Word count: {actual}/{target} | Sections: {count}
-View draft? (y/n)
-```
+Load the `humanizer` skill and scan the draft for AI writing patterns. Apply ALL fixes directly to the draft text before presenting to the user. This is not optional — every piece of written content must be humanized before the user sees it.
 
-**LinkedIn:**
-```
-Draft complete! Hook: "{first 140 chars}..." | Characters: {count} | Hashtags: {list}
-View draft? (y/n)
-```
+If the humanizer skill is not available, manually check and fix the draft against the Humanizer Checks table in `workflow/review.md`.
 
-**Twitter:**
-```
-Draft complete! Thread: {n} tweets | First tweet: "{hook}..."
-View draft? (y/n)
-```
+9. **Save draft immediately:** `${CONTENT_FOLDER}/3_draft-${channel}.md`
 
-**Email:**
-```
-Draft complete! Subject: {subject line} | CTA: {cta text}
-View draft? (y/n)
-```
-
-**Hacker News:**
-```
-Draft complete! Title: Show HN: {name} - {tagline} | First comment: {word count} words
-View draft? (y/n)
-```
-
-9. **Only after user acknowledges**, save: `${CONTENT_FOLDER}/3_draft-${channel}.md`
+The user will review via `git diff`. Do NOT ask for acknowledgment before saving.
 
 ### Output
+
+Present a brief summary after saving:
 
 ```
 Draft saved: ${CONTENT_FOLDER}/3_draft-${channel}.md
@@ -112,9 +92,9 @@ Ready for quality review?
 ---
 channel: "{channel}"
 topic: "{topic}"
-project: {project}
+project: { project }
 status: draft
-created: {ISO timestamp}
+created: { ISO timestamp }
 ---
 ```
 

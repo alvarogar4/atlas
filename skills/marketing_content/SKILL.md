@@ -147,6 +147,15 @@ These apply across all channels:
 - [ ] Reads naturally (read aloud test passed)
 - [ ] Frontmatter is complete with all required fields
 
+**Post-Write Humanization (MANDATORY):**
+
+Whenever you write or edit marketing content — whether through the write workflow, during review edits, or ad-hoc edits — always apply the `humanizer` skill before presenting the result to the user. This includes:
+- Full draft creation via `workflow/write.md`
+- Rewriting paragraphs or sections in existing drafts
+- Any content edit the user requests
+
+Never show the user AI-patterned text and ask them to humanize it separately. The humanizer pass is automatic and non-negotiable.
+
 ## Error Handling
 
 - **Missing prerequisite**: Tell user which step is needed first and offer to start it. Example: "This topic needs research before we can plan. Want me to start researching?"
