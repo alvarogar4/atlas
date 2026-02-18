@@ -4,19 +4,32 @@
 
 ## Humanizer Checks (CRITICAL)
 
-Detect and fix these AI writing patterns:
+Detect and fix these AI writing patterns. Load the `humanizer` skill for the full pattern reference.
 
-| Pattern                | Example                                         |
-| ---------------------- | ----------------------------------------------- |
-| Inflated symbolism     | "beacon of hope", "tapestry of"                 |
-| Promotional language   | "game-changing", "revolutionary"                |
-| Superficial -ing       | "highlighting the need", "underscoring"         |
-| Vague attributions     | "critics argue", "some say"                     |
-| Em dash overuse        | Multiple em dashes per paragraph                |
-| Rule of three          | "X, Y, and Z" patterns overused                 |
-| AI vocabulary          | "delve", "crucial", "landscape", "multifaceted" |
-| Negative parallelisms  | "not just X but Y"                              |
-| Excessive conjunctions | "However", "Moreover", "Furthermore" overuse    |
+### Word and phrase patterns (zero tolerance)
+
+| Pattern                | Rule                                                   | Example to fix                                  |
+| ---------------------- | ------------------------------------------------------ | ----------------------------------------------- |
+| Em dashes              | **ZERO allowed.** Replace with comma, period, or colon | Any `—` character in the draft                  |
+| Inflated symbolism     | Remove entirely or replace with specifics              | "beacon of hope", "tapestry of"                 |
+| Promotional language   | Remove or replace with factual claims                  | "game-changing", "revolutionary"                |
+| Superficial -ing       | Rewrite as direct statements                           | "highlighting the need", "underscoring"         |
+| Vague attributions     | Replace with specific sources or remove                | "critics argue", "some say"                     |
+| Rule of three          | Break up or reduce to two                              | "X, Y, and Z" patterns forced artificially      |
+| AI vocabulary          | Replace with plain language                            | "delve", "crucial", "landscape", "multifaceted" |
+| Negative parallelisms  | Rewrite as direct statement                            | "not just X but Y"                              |
+| Excessive conjunctions | Max 1 per piece                                        | "However", "Moreover", "Furthermore" overuse    |
+| Copula avoidance       | Use "is/are/has" instead                               | "serves as", "stands as", "functions as"        |
+
+### Structural patterns (flag as WARNING)
+
+| Pattern                     | How to detect                                                     | Fix                                              |
+| --------------------------- | ----------------------------------------------------------------- | ------------------------------------------------ |
+| Uniform paragraph lengths   | 4+ consecutive paragraphs within ~20% of same word count          | Vary: mix 1-sentence and 3-5 sentence paragraphs |
+| Uniform sentence lengths    | Most sentences cluster around 15-20 words with low variance       | Mix short punchy (5-8 words) with longer (25+)   |
+| Parallel section structures | Multiple sections follow the same template (intro, list, summary) | Reshape sections to have distinct structures     |
+| Uniform information density | Every paragraph equally packed with facts, no breathing room      | Add opinion, reflection, or asides in some       |
+| Too-clean logical flow      | No tangents, no self-corrections, no asides                       | Allow controlled imperfection where natural      |
 
 ## Checkpoint Enforcement (CRITICAL)
 

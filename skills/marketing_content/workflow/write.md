@@ -47,7 +47,9 @@ cat "${CONTENT_FOLDER}/1_research.md"
 cat ${PROJECT_PATH}/marketing/brand-voice.md 2>/dev/null
 ```
 
-7. **Write content following the channel guidelines:**
+7. **Write content following the channel guidelines AND anti-AI-detection rules:**
+
+Load the `humanizer` skill BEFORE writing. Apply all humanizer patterns as **generation constraints** (not post-processing). The content must be written human-first from the start.
 
 | Channel    | Key Requirements                                                          |
 | ---------- | ------------------------------------------------------------------------- |
@@ -58,19 +60,38 @@ cat ${PROJECT_PATH}/marketing/brand-voice.md 2>/dev/null
 | hackernews | Show HN title format, first comment structure, NO marketing language      |
 | social     | Platform-appropriate length, engagement-focused, clear CTA                |
 
-Guidelines:
+Content guidelines:
 
 - Follow the approved content brief exactly (use the channel-specific section)
 - Maintain consistent brand voice
 - Include proper citations/links where applicable
 - Match format requirements for the channel
 - Include clear call-to-action
+- Do NOT carry over formatting patterns from research documents (em dashes, list styles, etc.)
 
-8. **Apply humanizer pass** (automatic — do NOT skip):
+Anti-AI-detection rules (MANDATORY during writing, not after):
 
-Load the `humanizer` skill and scan the draft for AI writing patterns. Apply ALL fixes directly to the draft text before presenting to the user. This is not optional — every piece of written content must be humanized before the user sees it.
+**Word and phrase level (from humanizer):**
+- Zero em dashes. Replace all `—` with commas, periods, or colons. No exceptions.
+- No AI vocabulary: "delve", "crucial", "landscape", "tapestry", "multifaceted", "pivotal", "showcase", "underscore", "foster", "garner", "interplay", "intricate", "vibrant", "testament", "enduring", "enhance"
+- No inflated symbolism: "beacon of hope", "testament to", "tapestry of"
+- No promotional language: "game-changing", "revolutionary", "groundbreaking", "breathtaking"
+- No superficial -ing phrases: "highlighting the need", "underscoring the importance", "showcasing how"
+- No vague attributions: "critics argue", "some say", "experts believe", "industry observers"
+- No negative parallelisms: "not just X but Y", "it's not about X, it's about Y"
+- No excessive conjunctions: limit "However", "Moreover", "Furthermore", "Additionally" to max 1 per piece
+- No rule of three unless it occurs naturally: avoid forcing ideas into "X, Y, and Z" groups
+- No filler phrases: "in order to", "at the end of the day", "it is important to note"
+- No sycophantic openings: "Great question!", "Absolutely!", "That's a great point!"
+- Use simple copulas ("is", "are", "has") instead of "serves as", "stands as", "functions as"
 
-If the humanizer skill is not available, manually check and fix the draft against the Humanizer Checks table in `workflow/review.md`.
+**Structural level (AI detectors catch these):**
+- Vary paragraph lengths: mix 1-sentence paragraphs with 3-5 sentence ones. Never have 4+ consecutive paragraphs of similar length.
+- Vary sentence lengths: alternate short punchy sentences with longer flowing ones. Avoid uniform 15-20 word sentences.
+- No parallel section structures: each section should have its own shape. If one section uses a list, the next should use prose. If one opens with a question, the next should open differently.
+- Allow controlled imperfection: tangents, asides, half-formed thoughts, self-corrections. Real humans meander.
+- Vary information density: some paragraphs should be dense with specifics, others should breathe with opinion or reflection.
+- Use first-person voice where brand voice calls for it: "I", "we", "I've seen", "in my experience"
 
 9. **Save draft immediately:** `${CONTENT_FOLDER}/3_draft-${channel}.md`
 
