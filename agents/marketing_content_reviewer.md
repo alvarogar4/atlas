@@ -1,5 +1,5 @@
 ---
-name: atlas:marketing:content_reviewer
+name: marketing:content_reviewer
 description: Quality control specialist for all content. Checks typos, legal issues, factual accuracy. ALWAYS runs automatically on content - cannot be skipped.
 allowed-tools: Read, WebSearch, WebFetch
 model: inherit

@@ -1,5 +1,5 @@
 ---
-name: atlas:core:analyze_knowledge
+name: core:analyze_knowledge
 description: Deep analysis of specific notes or topics. Receives file paths from locate_knowledge, extracts insights, finds connections.
 allowed-tools: [Read, Grep, Glob, LS]
 model: inherit
