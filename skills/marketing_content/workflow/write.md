@@ -47,7 +47,7 @@ cat "${CONTENT_FOLDER}/1_research.md"
 cat ${PROJECT_PATH}/marketing/brand-voice.md 2>/dev/null
 ```
 
-7. **Read the humanizer rules** from `humanizer.md` (in this skill's directory). These are **generation constraints**, not post-processing. Internalize all patterns BEFORE writing a single word.
+7. **Load the `atlas:humanizer` skill.** These are **generation constraints**, not post-processing. Internalize all 29 patterns BEFORE writing a single word, and make sure to apply them to the draft.
 
 8. **Write content following the channel guidelines and humanizer rules:**
 
@@ -68,7 +68,7 @@ Content guidelines:
 - Match format requirements for the channel
 - Include clear call-to-action
 - Do NOT carry over formatting patterns from research documents (em dashes, list styles, etc.)
-- Apply ALL humanizer rules from `humanizer.md` during writing, not after
+- Apply ALL humanizer rules from the `atlas:humanizer` skill during writing, not after
 
 9. **Save draft immediately:** `${CONTENT_FOLDER}/3_draft-${channel}.md`
 

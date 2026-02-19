@@ -4,7 +4,7 @@
 
 ## Humanizer Checks (CRITICAL)
 
-Read `humanizer.md` (in this skill's directory) for the full pattern reference and zero-tolerance checklist. Scan the draft against every pattern listed there. The quick reference table in `humanizer.md` provides signal strength to prioritize fixes.
+Load the `atlas:humanizer` skill for the full pattern reference and zero-tolerance checklist. Scan the draft against every pattern listed there. You have rights to fix any pattern detected, even if it requires deep edits or its one of the less relevant patterns.
 
 ## Checkpoint Enforcement (CRITICAL)
 
@@ -88,7 +88,7 @@ Draft updated: ${CONTENT_FOLDER}/3_draft-${channel}.md
 
 6. **Apply humanizer as final polish pass:**
 
-Read `humanizer.md` (in this skill's directory) and scan the updated draft against every pattern. Use the zero-tolerance checklist for a fast scan. Apply ALL fixes directly to the draft.
+Load the `atlas:humanizer` skill and scan the updated draft against every pattern. Use the zero-tolerance checklist for a fast scan. Apply ALL fixes directly to the draft.
 
 Output:
 

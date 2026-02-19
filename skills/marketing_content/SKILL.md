@@ -24,6 +24,7 @@ research (1_research.md) → plan (2_plan.md) → write (3_draft-{channel}.md) �
 ```
 
 **Starting point detection**: When a user wants to create content, determine where to start:
+
 - "I want to write about X" → Check if research exists. If not, start at research
 - "Let's plan content for X" → Check if research exists. If not, start at research
 - "Review my blog post about X" → Check if draft exists. If not, tell user to write first
@@ -31,19 +32,19 @@ research (1_research.md) → plan (2_plan.md) → write (3_draft-{channel}.md) �
 
 ### Capabilities
 
-| What the user wants | Workflow |
-|---|---|
-| Research a content topic | `workflow/research.md` |
-| Plan content structure | `workflow/plan.md` |
-| Write content for a channel | `workflow/write.md` |
-| Review content quality (mandatory) | `workflow/review.md` |
-| Document content performance | `workflow/results.md` |
-| View content calendar | `calendar/view.md` |
-| Plan quarterly content | `calendar/plan.md` |
-| Create a content theme | `themes/manage.md` → add section |
-| List themes | `themes/manage.md` → list section |
-| Edit a theme | `themes/manage.md` → edit section |
-| Archive a theme | `themes/manage.md` → remove section |
+| What the user wants                | Workflow                            |
+| ---------------------------------- | ----------------------------------- |
+| Research a content topic           | `workflow/research.md`              |
+| Plan content structure             | `workflow/plan.md`                  |
+| Write content for a channel        | `workflow/write.md`                 |
+| Review content quality (mandatory) | `workflow/review.md`                |
+| Document content performance       | `workflow/results.md`               |
+| View content calendar              | `calendar/view.md`                  |
+| Plan quarterly content             | `calendar/plan.md`                  |
+| Create a content theme             | `themes/manage.md` → add section    |
+| List themes                        | `themes/manage.md` → list section   |
+| Edit a theme                       | `themes/manage.md` → edit section   |
+| Archive a theme                    | `themes/manage.md` → remove section |
 
 ### State Detection
 
@@ -55,6 +56,7 @@ CONTENT_FOLDER=$(ls -d ${PROJECT_PATH}/marketing/content/*${TOPIC_SLUG}* 2>/dev/
 ```
 
 If folder found, check which files exist to determine current state:
+
 - Has `1_research.md` → research done
 - Has `2_plan.md` → planning done
 - Has `3_draft-{channel}.md` → draft exists for that channel
@@ -97,8 +99,8 @@ If invalid channel provided → "Invalid channel '{channel}'. Valid: blog, linke
 
 When writing or reviewing, read the channel-specific guidelines:
 
-| Channel    | File                    |
-| ---------- | ----------------------- |
+| Channel    | File                     |
+| ---------- | ------------------------ |
 | blog       | `channels/blog.md`       |
 | linkedin   | `channels/linkedin.md`   |
 | twitter    | `channels/twitter.md`    |
@@ -112,15 +114,15 @@ These apply across all channels:
 
 **Hook Techniques:**
 
-| Technique | Description | Example |
-|-----------|-------------|---------|
-| Contrarian | Challenge conventional wisdom | "Everything you know about X is wrong." |
-| Question | Create curiosity gap | "Why do 90% of startups fail?" |
-| Story | Personal narrative opener | "Last Tuesday, I almost quit." |
-| Stat/Number | Lead with data | "67% of blog posts get zero shares." |
-| Bold claim | Make a strong assertion | "Cold email is dead." |
-| Direct address | Speak to the reader | "If you're struggling with X..." |
-| Achievement | Share a result | "I went from $0 to $1M ARR." |
+| Technique      | Description                   | Example                                 |
+| -------------- | ----------------------------- | --------------------------------------- |
+| Contrarian     | Challenge conventional wisdom | "Everything you know about X is wrong." |
+| Question       | Create curiosity gap          | "Why do 90% of startups fail?"          |
+| Story          | Personal narrative opener     | "Last Tuesday, I almost quit."          |
+| Stat/Number    | Lead with data                | "67% of blog posts get zero shares."    |
+| Bold claim     | Make a strong assertion       | "Cold email is dead."                   |
+| Direct address | Speak to the reader           | "If you're struggling with X..."        |
+| Achievement    | Share a result                | "I went from $0 to $1M ARR."            |
 
 **CTA Best Practices:**
 
@@ -147,14 +149,26 @@ These apply across all channels:
 - [ ] Reads naturally (read aloud test passed)
 - [ ] Frontmatter is complete with all required fields
 
-**Post-Write Humanization (MANDATORY):**
+**Post-Write Humanization (MANDATORY cross-load):**
 
-Whenever you write or edit marketing content — whether through the write workflow, during review edits, or ad-hoc edits — always apply the `humanizer` skill before presenting the result to the user. This includes:
+Whenever you write or edit marketing content, you MUST load the `atlas:humanizer` skill BEFORE writing or presenting any text to the user. This includes:
+
 - Full draft creation via `workflow/write.md`
 - Rewriting paragraphs or sections in existing drafts
 - Any content edit the user requests
 
-Never show the user AI-patterned text and ask them to humanize it separately. The humanizer pass is automatic and non-negotiable.
+Load the skill, apply its 29 anti-patterns as generation-time constraints (not post-processing). Never show the user AI-patterned text and ask them to humanize it separately. The humanizer pass is automatic and non-negotiable.
+
+**Visual Assets (MANDATORY):**
+
+Whenever content involves visual assets, you MUST load the `atlas:marketing_visuals` skill BEFORE proceeding with any visual work. This includes:
+
+- Composing AI image generation prompts (hero images, cover images, OG cards)
+- Processing or editing images (crop, resize, optimize, background removal)
+- Creating diagrams, schemas, or flowchart visualizations
+- Any task involving the `resources/` folder for visual content
+
+Do not attempt image work with ad-hoc approaches (raw Python/Pillow, manual prompt composition). The skill contains structured prompt templates, dedicated CLI tools (`bun crop`, `bun polish`, `bun optimize`), and brand-consistent visual guidelines from `visual-identity.md`. Load the skill, follow its decision tree.
 
 ## Error Handling
 

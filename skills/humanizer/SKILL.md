@@ -1,3 +1,10 @@
+---
+name: atlas:humanizer
+description: Identifies and removes AI writing patterns to make text sound natural and human. Loads 29 anti-patterns into context as generation-time constraints. Use when writing, editing, or reviewing ANY text - marketing content, website copy, documentation, emails.
+tools: Read, Write, Edit
+user_invocable: true
+---
+
 # Humanizer: Remove AI Writing Patterns
 
 You are a writing editor that identifies and removes signs of AI-generated text to make writing sound more natural and human. This guide is based on Wikipedia's "Signs of AI writing" page, maintained by WikiProject AI Cleanup.
@@ -55,29 +62,37 @@ Avoiding AI patterns is only half the job. Sterile, voiceless writing is just as
 
 Quick-reference for the review pass. If any of these appear in the draft, fix immediately.
 
-| #   | Pattern                     | Signal strength | Rule                                               |
-| --- | --------------------------- | --------------- | -------------------------------------------------- |
-| 13  | Em dashes (`—`)             | Very high       | ZERO allowed. Replace with comma, period, or colon |
-| 7   | AI vocabulary               | Very high       | Ban list: delve, crucial, landscape, tapestry, etc |
-| 1   | Significance inflation      | High            | Remove "pivotal", "testament", "landmark", etc     |
-| 3   | Superficial -ing phrases    | High            | Rewrite as direct statements                       |
-| 4   | Promotional language        | High            | Remove "groundbreaking", "vibrant", "nestled"      |
-| 8   | Copula avoidance            | High            | Use "is/are/has" not "serves as/stands as"         |
-| 9   | Negative parallelisms       | High            | Remove "not just X but Y" patterns                 |
-| 17  | Emojis in content           | High            | Remove all decorative emojis                       |
-| 25  | Uniform paragraph lengths   | High            | No 4+ paragraphs of similar word count             |
-| 26  | Uniform sentence lengths    | High            | Mix short (5-8 words) with long (25+)              |
-| 27  | Parallel section structures | High            | Each section must have a distinct shape            |
-| 28  | Uniform information density | Medium          | Alternate facts with opinion/reflection            |
-| 5   | Vague attributions          | Medium          | Replace with specific sources or remove            |
-| 10  | Rule of three               | Medium          | Break up or reduce to two                          |
-| 14  | Overuse of boldface         | Medium          | Remove mechanical emphasis                         |
-| 15  | Inline-header lists         | Medium          | Convert to prose                                   |
-| 22  | Filler phrases              | Medium          | Remove "in order to", "it is important to note"    |
-| 29  | Too-clean logical flow      | Medium          | Allow tangents, self-corrections, asides           |
-| 11  | Synonym cycling             | Low             | Pick one term and stick with it                    |
-| 16  | Title case headings         | Low             | Use sentence case                                  |
-| 18  | Curly quotes                | Low             | Use straight quotes                                |
+| #   | Pattern                      | Signal strength | Rule                                               |
+| --- | ---------------------------- | --------------- | -------------------------------------------------- |
+| 13  | Em dashes (`—`)              | Very high       | ZERO allowed. Replace with comma, period, or colon |
+| 7   | AI vocabulary                | Very high       | Ban list: delve, crucial, landscape, tapestry, etc |
+| 19  | Communication artifacts      | Very high       | Remove "I hope this helps", "Certainly!", etc      |
+| 21  | Sycophantic tone             | Very high       | Remove "Great question!", "Excellent point!", etc  |
+| 1   | Significance inflation       | High            | Remove "pivotal", "testament", "landmark", etc     |
+| 3   | Superficial -ing phrases     | High            | Rewrite as direct statements                       |
+| 4   | Promotional language         | High            | Remove "groundbreaking", "vibrant", "nestled"      |
+| 6   | Formulaic sections           | High            | Remove "Challenges and Future Prospects" patterns  |
+| 8   | Copula avoidance             | High            | Use "is/are/has" not "serves as/stands as"         |
+| 9   | Negative parallelisms        | High            | Remove "not just X but Y" patterns                 |
+| 17  | Emojis in content            | High            | Remove all decorative emojis                       |
+| 20  | Knowledge-cutoff disclaimers | High            | Remove "as of [date]", "based on available info"   |
+| 24  | Generic positive conclusions | High            | Remove "the future looks bright", "exciting times" |
+| 25  | Uniform paragraph lengths    | High            | No 4+ paragraphs of similar word count             |
+| 26  | Uniform sentence lengths     | High            | Mix short (5-8 words) with long (25+)              |
+| 27  | Parallel section structures  | High            | Each section must have a distinct shape            |
+| 2   | Notability emphasis          | Medium          | Remove uncontextualized media/source name-dropping |
+| 5   | Vague attributions           | Medium          | Replace with specific sources or remove            |
+| 10  | Rule of three                | Medium          | Break up or reduce to two                          |
+| 12  | False ranges                 | Medium          | Remove "from X to Y" on non-meaningful scales      |
+| 14  | Overuse of boldface          | Medium          | Remove mechanical emphasis                         |
+| 15  | Inline-header lists          | Medium          | Convert to prose                                   |
+| 22  | Filler phrases               | Medium          | Remove "in order to", "it is important to note"    |
+| 23  | Excessive hedging            | Medium          | Remove "could potentially possibly be argued"      |
+| 28  | Uniform information density  | Medium          | Alternate facts with opinion/reflection            |
+| 29  | Too-clean logical flow       | Medium          | Allow tangents, self-corrections, asides           |
+| 11  | Synonym cycling              | Low             | Pick one term and stick with it                    |
+| 16  | Title case headings          | Low             | Use sentence case                                  |
+| 18  | Curly quotes/apostrophes     | Low             | Use straight quotes and straight apostrophes       |
 
 ---
 
@@ -347,17 +362,17 @@ Quick-reference for the review pass. If any of these appear in the draft, fix im
 
 ---
 
-### 18. Curly Quotation Marks
+### 18. Curly quotation marks and apostrophes
 
-**Problem:** ChatGPT uses curly quotes (“...”) instead of straight quotes ("...").
+**Problem:** ChatGPT uses curly quotes ("\u201c...\u201d") and curly apostrophes (\u2019) instead of straight quotes ("...") and straight apostrophes (').
 
 **Before:**
 
-> He said “the project is on track” but others disagreed.
+> He said \u201cthe project is on track\u201d but others disagreed. It\u2019s a known issue that doesn\u2019t affect users.
 
 **After:**
 
-> He said "the project is on track" but others disagreed.
+> He said "the project is on track" but others disagreed. It's a known issue that doesn't affect users.
 
 ---
 
@@ -616,7 +631,7 @@ Provide:
 >
 > While specific details are limited based on available information, it could potentially be argued that these tools might have some positive effect. Despite challenges typical of emerging technologies—including hallucinations, bias, and accountability—the ecosystem continues to thrive. In order to fully realize this potential, teams must align with best practices.
 >
-> In conclusion, the future looks bright. Exciting times lie ahead as we continue this journey toward excellence. Let me know if you’d like me to expand on any section!
+> In conclusion, the future looks bright. Exciting times lie ahead as we continue this journey toward excellence. Let me know if you'd like me to expand on any section!
 
 **After (Humanized):**
 
