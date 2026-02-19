@@ -1,5 +1,5 @@
 ---
-name: atlas:marketing:market_researcher
+name: marketing:market_researcher
 description: Web research specialist for market intelligence, competitor analysis, and trend discovery. Use when you need external information not in the knowledge base.
 allowed-tools: WebSearch, WebFetch, Read, Bash
 model: inherit

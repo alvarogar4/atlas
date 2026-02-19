@@ -86,6 +86,21 @@ Use the extracted path values **literally** — they are NOT shell environment v
 | Define audience persona, target user     | `project/define.md` → audience section    |
 | Document a competitor                    | `project/define.md` → competitors section |
 
+### Content & Marketing (→ different skill)
+
+Content lifecycle tasks (research, plan, write, review, results), calendars, and themes are NOT in this skill. Load `atlas:marketing_content` for:
+
+| What the user wants                        | Skill to load             |
+| ------------------------------------------ | ------------------------- |
+| Research, plan, write, or review content   | `atlas:marketing_content` |
+| Manage content calendar or themes          | `atlas:marketing_content` |
+| Create visual assets or image prompts      | `atlas:marketing_visuals` |
+| Strategic analysis or business frameworks  | `atlas:business_strategy` |
+| Humanize or de-AI text                     | `atlas:humanizer`         |
+| Translate content                          | `atlas:translator`        |
+
+Do NOT search for content workflow files inside this skill's directory — they live in the respective skill listed above.
+
 ### Invisible Actions
 
 These should happen automatically without the user needing to ask:
