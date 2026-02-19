@@ -4,19 +4,7 @@
 
 ## Humanizer Checks (CRITICAL)
 
-Detect and fix these AI writing patterns:
-
-| Pattern                | Example                                         |
-| ---------------------- | ----------------------------------------------- |
-| Inflated symbolism     | "beacon of hope", "tapestry of"                 |
-| Promotional language   | "game-changing", "revolutionary"                |
-| Superficial -ing       | "highlighting the need", "underscoring"         |
-| Vague attributions     | "critics argue", "some say"                     |
-| Em dash overuse        | Multiple em dashes per paragraph                |
-| Rule of three          | "X, Y, and Z" patterns overused                 |
-| AI vocabulary          | "delve", "crucial", "landscape", "multifaceted" |
-| Negative parallelisms  | "not just X but Y"                              |
-| Excessive conjunctions | "However", "Moreover", "Furthermore" overuse    |
+Load the `atlas:humanizer` skill for the full pattern reference and zero-tolerance checklist. Scan the draft against every pattern listed there. You have rights to fix any pattern detected, even if it requires deep edits or its one of the less relevant patterns.
 
 ## Checkpoint Enforcement (CRITICAL)
 
@@ -24,7 +12,7 @@ Detect and fix these AI writing patterns:
 
 ## Setup
 
-Execute **Setup** from SKILL.md.
+Execute **Config** from SKILL.md.
 
 ## Process
 
@@ -55,6 +43,8 @@ prompt: "Review {channel} content for quality
 Draft file: ${CONTENT_FOLDER}/3_draft-${channel}.md
 Research file: ${CONTENT_FOLDER}/1_research.md
 Channel: {channel}
+
+Use the review checklist from reference/review-checklist.md as your primary reference.
 
 Review checklist:
 1. Typos and grammar issues (with line numbers)
@@ -98,9 +88,9 @@ Content Review Complete
 Draft updated: ${CONTENT_FOLDER}/3_draft-${channel}.md
 ```
 
-6. **Apply humanizer as final polish pass** (if available):
+6. **Apply humanizer as final polish pass:**
 
-If the `humanizer` skill is installed, load it and scan for AI writing patterns in the updated draft. Apply ALL fixes directly. If not available, manually check the draft against the Humanizer Checks table above.
+Load the `atlas:humanizer` skill and scan the updated draft against every pattern. Use the zero-tolerance checklist for a fast scan. Apply ALL fixes directly to the draft.
 
 Output:
 

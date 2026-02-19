@@ -7,7 +7,7 @@ Consolidated theme CRUD operations.
 ## Action: theme-add
 
 ### Setup
-Execute **Setup** from SKILL.md.
+Execute **Config** from SKILL.md.
 
 ### Process
 
@@ -69,7 +69,7 @@ Want to do either of these now?
 ## Action: theme-list
 
 ### Setup
-Execute **Setup** from SKILL.md.
+Execute **Config** from SKILL.md.
 
 ### Process
 
@@ -107,7 +107,7 @@ Run `ls ${PROJECT_PATH}/marketing/themes/_archived/` to see archived themes.
 ## Action: theme-edit
 
 ### Setup
-Execute **Setup** from SKILL.md.
+Execute **Config** from SKILL.md.
 
 ### Process
 
@@ -143,7 +143,7 @@ Which sections would you like to update?
 ## Action: theme-remove
 
 ### Setup
-Execute **Setup** from SKILL.md.
+Execute **Config** from SKILL.md.
 
 ### Process
 

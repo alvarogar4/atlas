@@ -12,7 +12,7 @@
 
 ## Setup
 
-Execute **Setup** from SKILL.md.
+Execute **Config** from SKILL.md.
 
 ## Process
 
@@ -47,7 +47,9 @@ cat "${CONTENT_FOLDER}/1_research.md"
 cat ${PROJECT_PATH}/marketing/brand-voice.md 2>/dev/null
 ```
 
-7. **Write content following the channel guidelines:**
+7. **Load the `atlas:humanizer` skill.** These are **generation constraints**, not post-processing. Internalize all 29 patterns BEFORE writing a single word, and make sure to apply them to the draft.
+
+8. **Write content following the channel guidelines and humanizer rules:**
 
 | Channel    | Key Requirements                                                          |
 | ---------- | ------------------------------------------------------------------------- |
@@ -58,19 +60,15 @@ cat ${PROJECT_PATH}/marketing/brand-voice.md 2>/dev/null
 | hackernews | Show HN title format, first comment structure, NO marketing language      |
 | social     | Platform-appropriate length, engagement-focused, clear CTA                |
 
-Guidelines:
+Content guidelines:
 
 - Follow the approved content brief exactly (use the channel-specific section)
 - Maintain consistent brand voice
 - Include proper citations/links where applicable
 - Match format requirements for the channel
 - Include clear call-to-action
-
-8. **Apply humanizer pass** (automatic — do NOT skip):
-
-Load the `humanizer` skill and scan the draft for AI writing patterns. Apply ALL fixes directly to the draft text before presenting to the user. This is not optional — every piece of written content must be humanized before the user sees it.
-
-If the humanizer skill is not available, manually check and fix the draft against the Humanizer Checks table in `workflow/review.md`.
+- Do NOT carry over formatting patterns from research documents (em dashes, list styles, etc.)
+- Apply ALL humanizer rules from the `atlas:humanizer` skill during writing, not after
 
 9. **Save draft immediately:** `${CONTENT_FOLDER}/3_draft-${channel}.md`
 
