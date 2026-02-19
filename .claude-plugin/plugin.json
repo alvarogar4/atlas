@@ -18,7 +18,10 @@
     "blog",
     "content",
     "strategy",
-    "business"
+    "business",
+    "humanizer",
+    "translator",
+    "translation"
   ],
   "license": "MIT"
 }

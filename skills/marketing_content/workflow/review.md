@@ -12,7 +12,7 @@ Load the `atlas:humanizer` skill for the full pattern reference and zero-toleran
 
 ## Setup
 
-Execute **Setup** from SKILL.md.
+Execute **Config** from SKILL.md.
 
 ## Process
 
@@ -43,6 +43,8 @@ prompt: "Review {channel} content for quality
 Draft file: ${CONTENT_FOLDER}/3_draft-${channel}.md
 Research file: ${CONTENT_FOLDER}/1_research.md
 Channel: {channel}
+
+Use the review checklist from reference/review-checklist.md as your primary reference.
 
 Review checklist:
 1. Typos and grammar issues (with line numbers)

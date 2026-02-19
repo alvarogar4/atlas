@@ -12,7 +12,7 @@
 
 ## Setup
 
-Execute **Setup** from SKILL.md.
+Execute **Config** from SKILL.md.
 
 ## Process
 

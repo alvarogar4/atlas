@@ -8,6 +8,8 @@ A Claude Code plugin that transforms Claude into a personal assistant with memor
 - **Marketing Automation** - Campaign planning, content calendars, copywriting frameworks
 - **Business Strategy** - SWOT, Porter's Five Forces, Business Model Canvas, OKRs, and more
 - **Decision Support** - Structured decision logging with pre-mortems and prioritization
+- **Content Humanization** - 29 anti-patterns to detect and remove AI writing fingerprints
+- **Translation** - Context-aware bilingual translation with 18 quality patterns
 
 ## Quick Start
 
@@ -36,7 +38,7 @@ atlas/
 │   ├── marketing_content_reviewer.md       # Content QA
 │   ├── marketing_market_researcher.md      # Market intelligence
 │   └── business_strategist.md              # Framework-based analysis
-├── skills/                                 # 4 consolidated skills
+├── skills/                                 # 6 skills
 │   ├── second_brain_foundation/            # Core knowledge + project management (16 actions)
 │   │   ├── SKILL.md                        # Config, capabilities, agent orchestration
 │   │   ├── reference/                      # folder-structure.md, project-templates.md
@@ -54,10 +56,14 @@ atlas/
 │   │   ├── workflow/                       # research, plan, write, review, results
 │   │   ├── calendar/                       # plan, view
 │   │   └── themes/                         # manage (add/list/edit/remove)
-│   └── marketing_visuals/                  # Visual content creation
-│       ├── SKILL.md                        # Decision tree, workflow chaining
-│       ├── tools/                          # processing, schema-generation + assets
-│       └── guides/                         # ai-prompting
+│   ├── marketing_visuals/                  # Visual content creation
+│   │   ├── SKILL.md                        # Decision tree, workflow chaining
+│   │   ├── tools/                          # processing, schema-generation + assets
+│   │   └── guides/                         # ai-prompting
+│   ├── humanizer/                          # AI writing pattern detection (29 anti-patterns)
+│   │   └── SKILL.md                        # Zero-tolerance checklist, generation constraints
+│   └── translator/                         # Context-aware bilingual translation (18 patterns)
+│       └── SKILL.md                        # Translation quality patterns, voice preservation
 ├── hooks/
 │   └── hooks.json                          # Event handlers
 ├── CLAUDE.md                               # Personality & behavior
@@ -83,6 +89,14 @@ Strategic frameworks with 3 operations: analyze (12 frameworks), document decisi
 ### Visual Content (`marketing_visuals`)
 
 Internal skill for image processing, schema diagrams, and AI prompt composition.
+
+### Content Humanization (`humanizer`)
+
+AI writing pattern detection with 29 anti-patterns. Loaded as generation constraints during content writing and verified during review. Covers content patterns, language/grammar, style, communication tone, filler/hedging, and structural uniformity.
+
+### Translation (`translator`)
+
+Context-aware bilingual translation with 18 quality patterns. Prevents literal translation, false friends, calques, and other common translation errors. Default pair: English <> Spanish (Spain).
 
 ## Strategic Frameworks Available
 
@@ -122,10 +136,10 @@ Internal skill for image processing, schema diagrams, and AI prompt composition.
 │           └── visual-identity.md
 ├── areas/              # Ongoing responsibilities
 │   ├── decisions/      # Decision logs
-│   ├── reviews/        # Periodic reviews
-│   └── strategy/       # Business strategy analysis
+│   └── reviews/        # Periodic reviews
 ├── resources/          # Reference material
-│   └── market/         # Market research
+│   ├── market/         # Market research
+│   └── strategy/       # Business strategy analysis
 ├── archives/           # Completed/inactive
 └── .context/           # Preferences, patterns
 ```
