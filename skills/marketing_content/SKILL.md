@@ -1,5 +1,5 @@
 ---
-name: marketing_content
+name: atlas:marketing_content
 description: Content lifecycle management - research, planning, writing, review, and results tracking. Also manages content calendars and themes. Use when working with marketing content.
 tools: Read, Write, Grep, Glob, Bash, AskUserQuestion, WebSearch, Task
 user_invocable: true

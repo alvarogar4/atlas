@@ -1,5 +1,5 @@
 ---
-name: marketing_visuals
+name: atlas:marketing_visuals
 description: Visual content creation - image processing, schema diagrams, and AI image prompting. Use when creating visual assets for marketing content.
 tools: Read, Write, Edit, Bash, AskUserQuestion
 user_invocable: false

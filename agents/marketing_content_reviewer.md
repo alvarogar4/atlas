@@ -1,5 +1,5 @@
 ---
-name: content_reviewer
+name: atlas:content_reviewer
 description: Quality control specialist for all content. Checks typos, legal issues, factual accuracy. ALWAYS runs as part of the review workflow. Review is mandatory before publishing.
 allowed-tools: Read, WebSearch, WebFetch
 model: inherit

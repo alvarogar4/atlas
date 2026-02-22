@@ -1,5 +1,5 @@
 ---
-name: second_brain
+name: atlas:second_brain
 description: Core operations for the personal knowledge base. Use WHENEVER the user mentions notes, memories, knowledge, brain, ideas, captures, projects, or wants to store/retrieve/organize information. This skill provides the patterns for all knowledge base operations.
 tools: Read, Write, Grep, Glob, Bash, AskUserQuestion, Task
 user_invocable: true

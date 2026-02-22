@@ -1,5 +1,5 @@
 ---
-name: business_strategy
+name: atlas:business_strategy
 description: Business strategy frameworks and patterns. Use when discussing strategy, business model, competitive positioning, market analysis, or major business decisions.
 tools: Read, Write, Grep, Glob, Bash, WebSearch, WebFetch, Task, AskUserQuestion
 user_invocable: true
