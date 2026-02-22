@@ -12,7 +12,7 @@
 2. **Find existing knowledge**:
 
 ```
-subagent_type: atlas:core:locate_knowledge
+subagent_type: atlas:locate_knowledge
 prompt: "Find all files related to '{topic}' strategy in {BRAIN_PATH}/
 
 Search in:
@@ -30,32 +30,30 @@ Return:
 - Brief relevance summary"
 ```
 
-3. **Read key files into context**: After locator completes, read the most relevant files (top 3-5) before spawning strategist.
+3. **Select appropriate framework** from the Framework Selection Guide in `atlas:business_strategy`.
 
-4. **Select appropriate framework** from the Framework Selection Guide in SKILL.md.
-
-5. **Spawn strategist with full context**:
+4. **Spawn strategist with file paths:**
 
 ```
-subagent_type: atlas:business:strategist
+subagent_type: atlas:strategist
 prompt: "Strategic analysis for: {topic}
 
-Context gathered:
-- Existing analyses: {summaries from files read}
-- Related decisions: {summaries}
-- Active initiatives: {list}
+Files to read for context:
+{file paths from atlas:locate_knowledge}
 
 Framework to apply: {selected framework}
 
-Provide analysis following the framework structure with:
+Read the files above, then provide analysis following the framework structure with:
 - Current state assessment
 - Key insights
 - Strategic options
 - Recommended direction
-- Implementation considerations"
+- Implementation considerations
+
+If there are too many files or they are too large to read directly, spawn atlas:analyze_knowledge to synthesize them first, then work from that briefing."
 ```
 
-6. **Save analysis**:
+5. **Save analysis**:
 
 ```bash
 mkdir -p {BRAIN_PATH}/resources/strategy/{topic}/
@@ -63,7 +61,7 @@ mkdir -p {BRAIN_PATH}/resources/strategy/{topic}/
 
 Save to: `{BRAIN_PATH}/resources/strategy/{topic}/analysis.md`
 
-7. **Output summary**:
+6. **Output summary**:
 
 ```
 Strategic analysis complete: {path}

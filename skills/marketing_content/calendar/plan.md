@@ -8,7 +8,7 @@
 
 ## Setup
 
-Execute **Config** from SKILL.md.
+Execute **Full** config from `atlas:second_brain`.
 
 ## Process
 
@@ -16,56 +16,33 @@ Execute **Config** from SKILL.md.
    - If current quarter has <30 days remaining, plan next quarter
    - Otherwise, plan current quarter
 
-2. **Locate existing content for context:**
+2. **Survey existing content:**
 
-```
-subagent_type: atlas:core:locate_knowledge
-prompt: "Find all marketing content in ${PROJECT_PATH}/marketing/ for quarterly planning
-
-Search for:
-- Campaign plans (status: active, planned, completed)
-- Published blog posts
-- Blog drafts in progress
-- Content themes
-
-Return:
-- File paths grouped by type
-- Status and dates for each item
-- Theme distribution across content"
+```bash
+# List all content folders with their pipeline state
+ls ${PROJECT_PATH}/marketing/content/*/1_research.md 2>/dev/null
+ls ${PROJECT_PATH}/marketing/content/*/2_plan.md 2>/dev/null
+ls ${PROJECT_PATH}/marketing/content/*/3_draft-*.md 2>/dev/null
 ```
 
-3. **Analyze calendar with findings:**
-
-```
-subagent_type: atlas:core:analyze_knowledge
-prompt: "Analyze marketing content for Q{n} {year} planning
-
-Files to analyze:
-{paste file paths from locate_knowledge}
-
-Target quarter: Q{n} {year}
-
-Extract calendar-specific data:
-- Content pieces with their dates (published or scheduled)
-- Theme/topic for each piece
-- Content type (blog, campaign, social)
-- Status (published, draft, planned)
-
-Analyze:
-- Content already scheduled for this quarter
-- Theme coverage and gaps (which themes have few posts)
-- Posting frequency patterns
-- Weeks with no content scheduled
-- Conflicts (multiple pieces on same day, theme overload)
-
-Return:
-- Current state summary
-- Gaps identified (weeks with no content)
-- Theme balance assessment
-- Conflicts or scheduling issues"
+```bash
+# Read themes for coverage analysis
+cat ${PROJECT_PATH}/marketing/themes/*.md 2>/dev/null
 ```
 
-**Wait for BOTH agents to complete.**
+```bash
+# Read existing calendar if present
+cat ${PROJECT_PATH}/marketing/calendars/${YEAR}-Q${QUARTER}.md 2>/dev/null
+```
+
+3. **Analyze content state:**
+
+From the file listing above, build:
+
+- Content pieces with dates and pipeline status
+- Theme coverage (which themes have content, which don't)
+- Gaps (weeks with no content)
+- Scheduling conflicts
 
 4. **Present analysis and gather phase objectives:**
 

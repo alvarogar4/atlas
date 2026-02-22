@@ -4,7 +4,7 @@
 
 ## Setup
 
-Execute **Config** from SKILL.md.
+Execute **Project** config from `atlas:second_brain`.
 
 ## Process
 
@@ -16,25 +16,17 @@ YEAR=$(date +%Y)
 QUARTER=$((($MONTH - 1) / 3 + 1))
 ```
 
-2. **Locate current quarter content:**
+2. **Find current quarter content:**
 
-```
-subagent_type: atlas:core:locate_knowledge
-prompt: "Find all marketing content for Q{quarter} {year} in ${PROJECT_PATH}/marketing/
-
-Search for:
-- Campaign plans (status: active or planned)
-- Published blog posts this quarter
-- Scheduled content
-- Content themes
-
-Return:
-- File paths organized by type (campaigns, blogs, themes)
-- Dates and status for each item
-- Brief summary of content type"
+```bash
+# List content folders for this quarter
+ls -d ${PROJECT_PATH}/marketing/content/${YEAR}-* 2>/dev/null
 ```
 
-Wait for locator to complete.
+```bash
+# Read calendar file if it exists
+cat ${PROJECT_PATH}/marketing/calendars/${YEAR}-Q${QUARTER}.md 2>/dev/null
+```
 
 3. **Create calendars directory if needed:**
 

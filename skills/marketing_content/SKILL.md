@@ -1,5 +1,5 @@
 ---
-name: atlas:marketing:content
+name: marketing_content
 description: Content lifecycle management - research, planning, writing, review, and results tracking. Also manages content calendars and themes. Use when working with marketing content.
 tools: Read, Write, Grep, Glob, Bash, AskUserQuestion, WebSearch, Task
 user_invocable: true
@@ -11,7 +11,7 @@ Content lifecycle management with calendars and themes.
 
 ## Config
 
-Follow the **Config Chain** from `second_brain_foundation/SKILL.md` (project-level config required).
+Follow the **Full** config level from `atlas:second_brain`.
 
 Requires: `BRAIN_PATH`, `ACTIVE_PROJECT`, `PROJECT_PATH`
 
@@ -48,12 +48,7 @@ research (1_research.md) → plan (2_plan.md) → write (3_draft-{channel}.md) �
 
 ### State Detection
 
-Before starting any content workflow, check for existing work:
-
-```bash
-TOPIC_SLUG=$(echo "{topic}" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -cd 'a-z0-9-')
-CONTENT_FOLDER=$(ls -d ${PROJECT_PATH}/marketing/content/*${TOPIC_SLUG}* 2>/dev/null | head -1)
-```
+Before starting any content workflow, check for existing work using the Content Folder Discovery pattern (see Shared Patterns below).
 
 If folder found, check which files exist to determine current state:
 
@@ -88,6 +83,16 @@ ${PROJECT_PATH}/marketing/content/
 TOPIC_SLUG=$(echo "{topic}" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -cd 'a-z0-9-')
 CONTENT_FOLDER=$(ls -d ${PROJECT_PATH}/marketing/content/*${TOPIC_SLUG}* 2>/dev/null | head -1)
 ```
+
+### Topic Determination
+
+Extract the topic from the current conversation or the already existing calendar. The user typically provides it as:
+
+- "Write about X" -> topic is X
+- "Research X" -> topic is X
+- "Review the blog post about X" -> topic is X
+
+Use the original topic text for display. For folder naming, use the slugification from Content Folder Discovery.
 
 ### Channel Validation
 
@@ -127,18 +132,26 @@ These apply across all channels:
 **CTA Best Practices:**
 
 - **One primary CTA per piece** — Multiple CTAs dilute action
-- **Action-oriented language** — "Get", "Start", "Download" beats "Click here", "Submit"
-- **Benefit-focused** — "Get my free checklist" beats "Download"
-- **Personalized CTAs** perform 202% better than generic
-- **Place above the fold** for primary, repeat at end
+- **Match the context** — Product content benefits from action CTAs ("Get", "Start", "Download"). Personal brand content often works best with a strong closing thought or a subtle follow prompt
+- **Authenticity over formula** — Forced engagement questions ("Agree?", "What's your take?") can feel performative depending on voice. Check brand voice for guidance
+- **Hashtags depend on channel and brand** — Some brands use them strategically, others avoid them entirely. Always defer to the project's brand voice
+- **Read brand-voice.md** before writing any CTA — the project defines its own communication style
 
 **Formatting Rules:**
 
-- Short paragraphs: 1-3 sentences max for digital content
+- Short paragraphs to increase readability
 - Line breaks: Create visual breathing room
 - One idea per section: Don't bundle multiple concepts
 - Scannable structure: Subheadings, bullets, numbered lists
 - Read aloud test: If it sounds unnatural, rewrite it
+
+**Trademark & Attribution:**
+
+When referencing third-party products, technologies, or brands in any content:
+
+- Every third-party product name is potentially trademarked. Check the product's official website for their trademark usage guidelines (frequency, symbol type, placement)
+- Follow each brand's specific guidelines for how and when to use ® or ™ symbols
+- The project's `context.md` may have specific rules for known products; check there too, but don't rely on it as the only source
 
 **Pre-Write Quality Checks:**
 
@@ -148,8 +161,9 @@ These apply across all channels:
 - [ ] No filler or padding content
 - [ ] Reads naturally (read aloud test passed)
 - [ ] Frontmatter is complete with all required fields
+- [ ] Third-party product names use correct trademark and symbols (if you are not sure, check the product's official website)
 
-**Post-Write Humanization (MANDATORY cross-load):**
+**Humanization (MANDATORY cross-load):**
 
 Whenever you write or edit marketing content, you MUST load the `atlas:humanizer` skill BEFORE writing or presenting any text to the user. This includes:
 

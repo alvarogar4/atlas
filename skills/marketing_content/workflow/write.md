@@ -12,11 +12,11 @@
 
 ## Setup
 
-Execute **Config** from SKILL.md.
+Execute **Full** config from `atlas:second_brain`.
 
 ## Process
 
-1. **Determine channel and topic**: Use the channel and topic from conversation.
+1. **Determine channel and topic**: Follow the Topic Determination pattern from SKILL.md. Channel from conversation.
 
 2. **Find content folder** (follow Content Folder Discovery from SKILL.md):
 
@@ -51,14 +51,14 @@ cat ${PROJECT_PATH}/marketing/brand-voice.md 2>/dev/null
 
 8. **Write content following the channel guidelines and humanizer rules:**
 
-| Channel    | Key Requirements                                                          |
-| ---------- | ------------------------------------------------------------------------- |
-| blog       | Follow outline structure exactly, hit word count, cite sources inline     |
-| linkedin   | Hook in first 140 chars, use line breaks, 3-5 hashtags, personal stories  |
-| twitter    | First tweet must hook alone, 280 char limit per tweet, close threads      |
-| email      | Subject 30-50 chars, one clear CTA, conversational tone, plain text ready |
-| hackernews | Show HN title format, first comment structure, NO marketing language      |
-| social     | Platform-appropriate length, engagement-focused, clear CTA                |
+| Channel    | Key Requirements                                                                  |
+| ---------- | --------------------------------------------------------------------------------- |
+| blog       | Follow outline structure exactly, hit word count, cite sources inline             |
+| linkedin   | Hook in first 140 chars, use line breaks, personal stories, close per brand voice |
+| twitter    | First tweet must hook alone, 280 char limit per tweet, close threads              |
+| email      | Subject 30-50 chars, one clear CTA, conversational tone, plain text ready         |
+| hackernews | Show HN title format, first comment structure, NO marketing language              |
+| social     | Platform-appropriate length, engagement-focused, clear CTA                        |
 
 Content guidelines:
 
@@ -69,6 +69,7 @@ Content guidelines:
 - Include clear call-to-action
 - Do NOT carry over formatting patterns from research documents (em dashes, list styles, etc.)
 - Apply ALL humanizer rules from the `atlas:humanizer` skill during writing, not after
+- Apply trademark symbols (®, ™) on first mention of third-party products per project context rules or check the product's official website for their trademark usage guidelines
 
 9. **Save draft immediately:** `${CONTENT_FOLDER}/3_draft-${channel}.md`
 
@@ -76,7 +77,7 @@ The user will review via `git diff`. Do NOT ask for acknowledgment before saving
 
 ### Output
 
-Present a brief summary after saving:
+Present the article in the chat too
 
 ```
 Draft saved: ${CONTENT_FOLDER}/3_draft-${channel}.md

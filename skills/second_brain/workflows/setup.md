@@ -29,7 +29,7 @@ Wait for user's response before proceeding.
 
 ### 3. Save Configuration
 
-Create or update `.env` in the current working directory:
+Create or update `.env` in the plugin folder:
 
 ```
 ATLAS_BRAIN_PATH={USER_PROVIDED_PATH}

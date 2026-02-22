@@ -18,7 +18,7 @@ A Claude Code plugin that transforms Claude into a personal assistant with memor
 /install atlas
 
 # 2. Initialize your knowledge base
-/atlas:second_brain:foundation setup
+/atlas:second_brain setup
 ```
 
 After setup, Atlas works conversationally:
@@ -33,13 +33,13 @@ After setup, Atlas works conversationally:
 ```
 atlas/
 ├── agents/                                 # Flat structure with domain prefixes
-│   ├── core_locate_knowledge.md            # Fast file discovery
-│   ├── core_analyze_knowledge.md           # Deep analysis and synthesis
+│   ├── locate_knowledge.md                 # Fast file discovery
+│   ├── analyze_knowledge.md                # Deep analysis and synthesis
 │   ├── marketing_content_reviewer.md       # Content QA
 │   ├── marketing_market_researcher.md      # Market intelligence
 │   └── business_strategist.md              # Framework-based analysis
 ├── skills/                                 # 6 skills
-│   ├── second_brain_foundation/            # Core knowledge + project management (16 actions)
+│   ├── second_brain/                       # Core knowledge + project management (16 actions)
 │   │   ├── SKILL.md                        # Config, capabilities, agent orchestration
 │   │   ├── reference/                      # folder-structure.md, project-templates.md
 │   │   ├── workflows/                      # setup, capture, search
@@ -72,7 +72,7 @@ atlas/
 
 ## Capabilities
 
-### Knowledge Management (`second_brain_foundation`)
+### Knowledge Management (`second_brain`)
 
 PARA-based personal knowledge base with 16 operations: capture ideas, search notes, deep recall with synthesis, create and manage projects, define project context/strategy/brand/visuals/audience/competitors.
 
@@ -146,17 +146,17 @@ Context-aware bilingual translation with 18 quality patterns. Prevents literal t
 
 ## Agents
 
-| Domain        | Agent               | Purpose                          |
-| ------------- | ------------------- | -------------------------------- |
-| **Core**      | `locate_knowledge`  | Fast file discovery (paths only) |
-| **Core**      | `analyze_knowledge` | Deep analysis and synthesis      |
-| **Marketing** | `market_researcher` | External market intelligence     |
-| **Marketing** | `content_reviewer`  | Content quality assurance        |
-| **Business**  | `strategist`        | Apply strategic frameworks       |
+| Domain        | Agent                     | Purpose                          |
+| ------------- | ------------------------- | -------------------------------- |
+| **Core**      | `atlas:locate_knowledge`  | Fast file discovery (paths only) |
+| **Core**      | `atlas:analyze_knowledge` | Deep analysis and synthesis      |
+| **Marketing** | `atlas:market_researcher` | External market intelligence     |
+| **Marketing** | `atlas:content_reviewer`  | Content quality assurance        |
+| **Business**  | `atlas:strategist`        | Apply strategic frameworks       |
 
 ## Configuration
 
-After running `/atlas:second_brain:foundation setup`, your brain path is stored in:
+After running `/atlas:second_brain setup`, your brain path is stored in:
 
 - `.env` file in your project
 

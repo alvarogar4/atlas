@@ -1,5 +1,5 @@
 ---
-name: atlas:business:strategy
+name: business_strategy
 description: Business strategy frameworks and patterns. Use when discussing strategy, business model, competitive positioning, market analysis, or major business decisions.
 tools: Read, Write, Grep, Glob, Bash, WebSearch, WebFetch, Task, AskUserQuestion
 user_invocable: true
@@ -11,21 +11,22 @@ Frameworks and patterns for strategic planning, business analysis, and decision-
 
 ## Config
 
-Follow the **Config Chain** from `second_brain_foundation/SKILL.md` (basic config required, project config for project-scoped analysis).
+Follow the **Basic** or **Project** config level from `atlas:second_brain` depending on context.
 
 Requires: `BRAIN_PATH` (minimum), `ACTIVE_PROJECT` (when analyzing a specific project)
 
 ## Capabilities
 
-| What the user wants | Workflow |
-|---|---|
-| Analyze a strategic question, understand position | `workflows/analyze.md` |
-| Document a business decision | `workflows/decision.md` |
-| Weekly/monthly/quarterly review | `workflows/review.md` |
+| What the user wants                               | Workflow                |
+| ------------------------------------------------- | ----------------------- |
+| Analyze a strategic question, understand position | `workflows/analyze.md`  |
+| Document a business decision                      | `workflows/decision.md` |
+| Weekly/monthly/quarterly review                   | `workflows/review.md`   |
 
 ### Intent Detection for Review Period
 
 When user asks for a review, determine the period:
+
 - "weekly review", "how was this week" → weekly mode
 - "monthly review", "month in review" → monthly mode
 - "quarterly review", "Q1 review", "strategic review" → quarterly mode
@@ -33,21 +34,21 @@ When user asks for a review, determine the period:
 
 ## Framework Selection Guide
 
-| Situation | Recommended Framework | File |
-|-----------|----------------------|------|
-| Understand current position | SWOT | `frameworks/swot.md` |
-| Analyze industry dynamics | Porter's Five Forces | `frameworks/porters.md` |
-| Assess macro environment | PESTEL | `frameworks/pestel.md` |
-| Map internal operations | Value Chain | `frameworks/value-chain.md` |
-| Design business model | Business Model Canvas | `frameworks/bmc.md` |
-| Early-stage startup | Lean Canvas | `frameworks/lean-canvas.md` |
-| Create new market space | Blue Ocean | `frameworks/blue-ocean.md` |
-| Understand customer needs | Jobs-to-be-Done | `frameworks/jtbd.md` |
-| Set and track goals | OKRs | `frameworks/okrs.md` |
-| Understand competitors | Competitive Analysis | `frameworks/competitive.md` |
-| Prioritize tasks | Eisenhower Matrix | `frameworks/eisenhower.md` |
-| Score initiatives | ICE/RICE Scoring | `frameworks/ice-rice.md` |
-| Document a decision | Decision Log | `templates/decision-log.md` |
+| Situation                   | Recommended Framework | File                        |
+| --------------------------- | --------------------- | --------------------------- |
+| Understand current position | SWOT                  | `frameworks/swot.md`        |
+| Analyze industry dynamics   | Porter's Five Forces  | `frameworks/porters.md`     |
+| Assess macro environment    | PESTEL                | `frameworks/pestel.md`      |
+| Map internal operations     | Value Chain           | `frameworks/value-chain.md` |
+| Design business model       | Business Model Canvas | `frameworks/bmc.md`         |
+| Early-stage startup         | Lean Canvas           | `frameworks/lean-canvas.md` |
+| Create new market space     | Blue Ocean            | `frameworks/blue-ocean.md`  |
+| Understand customer needs   | Jobs-to-be-Done       | `frameworks/jtbd.md`        |
+| Set and track goals         | OKRs                  | `frameworks/okrs.md`        |
+| Understand competitors      | Competitive Analysis  | `frameworks/competitive.md` |
+| Prioritize tasks            | Eisenhower Matrix     | `frameworks/eisenhower.md`  |
+| Score initiatives           | ICE/RICE Scoring      | `frameworks/ice-rice.md`    |
+| Document a decision         | Decision Log          | `templates/decision-log.md` |
 
 ## Error Handling
 

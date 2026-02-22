@@ -1,5 +1,5 @@
 ---
-name: atlas:second_brain:foundation
+name: second_brain
 description: Core operations for the personal knowledge base. Use WHENEVER the user mentions notes, memories, knowledge, brain, ideas, captures, projects, or wants to store/retrieve/organize information. This skill provides the patterns for all knowledge base operations.
 tools: Read, Write, Grep, Glob, Bash, AskUserQuestion, Task
 user_invocable: true
@@ -16,15 +16,14 @@ Atlas reads configuration from multiple sources in priority order:
 ### Config Chain
 
 1. **Conversation context**: Check current `system-reminder` for `ATLAS_BRAIN_PATH`, `ATLAS_ACTIVE_PROJECT`, and any `ATLAS_PATH_*` values already loaded from CLAUDE.md
-2. **`.env` file**: Read `.env` in the current working directory (or repo root)
+2. **`.env` file**: Read `.env` in the plugin folder
 3. **Error**: "Brain not configured. Let's set it up — where should I store your knowledge base?"
 
 ### Reading `.env`
 
 ```bash
-# Source .env if it exists (supports ATLAS_BRAIN_PATH, ATLAS_ACTIVE_PROJECT, ATLAS_PATH_*)
-if [ -f .env ]; then source .env; fi
-if [ -f "$PWD/.env" ]; then source "$PWD/.env"; fi
+# Source .env from the plugin folder (supports ATLAS_BRAIN_PATH, ATLAS_ACTIVE_PROJECT, ATLAS_PATH_*)
+# The plugin folder is the directory containing this SKILL.md
 ```
 
 ### Config Levels
@@ -47,7 +46,7 @@ if [ -f "$PWD/.env" ]; then source "$PWD/.env"; fi
 
 **Full** (brand resources for content):
 
-- All Project variables plus:
+- All Project variables plus reads context.md, brand-voice.md and visual-identity.md into context:
 - `BRAND_VOICE = {PROJECT_PATH}/marketing/brand-voice.md`
 - `VISUAL_IDENTITY = {PROJECT_PATH}/marketing/visual-identity.md`
 
@@ -86,21 +85,6 @@ Use the extracted path values **literally** — they are NOT shell environment v
 | Define audience persona, target user     | `project/define.md` → audience section    |
 | Document a competitor                    | `project/define.md` → competitors section |
 
-### Content & Marketing (→ different skill)
-
-Content lifecycle tasks (research, plan, write, review, results), calendars, and themes are NOT in this skill. Load `atlas:marketing_content` for:
-
-| What the user wants                        | Skill to load             |
-| ------------------------------------------ | ------------------------- |
-| Research, plan, write, or review content   | `atlas:marketing_content` |
-| Manage content calendar or themes          | `atlas:marketing_content` |
-| Create visual assets or image prompts      | `atlas:marketing_visuals` |
-| Strategic analysis or business frameworks  | `atlas:business_strategy` |
-| Humanize or de-AI text                     | `atlas:humanizer`         |
-| Translate content                          | `atlas:translator`        |
-
-Do NOT search for content workflow files inside this skill's directory — they live in the respective skill listed above.
-
 ### Invisible Actions
 
 These should happen automatically without the user needing to ask:
@@ -113,16 +97,20 @@ These should happen automatically without the user needing to ask:
 
 Atlas uses a locate -> analyze -> domain-agent pattern:
 
-1. **locate_knowledge** — Fast file discovery. Returns paths only, never reads content. Use for: search, finding context before analysis, checking what exists.
-2. **analyze_knowledge** — Deep content analysis. Receives paths from locate_knowledge. Use for: recall, understanding patterns, synthesizing knowledge.
-3. **Domain agents** — Specialized work. `market_researcher` for web research, `content_reviewer` for quality checks, `strategist` for framework application.
+1. **`atlas:locate_knowledge`** — Fast file discovery. Returns paths only, never reads content. Use for: search, finding context before analysis, checking what exists.
+2. **`atlas:analyze_knowledge`** — Deep content analysis. Receives paths from `atlas:locate_knowledge`. Use for: recall, understanding patterns, synthesizing knowledge.
+3. **Domain agents** — Specialized work. `atlas:market_researcher` for web research, `atlas:content_reviewer` for quality checks, `atlas:strategist` for framework application.
 
 When to use which:
 
-- "Find files about X" → locate_knowledge only
-- "What do I know about X" → locate_knowledge → analyze_knowledge
-- "Research the market for X" → locate_knowledge (check existing) → market_researcher (web search)
-- "Analyze our competitive position" → locate_knowledge → strategist
+- "Find files about X" → `atlas:locate_knowledge` only
+- "What do I know about X" → `atlas:locate_knowledge` → `atlas:analyze_knowledge` (sequentially always, pass the paths from the first to the second)
+- "Research the market for X" → `atlas:locate_knowledge` (check existing) → `atlas:market_researcher` (web search)
+- "Analyze our competitive position" → `atlas:locate_knowledge` → `atlas:market_researcher` → `atlas:strategist`
+
+### File Ownership Rule
+
+Subagents return data as structured text. The **main agent owns all file creation**. When spawning any subagent, include in the prompt: "Do NOT create any files or folders. Return your findings as text." This prevents duplicate output when the main agent also writes files as part of its workflow.
 
 ## Error Handling
 

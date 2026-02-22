@@ -8,11 +8,11 @@
 
 ## Setup
 
-Execute **Config** from SKILL.md.
+Execute **Full** config from `atlas:second_brain`.
 
 ## Process
 
-1. **Determine topic**: Use the topic from conversation. Slugify for folder naming.
+1. **Determine topic**: Follow the Topic Determination pattern from SKILL.md.
 
 2. **Read calendar files for phase objectives:**
 
@@ -21,6 +21,7 @@ cat ${PROJECT_PATH}/marketing/calendars/*.md 2>/dev/null
 ```
 
 Extract from active calendar:
+
 - Phase Objective (what this period aims to achieve)
 - Success Criteria (how to measure success)
 - Per-post objectives relevant to this topic
@@ -70,10 +71,10 @@ mkdir -p "${CONTENT_FOLDER}"
 mkdir -p "${CONTENT_FOLDER}/resources"
 ```
 
-7. **Locate similar past content** (PARALLEL with step 8):
+7. **Locate similar past content**:
 
 ```
-subagent_type: atlas:core:locate_knowledge
+subagent_type: atlas:locate_knowledge
 prompt: "Find existing content that might overlap with '{topic}' in ${PROJECT_PATH}/marketing/content/
 
 Search for:
@@ -92,11 +93,11 @@ Return:
 8. **Analyze past content patterns** (if content found):
 
 ```
-subagent_type: atlas:core:analyze_knowledge
+subagent_type: atlas:analyze_knowledge
 prompt: "Analyze these existing content pieces for patterns:
 
 Files to analyze:
-{paste file paths from locate_knowledge}
+{paste file paths from atlas:locate_knowledge}
 
 Extract content-specific patterns:
 - Structural patterns: How are pieces organized?
@@ -109,11 +110,9 @@ Extract content-specific patterns:
 Return patterns that should inform the new content research."
 ```
 
-**Wait for BOTH agents to complete before checkpoint.**
+**Wait for analysis to complete before checkpoint.**
 
-9. **Read key files into main context**: After agents complete, read top 2-3 most relevant existing pieces to verify overlap assessment.
-
-10. **CHECKPOINT — STOP AND WAIT.** If overlapping content found:
+9. **CHECKPOINT — STOP AND WAIT.** If overlapping content found:
 
 ```
 Found {n} related pieces:
@@ -128,10 +127,10 @@ Options:
 Your choice?
 ```
 
-11. **Only after user confirms**, spawn market_researcher:
+10. **Only after user confirms**, spawn `atlas:market_researcher`:
 
 ```
-subagent_type: atlas:marketing:market_researcher
+subagent_type: atlas:market_researcher
 prompt: "Research content topic: '{topic}'
 
 IMPORTANT: Do NOT create any files or folders. Return your findings as text only. The main agent will handle saving.
@@ -139,13 +138,12 @@ IMPORTANT: Do NOT create any files or folders. Return your findings as text only
 Context from project:
 - Phase Objective: {from calendar}
 - Target themes: {from themes}
-- Brand voice: {key points from brand-voice.md}
 
 Existing related content to avoid overlap:
-{file paths from locate_knowledge}
+{file paths from atlas:locate_knowledge}
 
 Pattern analysis from existing content:
-{summary from analyze_knowledge}
+{summary from atlas:analyze_knowledge}
 
 Research objectives:
 1. Find authoritative sources for the topic
@@ -162,7 +160,7 @@ Return:
 - Open questions requiring user input"
 ```
 
-12. **CHECKPOINT — STOP AND WAIT.** Present research findings:
+11. **CHECKPOINT — STOP AND WAIT.** Present research findings:
 
 ```
 Research complete!
@@ -177,9 +175,9 @@ Open questions:
 Proceed with this angle? (y/n/adjust)
 ```
 
-13. If user has questions or adjustments, iterate.
+12. If user has questions or adjustments, iterate.
 
-14. **Only after user confirms**, save: `${CONTENT_FOLDER}/1_research.md`
+13. **Only after user confirms**, save: `${CONTENT_FOLDER}/1_research.md`
 
 ### Output
 

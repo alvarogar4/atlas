@@ -5,6 +5,7 @@ Consolidates strategic reviews and periodic business reviews.
 ## Mode Selection
 
 Determine the review period from the conversation:
+
 - Weekly review, "this week" → Weekly
 - Monthly review, "this month" → Monthly
 - Quarterly review, "this quarter", strategic review → Quarterly
@@ -23,7 +24,7 @@ Determine the review period from the conversation:
 2. **Find recent activity**:
 
 ```
-subagent_type: atlas:core:locate_knowledge
+subagent_type: atlas:locate_knowledge
 prompt: "Find all files modified this week in {BRAIN_PATH}/
 
 Time filter: Files modified in the last 7 days (-mtime -7)
@@ -109,7 +110,7 @@ period: {YYYY-WXX}
 2. **Gather monthly data**:
 
 ```
-subagent_type: atlas:core:locate_knowledge
+subagent_type: atlas:locate_knowledge
 prompt: "Find all files modified this month in {BRAIN_PATH}/
 
 Time filter: Files modified in the last 30 days (-mtime -30)
@@ -196,7 +197,7 @@ period: {YYYY-MM}
 2. **Gather quarterly data**:
 
 ```
-subagent_type: atlas:core:locate_knowledge
+subagent_type: atlas:locate_knowledge
 prompt: "Find all files modified this quarter in {BRAIN_PATH}/
 
 Time filter: Files modified in the last 90 days (-mtime -90)

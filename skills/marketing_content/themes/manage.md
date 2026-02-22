@@ -7,7 +7,8 @@ Consolidated theme CRUD operations.
 ## Action: theme-add
 
 ### Setup
-Execute **Config** from SKILL.md.
+
+Execute **Project** config from `atlas:second_brain`.
 
 ### Process
 
@@ -49,7 +50,7 @@ SLUG=$(echo "{name}" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -cd 'a-z0-9-
 
 5. Check if theme exists → ask to overwrite or cancel.
 
-6. Write theme file using template from `atlas:second_brain:foundation` → `reference/project-templates.md`.
+6. Write theme file using template from `atlas:second_brain` → `reference/project-templates.md`.
 
 ### Output
 
@@ -69,7 +70,8 @@ Want to do either of these now?
 ## Action: theme-list
 
 ### Setup
-Execute **Config** from SKILL.md.
+
+Execute **Project** config from `atlas:second_brain`.
 
 ### Process
 
@@ -107,7 +109,8 @@ Run `ls ${PROJECT_PATH}/marketing/themes/_archived/` to see archived themes.
 ## Action: theme-edit
 
 ### Setup
-Execute **Config** from SKILL.md.
+
+Execute **Project** config from `atlas:second_brain`.
 
 ### Process
 
@@ -143,7 +146,8 @@ Which sections would you like to update?
 ## Action: theme-remove
 
 ### Setup
-Execute **Config** from SKILL.md.
+
+Execute **Project** config from `atlas:second_brain`.
 
 ### Process
 

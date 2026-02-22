@@ -16,13 +16,13 @@ Show HN: [Product Name] - [clear use-case description]
 
 ### Title Rules
 
-| Rule | Details |
-|------|---------|
-| Start exactly with | "Show HN: " (places you on the less-competitive Show tab) |
-| Follow with | Product name, then dash or comma |
-| Describe | Specific use-case in active voice |
-| Keep tagline | 50 characters or less |
-| State if open-source | "Show HN: [Name] - Open-source alternative to X" |
+| Rule                 | Details                                                   |
+| -------------------- | --------------------------------------------------------- |
+| Start exactly with   | "Show HN: " (places you on the less-competitive Show tab) |
+| Follow with          | Product name, then dash or comma                          |
+| Describe             | Specific use-case in active voice                         |
+| Keep tagline         | 50 characters or less                                     |
+| State if open-source | "Show HN: [Name] - Open-source alternative to X"          |
 
 ### Strong Title Examples
 
@@ -120,9 +120,11 @@ Link to GitHub - not a marketing page.
 # Show HN Post
 
 ## Title
+
 Show HN: {Product Name} - {clear use-case in under 50 chars}
 
 ## Link
+
 {GitHub URL}
 
 ---
@@ -138,6 +140,7 @@ Hey HN, I'm {name}. I've been working on {project} for {time period}.
 I built this because {personal motivation}.
 
 **How it works:** {Brief technical approach}
+
 - {Key design decision 1}
 - {Key design decision 2}
 
@@ -148,6 +151,7 @@ I'd love feedback on {specific aspect}. What would make this useful for you?
 ---
 
 **Prepared responses for likely questions:**
+
 - Q: {anticipated question 1}
 - Q: {anticipated question 2}
 - Q: {anticipated question 3}
@@ -155,12 +159,12 @@ I'd love feedback on {specific aspect}. What would make this useful for you?
 
 ## Common Mistakes That Get Flagged
 
-| Mistake | Consequence |
-|---------|-------------|
-| Vote manipulation | Votes don't count; post penalized |
-| Hidden affiliation | Community flames you; lost trust |
-| Marketing/sales language | Ignored by audience |
-| Reposting same link | Flagged as duplicate |
+| Mistake                  | Consequence                       |
+| ------------------------ | --------------------------------- |
+| Vote manipulation        | Votes don't count; post penalized |
+| Hidden affiliation       | Community flames you; lost trust  |
+| Marketing/sales language | Ignored by audience               |
+| Reposting same link      | Flagged as duplicate              |
 
 ## Engagement Strategy
 
@@ -183,21 +187,21 @@ Comments are a stronger ranking signal than upvotes.
 
 ## Timing
 
-| Time | Rationale |
-|------|-----------|
-| Sunday 11am-12pm | Highest average points |
-| 12:00 UTC | Catches EU midday + early NA readers |
-| 9 AM - 12 PM Pacific | Peak user activity |
+| Time                 | Rationale                            |
+| -------------------- | ------------------------------------ |
+| Sunday 11am-12pm     | Highest average points               |
+| 12:00 UTC            | Catches EU midday + early NA readers |
+| 9 AM - 12 PM Pacific | Peak user activity                   |
 
 ## HN Post Frontmatter
 
 ```yaml
 ---
-type: "hackernews"
+channel: "hackernews"
 topic: "{topic}"
-project: {project}
+project: { project }
 status: draft
-created: {ISO timestamp}
+created: { ISO timestamp }
 title: "Show HN: {name} - {tagline}"
 link_type: github | website
 github_url: "{url}"
@@ -222,6 +226,7 @@ github_url: "{url}"
 ## Engagement Preparation
 
 Before posting, prepare:
+
 - [ ] Answers for likely technical questions
 - [ ] Benchmarks or examples ready to share
 - [ ] Architecture diagrams to paste

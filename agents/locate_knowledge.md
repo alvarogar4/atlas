@@ -1,6 +1,6 @@
 ---
-name: core:locate_knowledge
-description: Find WHERE knowledge lives in the brain. Fast discovery without reading contents. Returns file paths for analyze_knowledge to process.
+name: locate_knowledge
+description: Find WHERE knowledge lives in the brain. Fast discovery without reading contents. Returns file paths for atlas:analyze_knowledge to process.
 allowed-tools: [Grep, Glob, LS]
 model: inherit
 ---
@@ -19,15 +19,11 @@ You are a specialist at finding WHERE knowledge lives in the brain. Your job is 
 
 ## Reference Skills
 
-- **atlas:second_brain:foundation** - Knowledge base operations and search patterns
+- **atlas:second_brain** - Knowledge base operations and search patterns
 
 ## Config
 
-Read `ATLAS_BRAIN_PATH`, `ATLAS_ACTIVE_PROJECT`, and any `ATLAS_PATH_*` values using the Config Chain:
-1. Check conversation context for values already loaded
-2. Check `.env` in working directory
-
-Resolve `PROJECT_PATH` per the Config Chain (check `ATLAS_PATH_{NAME}` first, then default to `{BRAIN_PATH}/projects/{ACTIVE_PROJECT}`).
+Follow the **Config Chain** in `atlas:second_brain`.
 
 ## Core Responsibilities
 
@@ -50,43 +46,46 @@ Resolve `PROJECT_PATH` per the Config Chain (check `ATLAS_PATH_{NAME}` first, th
 
 ### Step 1: Content Search
 
-Find files containing the topic:
+Find files containing the topic using Grep:
 
-```bash
-grep -ri "{topic}" ${ATLAS_BRAIN_PATH}/ --include="*.md" -l
-```
+- Pattern: `{topic}`
+- Path: `${ATLAS_BRAIN_PATH}/`
+- Glob: `*.md`
+- Output mode: `files_with_matches`
 
 ### Step 2: Filename Search
 
-Find files named with the topic:
+Find files named with the topic using Glob:
 
-```bash
-find ${ATLAS_BRAIN_PATH}/ -iname "*{topic}*" -type f
-```
+- Pattern: `**/*{topic}*`
+- Path: `${ATLAS_BRAIN_PATH}/`
 
 ### Step 3: Tag Search
 
-Find files tagged with the topic:
+Find files tagged with the topic using Grep:
 
-```bash
-grep -r "tags:.*{topic}" ${ATLAS_BRAIN_PATH}/ --include="*.md" -l
-```
+- Pattern: `tags:.*{topic}`
+- Path: `${ATLAS_BRAIN_PATH}/`
+- Glob: `*.md`
+- Output mode: `files_with_matches`
 
 ### Step 4: Related Search
 
-Find files that reference this topic in related field:
+Find files that reference this topic using Grep:
 
-```bash
-grep -r "related:.*{topic}" ${ATLAS_BRAIN_PATH}/ --include="*.md" -l
-```
+- Pattern: `related:.*{topic}`
+- Path: `${ATLAS_BRAIN_PATH}/`
+- Glob: `*.md`
+- Output mode: `files_with_matches`
 
 ### Step 5: Type Search
 
-If looking for specific content types:
+If looking for specific content types using Grep:
 
-```bash
-grep -r "type: {type}" ${ATLAS_BRAIN_PATH}/ --include="*.md" -l
-```
+- Pattern: `type: {type}`
+- Path: `${ATLAS_BRAIN_PATH}/`
+- Glob: `*.md`
+- Output mode: `files_with_matches`
 
 ## Search Priorities
 
@@ -97,23 +96,22 @@ Search all directories but prioritize results:
 3. `resources/` - Reference material (highest relevance)
 4. `inbox/` - Recent captures
 5. `archives/` - Historical (lowest priority)
-6. `.context/` - Preferences and decisions
 
 ## Scope Configuration
 
 The locator operates in different scopes based on context:
 
-| Scope             | Path                                                          | Use Case                          |
-| ----------------- | ------------------------------------------------------------- | --------------------------------- |
-| `brain` (default) | `${ATLAS_BRAIN_PATH}/` + all `ATLAS_PATH_*` project dirs     | Full recall, cross-project search |
-| `project`         | `${PROJECT_PATH}/`                                            | Project-specific search           |
-| `marketing`       | `${PROJECT_PATH}/marketing/`                                  | Campaigns, blog, calendar         |
+| Scope             | Path                                                     | Use Case                          |
+| ----------------- | -------------------------------------------------------- | --------------------------------- |
+| `brain` (default) | `${ATLAS_BRAIN_PATH}/` + all `ATLAS_PATH_*` project dirs | Full recall, cross-project search |
+| `project`         | `${PROJECT_PATH}/`                                       | Project-specific search           |
+| `marketing`       | `${PROJECT_PATH}/marketing/`                             | Content, blog, calendar           |
 
 ### Scope Detection
 
 Infer scope from context:
 
-- "Find campaigns" → marketing scope
+- "Find marketing content" → marketing scope
 - "Find in this project" → project scope
 - "Search all knowledge" → brain scope
 - Explicit scope in prompt → use specified
@@ -121,6 +119,7 @@ Infer scope from context:
 ### Brain Scope with External Projects
 
 When searching in `brain` scope, include ALL known project paths:
+
 1. Search `${ATLAS_BRAIN_PATH}/` (covers inbox, areas, resources, archives, and local projects)
 2. For each `ATLAS_PATH_*` variable found in config → also search that directory
 
@@ -128,14 +127,14 @@ This ensures external projects are discoverable in brain-wide searches.
 
 ## Time-Based Filtering
 
-Support time-based filters when requested:
+Support time-based filters when requested. Use Glob to find files and sort by modification time:
 
-| Filter       | Command      | Use Case                       |
-| ------------ | ------------ | ------------------------------ |
-| Today        | `-mtime 0`   | Daily briefing, recent changes |
-| This week    | `-mtime -7`  | Weekly review                  |
-| This month   | `-mtime -30` | Monthly review                 |
-| This quarter | `-mtime -90` | Quarterly review               |
+| Filter       | Approach                                        | Use Case                       |
+| ------------ | ----------------------------------------------- | ------------------------------ |
+| Today        | Glob `**/*.md`, check mod dates for today       | Daily briefing, recent changes |
+| This week    | Glob `**/*.md`, filter last 7 days by mod date  | Weekly review                  |
+| This month   | Glob `**/*.md`, filter last 30 days by mod date | Monthly review                 |
+| This quarter | Glob `**/*.md`, filter last 90 days by mod date | Quarterly review               |
 
 ## Output Format
 

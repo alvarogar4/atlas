@@ -6,7 +6,7 @@
 
 ## Setup
 
-Execute **Basic Setup** from SKILL.md.
+Execute **Basic** config from SKILL.md.
 
 ## Process
 

@@ -8,7 +8,7 @@ Consolidated project CRUD operations.
 
 ### Setup
 
-Execute **Basic Setup** from SKILL.md.
+Execute **Basic** config from SKILL.md.
 
 ### Validation
 
@@ -66,7 +66,7 @@ Link an external project directory so Atlas treats it like a local project.
 
 ### Setup
 
-Execute **Basic Setup** from SKILL.md.
+Execute **Basic** config from SKILL.md.
 
 ### Arguments
 
@@ -120,7 +120,7 @@ Remove the link to an external project. Does NOT delete any files.
 
 ### Setup
 
-Execute **Basic Setup** from SKILL.md.
+Execute **Basic** config from SKILL.md.
 
 ### Arguments
 
@@ -147,7 +147,7 @@ No files were deleted. The project directory still exists at its original locati
 
 ### Setup
 
-Execute **Basic Setup** from SKILL.md.
+Execute **Basic** config from SKILL.md.
 
 ### Process
 
@@ -188,7 +188,7 @@ To switch projects, just tell me which one to use.
 
 ### Setup
 
-Execute **Basic Setup** from SKILL.md.
+Execute **Basic** config from SKILL.md.
 
 ### Validation
 
@@ -218,7 +218,7 @@ Commands now use this project by default.
 
 ### Setup
 
-Execute **Basic Setup** from SKILL.md.
+Execute **Basic** config from SKILL.md.
 
 ### Arguments
 

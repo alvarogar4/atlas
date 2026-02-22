@@ -6,14 +6,14 @@
 
 ### Setup
 
-Execute **Basic Setup** from SKILL.md.
+Execute **Basic** config from SKILL.md.
 
 ### Process
 
-1. Spawn locate_knowledge for fast file discovery:
+1. Spawn `atlas:locate_knowledge` for fast file discovery:
 
 ```
-subagent_type: atlas:core:locate_knowledge
+subagent_type: atlas:locate_knowledge
 prompt: "Query: {query}
 
 Find all files related to this query in {BRAIN_PATH}/. Search filenames, content, and tags."
@@ -31,14 +31,14 @@ If no results: "No notes found for '{query}'. Want me to capture something about
 
 ### Setup
 
-Execute **Basic Setup** from SKILL.md.
+Execute **Basic** config from SKILL.md.
 
 ### Process
 
 #### Step 1: Locate relevant files
 
 ```
-subagent_type: atlas:core:locate_knowledge
+subagent_type: atlas:locate_knowledge
 prompt: "Query: {topic}
 
 Search the entire brain at {BRAIN_PATH}/ for files related to this topic.
@@ -63,7 +63,7 @@ Wait for locator to complete.
 #### Step 2: Analyze found files
 
 ```
-subagent_type: atlas:core:analyze_knowledge
+subagent_type: atlas:analyze_knowledge
 prompt: "Topic: {topic}
 
 Files to analyze:

@@ -25,9 +25,7 @@
 │   └── strategy/               # Strategic analyses (non-project)
 │       └── {topic}/
 │           └── analysis.md
-├── archives/                   # Completed/inactive items
-└── .context/                   # Preferences, active project tracking
-    └── active-project
+└── archives/                   # Completed/inactive items
 ```
 
 ## External Projects
@@ -99,7 +97,7 @@ Each project under `projects/{project-name}/`:
 
 ```bash
 # Brain-level directories
-mkdir -p {BRAIN_PATH}/{inbox,projects,areas,resources,archives,.context}
+mkdir -p {BRAIN_PATH}/{inbox,projects,areas,resources,archives}
 mkdir -p {BRAIN_PATH}/areas/{decisions,reviews}
 mkdir -p {BRAIN_PATH}/resources/{market,strategy}
 
