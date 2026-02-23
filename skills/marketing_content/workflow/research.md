@@ -34,11 +34,13 @@ ls ${PROJECT_PATH}/marketing/themes/*.md 2>/dev/null && cat ${PROJECT_PATH}/mark
 
 Match topic against themes to understand keywords, target frequency, subtopics.
 
-4. **Read brand voice:**
+4. **Load calendar references for this topic:**
 
-```bash
-cat ${PROJECT_PATH}/marketing/brand-voice.md 2>/dev/null
-```
+Find the calendar entry matching the current topic. If the entry has a `References` column:
+
+- Read each referenced file from `{PROJECT_PATH}/` (e.g., `competitors/acme.md`, `audiences/technical-tim.md`)
+- Pass competitor data to the `atlas:market_researcher` subagent for differentiation context
+- Pass audience data to inform research angle and reader perspective
 
 5. **Check for existing content folder** (follow Content Folder Discovery from SKILL.md):
 
@@ -138,6 +140,10 @@ IMPORTANT: Do NOT create any files or folders. Return your findings as text only
 Context from project:
 - Phase Objective: {from calendar}
 - Target themes: {from themes}
+
+Calendar references: {data from referenced competitor/audience files, if any}
+- If competitor referenced: Check what they've published on this topic. Identify differentiation angles.
+- If audience referenced: Research with this reader persona in mind.
 
 Existing related content to avoid overlap:
 {file paths from atlas:locate_knowledge}

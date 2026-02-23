@@ -21,16 +21,23 @@ Requires: `BRAIN_PATH` (minimum), `ACTIVE_PROJECT` (when analyzing a specific pr
 | ------------------------------------------------- | ----------------------- |
 | Analyze a strategic question, understand position | `workflows/analyze.md`  |
 | Document a business decision                      | `workflows/decision.md` |
-| Weekly/monthly/quarterly review                   | `workflows/review.md`   |
+| Weekly/monthly/quarterly/annual review            | `workflows/review.md`   |
 
 ### Intent Detection for Review Period
 
-When user asks for a review, determine the period:
+When user asks for a review, route to the correct section in `workflows/review.md`:
 
-- "weekly review", "how was this week" → weekly mode
-- "monthly review", "month in review" → monthly mode
-- "quarterly review", "Q1 review", "strategic review" → quarterly mode
-- "review" with no qualifier → default to weekly
+- "weekly review", "how was this week" → Weekly section
+- "monthly review", "month in review" → Monthly section
+- "quarterly review", "Q1 review", "strategic review" → Quarterly section
+- "annual review", "year in review", "yearly review" → Annual section
+- "review" with no qualifier → Default to Weekly
+
+### Config Notes
+
+- `analyze.md` and `decision.md`: **Project** config when project-scoped (need `ACTIVE_PROJECT`), **Basic** config when general or area-scoped.
+- Quarterly and Annual reviews: **Project** config when project-scoped, **Basic** config when personal. If no `ACTIVE_PROJECT`, default to personal.
+- Weekly and Monthly reviews use **Basic** config (only need `BRAIN_PATH`).
 
 ## Framework Selection Guide
 
@@ -48,7 +55,20 @@ When user asks for a review, determine the period:
 | Understand competitors      | Competitive Analysis  | `frameworks/competitive.md` |
 | Prioritize tasks            | Eisenhower Matrix     | `frameworks/eisenhower.md`  |
 | Score initiatives           | ICE/RICE Scoring      | `frameworks/ice-rice.md`    |
-| Document a decision         | Decision Log          | `templates/decision-log.md` |
+
+## Templates
+
+- Decision Log: `templates/decision.md`
+- Analysis: `templates/analysis.md`
+- Review: `templates/review.md`
+
+## Agent Dependencies
+
+Strategy workflows spawn these agents:
+
+- **`atlas:locate_knowledge`** — Find existing analyses, decisions, and market intelligence in the brain
+- **`atlas:strategist`** — Apply strategic frameworks, synthesize findings, produce recommendations
+- **`atlas:analyze_knowledge`** — Deep synthesis when the strategist has too many files to read directly
 
 ## Error Handling
 
@@ -57,11 +77,15 @@ When user asks for a review, determine the period:
 - **Required file missing**: Explain what's needed and offer to create it
 - **External service failure**: Retry once, continue with available data. Never fabricate information
 
-## Storage Locations
+## Storage
 
-- Strategic analyses: `{BRAIN_PATH}/resources/strategy/{topic}/analysis.md`
-- Decisions: `{BRAIN_PATH}/areas/decisions/YYYY-MM-DD-{topic}.md`
-- Reviews: `{BRAIN_PATH}/areas/reviews/`
-  - Weekly: `YYYY-WXX-weekly.md`
-  - Monthly: `YYYY-MM-monthly.md`
-  - Quarterly: `YYYY-QX-quarterly.md`
+All paths follow `atlas:second_brain` → `reference/folder-structure.md`. This skill determines **scope**:
+
+1. **Project** — `ACTIVE_PROJECT` is set AND topic relates to the project → project-level paths
+2. **Area** (decisions only) — Topic maps to a known `{BRAIN_PATH}/areas/{area}/` folder → area-level paths
+3. **General** — No match → brain-level paths
+4. **Ambiguous** — Ask the user: "Is this about {ACTIVE_PROJECT}, a specific area (health, finances, etc.), or a general decision?"
+
+Analyses skip step 2 — they are reference material (PARA: resources) and route either project or general.
+
+Reviews: weekly/monthly are always brain-level. Quarterly/annual ask whether project-scoped or personal.

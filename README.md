@@ -39,23 +39,24 @@ atlas/
 │   ├── marketing_market_researcher.md      # Market intelligence
 │   └── business_strategist.md              # Framework-based analysis
 ├── skills/                                 # 6 skills
-│   ├── second_brain/                       # Core knowledge + project management (16 actions)
+│   ├── second_brain/                       # Core knowledge + project management
 │   │   ├── SKILL.md                        # Config, capabilities, agent orchestration
-│   │   ├── reference/                      # folder-structure.md, project-templates.md
-│   │   ├── workflows/                      # setup, capture, search
-│   │   └── project/                        # manage (CRUD), define (wizards)
+│   │   ├── reference/                      # folder-structure.md
+│   │   ├── templates/                      # Project asset templates (9 files)
+│   │   ├── entities/                       # Entity definitions (project, theme, competitor, audience, calendar)
+│   │   ├── foundations/                     # Project foundations (context, strategy, brand-voice, visual-identity)
+│   │   └── workflows/                      # setup, capture, search
 │   ├── business_strategy/                  # Strategy + decisions (3 actions)
 │   │   ├── SKILL.md                        # Framework selection, capabilities
 │   │   ├── frameworks/                     # 12 frameworks (SWOT, Porter's, etc.)
-│   │   ├── templates/                      # decision-log.md
+│   │   ├── templates/                      # analysis, decision, review
 │   │   └── workflows/                      # analyze, decision, review
-│   ├── marketing_content/                  # Content lifecycle (11 actions)
+│   ├── marketing_content/                  # Content lifecycle
 │   │   ├── SKILL.md                        # Content lifecycle, state detection
 │   │   ├── channels/                       # blog, linkedin, twitter, email, hackernews, social
 │   │   ├── reference/                      # metrics.md, review-checklist.md
-│   │   ├── workflow/                       # research, plan, write, review, results
-│   │   ├── calendar/                       # plan, view
-│   │   └── themes/                         # manage (add/list/edit/remove)
+│   │   ├── workflow/                       # research, plan, write, review, results, status
+│   │   └── calendar/                       # plan, view
 │   ├── marketing_visuals/                  # Visual content creation
 │   │   ├── SKILL.md                        # Decision tree, workflow chaining
 │   │   ├── tools/                          # processing, schema-generation + assets
@@ -74,17 +75,17 @@ atlas/
 
 ### Knowledge Management (`second_brain`)
 
-PARA-based personal knowledge base with 16 operations: capture ideas, search notes, deep recall with synthesis, create and manage projects, define project context/strategy/brand/visuals/audience/competitors.
+PARA-based personal knowledge base: capture ideas, search notes, deep recall with synthesis. Manage projects with foundations (context, strategy, brand voice, visual identity) and entities (themes, competitors, audiences, calendars).
 
 ### Content Creation (`marketing_content`)
 
-Full content lifecycle with 11 operations: research, plan, write, review, results tracking, calendar planning, theme management. Supports 6 channels: blog, linkedin, twitter, email, hackernews, social.
+Full content lifecycle: research, plan, write, review, results tracking, status overview, calendar planning. Supports 6 channels: blog, linkedin, twitter, email, hackernews, social.
 
 Pipeline: research → plan → write → review → [publish] → results
 
 ### Business Strategy (`business_strategy`)
 
-Strategic frameworks with 3 operations: analyze (12 frameworks), document decisions, periodic reviews (weekly/monthly/quarterly).
+Strategic frameworks with 3 operations: analyze (12 frameworks), document decisions, periodic reviews (weekly/monthly/quarterly/annual).
 
 ### Visual Content (`marketing_visuals`)
 

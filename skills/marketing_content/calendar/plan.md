@@ -16,7 +16,17 @@ Execute **Full** config from `atlas:second_brain`.
    - If current quarter has <30 days remaining, plan next quarter
    - Otherwise, plan current quarter
 
-2. **Survey existing content:**
+2. **Load project knowledge:**
+
+Read these files to inform planning:
+
+- `{PROJECT_PATH}/strategy/strategy.md` — Vision, goals, priorities, success metrics
+- `{PROJECT_PATH}/marketing/themes/*.md` — Available content themes (topics, keywords, frequency targets)
+- `{PROJECT_PATH}/marketing/audiences/*.md` — Target audience personas (goals, pain points, preferred channels)
+
+Skip any that don't exist yet, but note them as gaps to the user and propose creating them first.
+
+3. **Survey existing content:**
 
 ```bash
 # List all content folders with their pipeline state
@@ -26,25 +36,21 @@ ls ${PROJECT_PATH}/marketing/content/*/3_draft-*.md 2>/dev/null
 ```
 
 ```bash
-# Read themes for coverage analysis
-cat ${PROJECT_PATH}/marketing/themes/*.md 2>/dev/null
-```
-
-```bash
 # Read existing calendar if present
 cat ${PROJECT_PATH}/marketing/calendars/${YEAR}-Q${QUARTER}.md 2>/dev/null
 ```
 
-3. **Analyze content state:**
+4. **Analyze content state:**
 
-From the file listing above, build:
+From the loaded knowledge and content survey, build:
 
 - Content pieces with dates and pipeline status
-- Theme coverage (which themes have content, which don't)
+- Theme coverage (which themes have content, which are underserved)
+- Audience coverage (which personas are being addressed)
 - Gaps (weeks with no content)
 - Scheduling conflicts
 
-4. **Present analysis and gather phase objectives:**
+5. **Present analysis and gather phase objectives:**
 
 ```
 Quarterly Planning: {Project} - Q{n} {Year}
@@ -68,40 +74,22 @@ Quarterly Planning: {Project} - Q{n} {Year}
 1. {Date}: {description} → Recommend: {action}
 ```
 
-5. **CHECKPOINT — STOP AND WAIT.**
+6. **CHECKPOINT — STOP AND WAIT.**
 
 ```
 Save quarterly plan? (y/n)
 This will create: marketing/calendars/{year}-Q{n}.md
 ```
 
-6. **If yes**, save plan file:
+7. **Assign per-entry references:**
 
-```yaml
----
-project: {project_name}
-period: Q{n} {year}
-created: {ISO timestamp}
-updated: {ISO timestamp}
-type: content-calendar
----
+For each scheduled entry, ask: "Which competitor or audience files should be loaded when working on this piece?"
 
-# Content Calendar: Q{n} {Year}
+List available files:
 
-## Phase Objective
-**Goal**: {user-provided high-level goal}
+- Competitors: `ls {PROJECT_PATH}/competitors/*.md`
+- Audiences: `ls {PROJECT_PATH}/marketing/audiences/*.md`
 
-**Success Criteria**:
-- [ ] {measurable target 1}
-- [ ] {measurable target 2}
-- [ ] {measurable target 3}
+Populate the References column accordingly. Leave empty for entries that don't need specific context.
 
-## Scheduled Content
-| Week | Date | Content | Type | Theme | Objective | Status |
-|------|------|---------|------|-------|-----------|--------|
-| W1 | Jan 6 | {title} | Blog | {theme} | Position as expert | Planned |
-| W2 | Jan 13 | {title} | LinkedIn | {theme} | Build awareness | Planned |
-
-## Notes
-{Any special considerations, holidays, events}
-```
+8. **If confirmed**, save the calendar using the Content Calendar template from `second_brain/templates/calendar.md` at path `{PROJECT_PATH}/marketing/calendars/{year}-Q{n}.md`.

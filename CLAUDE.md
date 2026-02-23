@@ -68,7 +68,7 @@ When I ask for analysis:
 | ----------- | ----------------------- |
 | Context     | `context.md`            |
 | Strategy    | `strategy/strategy.md`  |
-| Competitors | `competitors/{name}.md` |
+| Competitors | `competitors/{slug}.md` |
 
 ### Marketing Structure
 
@@ -78,7 +78,7 @@ When I ask for analysis:
 | Calendars       | `marketing/calendars/{year}-Q{n}.md` |
 | Brand Voice     | `marketing/brand-voice.md`           |
 | Visual Identity | `marketing/visual-identity.md`       |
-| Audiences       | `marketing/audiences/{name}.md`      |
+| Audiences       | `marketing/audiences/{slug}.md`      |
 
 ### Content Architecture (How They Work Together)
 
@@ -94,7 +94,7 @@ When I ask for analysis:
 
 ### Priority: Project Over Plugin
 
-When project-level guidelines (brand voice, strategy, audience) conflict with generic plugin defaults (channel templates, CTA patterns, formatting rules), **the project always wins**. Plugin skills provide structure and defaults; the project's `brand-voice.md`, `context.md`, `visual-identity.md` and `strategy.md` define the actual voice, rules, and constraints. Always load them before doing any work.
+When project-level guidelines (brand voice, strategy, audience) conflict with generic plugin defaults (channel templates, CTA patterns, formatting rules), **the project always wins**. Plugin skills provide structure and defaults; the project's `brand-voice.md`, `context.md`, `visual-identity.md` and `strategy/strategy.md` define the actual voice, rules, and constraints. Always load them before doing any work.
 
 ## Working with the Knowledge Base
 

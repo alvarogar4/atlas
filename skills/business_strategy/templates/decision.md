@@ -2,9 +2,9 @@
 
 Templates and tools for documenting business decisions.
 
-## Storage Location
+## Storage
 
-Decision logs go in `areas/decisions/` within the knowledge base.
+Resolve scope via `SKILL.md` routing → paths from `atlas:second_brain` → `reference/folder-structure.md`.
 
 ## Full Decision Log Template
 
@@ -180,6 +180,7 @@ status: decided
 Before finalizing a decision, verify:
 
 ### Analysis Quality
+
 - [ ] Problem is clearly defined
 - [ ] At least 2-3 options considered
 - [ ] "Do nothing" option evaluated
@@ -187,12 +188,14 @@ Before finalizing a decision, verify:
 - [ ] Key assumptions identified
 
 ### Decision Quality
+
 - [ ] Rationale is documented
 - [ ] Trade-offs are explicit
 - [ ] Decision maker is clear
 - [ ] Stakeholders are identified
 
 ### Implementation Quality
+
 - [ ] Next steps are defined
 - [ ] Owners are assigned
 - [ ] Timeline is set
@@ -208,20 +211,25 @@ Before finalizing major decisions, imagine failure:
 **Scenario**: It's 6 months from now. This decision has failed spectacularly.
 
 ### What Went Wrong?
+
 1. {Possible failure mode 1}
 2. {Possible failure mode 2}
 3. {Possible failure mode 3}
 
 ### Warning Signs We Ignored
+
 - {Signal we should have noticed}
 - {Assumption that was wrong}
 
 ### What Could We Have Done?
+
 - {Prevention for failure 1}
 - {Prevention for failure 2}
 
 ### Mitigations to Add Now
+
 Based on this pre-mortem:
+
 - {Safeguard to implement}
 - {Checkpoint to add}
 - {Alternative to prepare}
@@ -235,24 +243,32 @@ For high-impact decisions, think beyond immediate effects:
 ## Second-Order Consequences: {Decision}
 
 ### First-Order Effects (Immediate)
+
 What happens directly as a result:
+
 - {Effect 1}
 - {Effect 2}
 
 ### Second-Order Effects (Reactions)
+
 What happens because of the first-order effects:
+
 - {Consequence of Effect 1}
 - {How others will respond}
 - {Unintended consequences}
 
 ### Third-Order Effects (Ripples)
+
 Longer-term systemic impacts:
+
 - {Market/competitive response}
 - {Cultural/organizational shift}
 - {New problems or opportunities created}
 
 ### Net Assessment
+
 Considering all orders of effects:
+
 - **Benefits outweigh costs?** {Yes/No/Uncertain}
 - **Acceptable risks?** {Yes/No}
 - **Proceed?** {Yes/No/Need more info}
@@ -264,29 +280,35 @@ Considering all orders of effects:
 ## Reversibility: {Decision}
 
 ### Type Assessment
+
 - [ ] **Type 1 (Irreversible)**: Like walking through a one-way door
 - [ ] **Type 2 (Reversible)**: Like walking through a two-way door
 
 ### If Type 1 (Irreversible)
+
 - Take more time
 - Get more data
 - Involve more stakeholders
 - Consider pilots or phased approach
 
 ### If Type 2 (Reversible)
+
 - Move faster
 - Learn by doing
 - Course correct as needed
 - Don't over-analyze
 
 ### Reversal Cost
+
 If we need to undo this decision:
+
 - **Time**: {how long}
 - **Money**: {cost}
 - **Reputation**: {impact}
 - **Relationships**: {impact}
 
 ### Recommendation
+
 {Based on reversibility, how much analysis is appropriate}
 ```
 
@@ -300,6 +322,7 @@ For quarterly reviews of past decisions:
 ### Decisions Reviewed
 
 #### {Decision 1}
+
 - **Made**: {date}
 - **Expected outcome**: {what we thought}
 - **Actual outcome**: {what happened}
@@ -307,12 +330,15 @@ For quarterly reviews of past decisions:
 - **Learning**: {what to do differently}
 
 ### Pattern Analysis
+
 - **Decisions that worked well**: {common factors}
 - **Decisions that didn't work**: {common factors}
 - **Blind spots identified**: {recurring issues}
 
 ### Process Improvements
+
 Based on this review:
+
 1. {Improvement to decision process}
 2. {New criterion to consider}
 3. {Stakeholder to involve earlier}
@@ -320,10 +346,10 @@ Based on this review:
 
 ## Common Decision Types
 
-| Type | Key Criteria |
-|------|-------------|
-| **Hiring** | Skills, culture fit, growth potential, team dynamics |
-| **Technology** | Scalability, maintainability, team expertise, cost, vendor risk |
-| **Pricing** | Value delivered, competitive position, costs, customer willingness |
-| **Partnership** | Strategic fit, capability complement, cultural alignment, terms |
-| **Investment** | ROI, strategic value, opportunity cost, risk/reward |
+| Type            | Key Criteria                                                       |
+| --------------- | ------------------------------------------------------------------ |
+| **Hiring**      | Skills, culture fit, growth potential, team dynamics               |
+| **Technology**  | Scalability, maintainability, team expertise, cost, vendor risk    |
+| **Pricing**     | Value delivered, competitive position, costs, customer willingness |
+| **Partnership** | Strategic fit, capability complement, cultural alignment, terms    |
+| **Investment**  | ROI, strategic value, opportunity cost, risk/reward                |

@@ -12,19 +12,23 @@
 ├── areas/                      # Ongoing responsibilities (no deadline)
 │   ├── {area-name}/            # Topic areas (health, finances, career, etc.)
 │   │   ├── context.md
+│   │   ├── YYYY-MM-DD-{topic}.md
+│   │   └── [decisions/]        # Area-scoped decisions (on-demand)
+│   │       └── YYYY-MM-DD-{topic}.md
+│   ├── decisions/              # General decision logs (not area-specific)
 │   │   └── YYYY-MM-DD-{topic}.md
-│   ├── decisions/              # Decision logs
-│   │   └── YYYY-MM-DD-{topic}.md
-│   └── reviews/                # Periodic reviews
+│   └── reviews/                # Personal periodic reviews
 │       ├── YYYY-WXX-weekly.md
 │       ├── YYYY-MM-monthly.md
-│       └── YYYY-QX-quarterly.md
+│       ├── YYYY-QX-quarterly.md
+│       └── YYYY-annual.md
 ├── resources/                  # Reference material, learnings
 │   ├── market/                 # Market intelligence
 │   │   └── YYYY-MM-DD-{topic}.md
 │   └── strategy/               # Strategic analyses (non-project)
 │       └── {topic}/
-│           └── analysis.md
+│           └── YYYY-MM-DD-analysis.md
+├── .context/                   # Preferences, patterns
 └── archives/                   # Completed/inactive items
 ```
 
@@ -68,7 +72,13 @@ Each project under `projects/{project-name}/`:
 ├── strategy/                              # Business strategy
 │   ├── strategy.md                        # Main strategy document
 │   ├── [plans/]                           # Specific plans (on-demand)
-│   └── [ideas/]                           # Ideas and explorations (on-demand)
+│   ├── [ideas/]                           # Ideas and explorations (on-demand)
+│   ├── [{topic}/]                         # Topic folders (on-demand, from strategy workflows)
+│   │   ├── YYYY-MM-DD-analysis.md         # Strategic analysis
+│   │   └── YYYY-MM-DD-decision.md         # Decision about this topic
+│   └── [reviews/]                         # Project-scoped reviews (on-demand)
+│       ├── YYYY-QX-quarterly.md
+│       └── YYYY-annual.md
 ├── competitors/                           # Competitor analysis
 │   └── {competitor-slug}.md
 └── marketing/
@@ -97,7 +107,7 @@ Each project under `projects/{project-name}/`:
 
 ```bash
 # Brain-level directories
-mkdir -p {BRAIN_PATH}/{inbox,projects,areas,resources,archives}
+mkdir -p {BRAIN_PATH}/{inbox,projects,areas,resources,archives,.context}
 mkdir -p {BRAIN_PATH}/areas/{decisions,reviews}
 mkdir -p {BRAIN_PATH}/resources/{market,strategy}
 
@@ -123,24 +133,24 @@ YYYY-MM-DD-{kebab-case-topic}.md
 ```yaml
 ---
 captured: 2024-12-16T14:30:00Z
-type: {note|idea|decision|learning|reference|meeting|task|research}
+type: { note|idea|decision|learning|reference|meeting|task|research }
 tags: [tag1, tag2]
-status: {inbox|active|someday|reference|archived}
-project: {project-name if applicable}
-area: {area-name if applicable}
+status: { inbox|active|someday|reference|archived }
+project: { project-name if applicable }
+area: { area-name if applicable }
 related: [path/to/related-note.md]
 ---
 ```
 
 ## Categorization Guide
 
-| If it has... | Put in... |
-|-------------|----------|
-| Deadline/deliverable | `projects/` |
-| Ongoing responsibility | `areas/` |
-| Reference value | `resources/` |
-| Just captured | `inbox/` |
-| Done/old | `archives/` |
+| If it has...           | Put in...    |
+| ---------------------- | ------------ |
+| Deadline/deliverable   | `projects/`  |
+| Ongoing responsibility | `areas/`     |
+| Reference value        | `resources/` |
+| Just captured          | `inbox/`     |
+| Done/old               | `archives/`  |
 
 ## Operations
 
@@ -170,6 +180,50 @@ mv {BRAIN_PATH}/inbox/{file}.md {BRAIN_PATH}/projects/{project}/{file}.md
 # Archive completed
 mv {BRAIN_PATH}/projects/{project}/ {BRAIN_PATH}/archives/
 ```
+
+## Plugin-Level: Templates
+
+Project asset templates live in the plugin source (not the brain):
+
+```
+skills/second_brain/templates/
+├── readme.md           # Project README
+├── context.md          # Project context
+├── strategy.md         # Project strategy
+├── brand-voice.md      # Brand voice guidelines
+├── visual-identity.md  # Visual identity guidelines
+├── audience.md         # Audience persona
+├── competitor.md       # Competitor profile
+├── calendar.md         # Content calendar
+└── theme.md            # Content theme
+```
+
+## Plugin-Level: Foundation Definitions
+
+Foundation definitions live in the plugin source (not the brain). They define how project-level foundational documents (context, strategy, brand voice, visual identity) are created and managed:
+
+```
+skills/second_brain/foundations/
+├── context.md          # Project context definition
+├── strategy.md         # Project strategy definition
+├── brand-voice.md      # Brand voice definition
+└── visual-identity.md  # Visual identity definition
+```
+
+## Plugin-Level: Entity Definitions
+
+Entity definitions live in the plugin source (not the brain). They define how collection entities (themes, competitors, audiences, calendars) are managed:
+
+```
+skills/second_brain/entities/
+├── project.md      # Project CRUD + link/unlink
+├── theme.md        # Content theme CRUD
+├── competitor.md   # Competitor profile CRUD
+├── audience.md     # Audience persona CRUD
+└── calendar.md     # Content calendar planning/viewing
+```
+
+These files define purpose, storage paths, templates, and management behavior. The AI handles operations from these definitions.
 
 ## Tag Conventions
 

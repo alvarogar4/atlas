@@ -32,19 +32,17 @@ research (1_research.md) → plan (2_plan.md) → write (3_draft-{channel}.md) �
 
 ### Capabilities
 
-| What the user wants                | Workflow                            |
-| ---------------------------------- | ----------------------------------- |
-| Research a content topic           | `workflow/research.md`              |
-| Plan content structure             | `workflow/plan.md`                  |
-| Write content for a channel        | `workflow/write.md`                 |
-| Review content quality (mandatory) | `workflow/review.md`                |
-| Document content performance       | `workflow/results.md`               |
-| View content calendar              | `calendar/view.md`                  |
-| Plan quarterly content             | `calendar/plan.md`                  |
-| Create a content theme             | `themes/manage.md` → add section    |
-| List themes                        | `themes/manage.md` → list section   |
-| Edit a theme                       | `themes/manage.md` → edit section   |
-| Archive a theme                    | `themes/manage.md` → remove section |
+| What the user wants                                 | Workflow                                                 |
+| --------------------------------------------------- | -------------------------------------------------------- |
+| Research a content topic                            | `workflow/research.md`                                   |
+| Plan content structure                              | `workflow/plan.md`                                       |
+| Write content for a channel                         | `workflow/write.md`                                      |
+| Review content quality (mandatory)                  | `workflow/review.md`                                     |
+| Document content performance                        | `workflow/results.md`                                    |
+| Show content status, pipeline overview              | `workflow/status.md`                                     |
+| View content calendar                               | `calendar/view.md` & `second_brain/entities/calendar.md` |
+| Plan quarterly content                              | `calendar/plan.md` & `second_brain/entities/calendar.md` |
+| Manage content themes (create, list, edit, archive) | `second_brain/entities/theme.md`                         |
 
 ### State Detection
 
@@ -183,6 +181,15 @@ Whenever content involves visual assets, you MUST load the `atlas:marketing_visu
 - Any task involving the `resources/` folder for visual content
 
 Do not attempt image work with ad-hoc approaches (raw Python/Pillow, manual prompt composition). The skill contains structured prompt templates, dedicated CLI tools (`bun crop`, `bun polish`, `bun optimize`), and brand-consistent visual guidelines from `visual-identity.md`. Load the skill, follow its decision tree.
+
+## Agent Dependencies
+
+Content workflows spawn these agents:
+
+- **`atlas:locate_knowledge`** — Find existing content, research, and market intelligence in the brain
+- **`atlas:analyze_knowledge`** — Synthesize found knowledge into actionable briefings for content creation
+- **`atlas:market_researcher`** — Web research for content topics, competitor positioning, and trend discovery
+- **`atlas:content_reviewer`** — Mandatory quality check before publishing (typos, legal, factual, SEO)
 
 ## Error Handling
 

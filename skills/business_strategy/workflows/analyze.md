@@ -17,8 +17,9 @@ prompt: "Find all files related to '{topic}' strategy in {BRAIN_PATH}/
 
 Search in:
 - resources/strategy/ - Past strategic analyses
-- areas/decisions/ - Related decisions
+- areas/ - Related decisions (general and area-scoped)
 - projects/ - Active initiatives related to topic
+- {PROJECT_PATH}/strategy/ - Project-level strategic analyses and decisions (if project active)
 
 Search for:
 - Files containing '{topic}', 'strategy', 'market', 'competitors'
@@ -32,18 +33,27 @@ Return:
 
 3. **Select appropriate framework** from the Framework Selection Guide in `atlas:business_strategy`.
 
-4. **Spawn strategist with file paths:**
+If the right framework isn't obvious from the question, ask the user:
+
+```
+Which angle would be most useful?
+- {relevant framework}: {brief description}
+```
+
+**CHECKPOINT — STOP AND WAIT** for user to confirm framework choice.
+
+4. **Spawn strategist with framework and file paths:**
 
 ```
 subagent_type: atlas:strategist
 prompt: "Strategic analysis for: {topic}
 
-Files to read for context:
+Files to read for additional context:
 {file paths from atlas:locate_knowledge}
 
 Framework to apply: {selected framework}
 
-Read the files above, then provide analysis following the framework structure with:
+Provide analysis following the framework structure with:
 - Current state assessment
 - Key insights
 - Strategic options
@@ -53,13 +63,15 @@ Read the files above, then provide analysis following the framework structure wi
 If there are too many files or they are too large to read directly, spawn atlas:analyze_knowledge to synthesize them first, then work from that briefing."
 ```
 
-5. **Save analysis**:
+5. **Save**:
+
+Resolve scope using `SKILL.md` routing, then look up the correct path from `reference/folder-structure.md`.
 
 ```bash
-mkdir -p {BRAIN_PATH}/resources/strategy/{topic}/
+mkdir -p {resolved_path}
 ```
 
-Save to: `{BRAIN_PATH}/resources/strategy/{topic}/analysis.md`
+Save using the Strategic Analysis template from `templates/analysis.md`.
 
 6. **Output summary**:
 

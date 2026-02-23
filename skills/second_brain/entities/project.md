@@ -1,18 +1,34 @@
-# Project Management
+# Entity: Project
 
-Consolidated project CRUD operations.
+## Purpose
 
----
+Projects are isolated silos for different businesses or clients. Each project contains its own context, strategy, competitors, brand, and content. Projects can be local (inside the brain) or external (linked via path variables).
 
-## Action: project-create
+## Storage
+
+- **Local path**: `{BRAIN_PATH}/projects/{name}/` — one directory per project
+- **External path**: Configured via `ATLAS_PATH_{NAME}` in `.env`
+- **Type**: Collection (multiple per brain)
+- **Name rule**: kebab-case (lowercase, hyphens, numbers only)
+
+## Template
+
+Use the Project README template from `templates/readme.md` when creating.
+
+## Management
+
+- **Create**: Validate name is kebab-case. Check project doesn't already exist. Create directory and README.md using template. Set as active project in `.env`.
+- **Link**: Link an external project directory. Validate path exists. Add `ATLAS_PATH_{NAME}={path}` to `.env`. Set as active.
+- **Unlink**: Remove `ATLAS_PATH_{NAME}` from `.env`. Does NOT delete any files. Clear active project if it was the unlinked one.
+- **List**: Merge local projects (`{BRAIN_PATH}/projects/`) and external projects (`ATLAS_PATH_*` in `.env`). Show content stats and active indicator.
+- **Use**: Switch active project. Validate project exists (local or external). Update `ATLAS_ACTIVE_PROJECT` in `.env`.
+- **Info**: Show project overview, context summary, content stats, and recent activity.
+
+## Create Flow
 
 ### Setup
 
 Execute **Basic** config from SKILL.md.
-
-### Validation
-
-Project name must be kebab-case (lowercase, hyphens, numbers only). If invalid, show format and example.
 
 ### Process
 
@@ -28,7 +44,7 @@ Project name must be kebab-case (lowercase, hyphens, numbers only). If invalid, 
    mkdir -p {BRAIN_PATH}/projects/{name}
    ```
 
-3. Generate README.md using template from `reference/project-templates.md`.
+3. Generate README.md using template from `templates/readme.md`.
 
 4. Set as active project — update `.env`:
    - If `ATLAS_ACTIVE_PROJECT=` exists, update it
@@ -58,11 +74,7 @@ Next steps (recommended order):
 Want to start defining the project context?
 ```
 
----
-
-## Action: project-link
-
-Link an external project directory so Atlas treats it like a local project.
+## Link Flow
 
 ### Setup
 
@@ -112,19 +124,13 @@ This project will be available in project-list and works like any other project.
 To unlink: tell me to unlink the project.
 ```
 
----
-
-## Action: project-unlink
+## Unlink Flow
 
 Remove the link to an external project. Does NOT delete any files.
 
 ### Setup
 
 Execute **Basic** config from SKILL.md.
-
-### Arguments
-
-- `{name}` — project name to unlink
 
 ### Process
 
@@ -141,9 +147,7 @@ Removed: ATLAS_PATH_{NAME}
 No files were deleted. The project directory still exists at its original location.
 ```
 
----
-
-## Action: project-list
+## List Flow
 
 ### Setup
 
@@ -160,7 +164,7 @@ Execute **Basic** config from SKILL.md.
 5. For each project, count content topics and drafts by channel
 6. Display with active indicator (\*)
 
-### Output Format
+### Output
 
 ```
 Projects:
@@ -182,9 +186,7 @@ Projects:
 To switch projects, just tell me which one to use.
 ```
 
----
-
-## Action: project-use
+## Use Flow
 
 ### Setup
 
@@ -212,9 +214,7 @@ Active project: {name}
 Commands now use this project by default.
 ```
 
----
-
-## Action: project-info
+## Info Flow
 
 ### Setup
 
@@ -232,7 +232,7 @@ Execute **Basic** config from SKILL.md.
 4. Count content (topics, drafts by channel, audiences, competitors)
 5. Show recent activity (last 5 modified files)
 
-### Output Format
+### Output
 
 ```
 # Project: {name}
@@ -253,3 +253,9 @@ Execute **Basic** config from SKILL.md.
 - [timestamp] Created blog draft: topic
 - [timestamp] Updated strategy
 ```
+
+## Integration
+
+- **Foundations** (`foundations/`): After creating a project, foundations define its context, strategy, brand voice, and visual identity
+- **Entities**: Themes, competitors, audiences, and calendars are scoped to the active project
+- **Content workflows**: All content operations target the active project's `marketing/content/` directory

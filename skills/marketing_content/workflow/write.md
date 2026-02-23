@@ -41,15 +41,9 @@ cat "${CONTENT_FOLDER}/2_plan.md"
 cat "${CONTENT_FOLDER}/1_research.md"
 ```
 
-6. **Read brand voice** (if available):
+6. **Load the `atlas:humanizer` skill.** These are **generation constraints**, not post-processing. Internalize all 29 patterns BEFORE writing a single word, and make sure to apply them to the draft.
 
-```bash
-cat ${PROJECT_PATH}/marketing/brand-voice.md 2>/dev/null
-```
-
-7. **Load the `atlas:humanizer` skill.** These are **generation constraints**, not post-processing. Internalize all 29 patterns BEFORE writing a single word, and make sure to apply them to the draft.
-
-8. **Write content following the channel guidelines and humanizer rules:**
+7. **Write content following the channel guidelines and humanizer rules:**
 
 | Channel    | Key Requirements                                                                  |
 | ---------- | --------------------------------------------------------------------------------- |
@@ -71,7 +65,7 @@ Content guidelines:
 - Apply ALL humanizer rules from the `atlas:humanizer` skill during writing, not after
 - Apply trademark symbols (®, ™) on first mention of third-party products per project context rules or check the product's official website for their trademark usage guidelines
 
-9. **Save draft immediately:** `${CONTENT_FOLDER}/3_draft-${channel}.md`
+8. **Save draft immediately:** `${CONTENT_FOLDER}/3_draft-${channel}.md`
 
 The user will review via `git diff`. Do NOT ask for acknowledgment before saving.
 

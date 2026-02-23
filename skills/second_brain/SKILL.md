@@ -46,7 +46,9 @@ Atlas reads configuration from multiple sources in priority order:
 
 **Full** (brand resources for content):
 
-- All Project variables plus reads context.md, brand-voice.md and visual-identity.md into context:
+- All Project variables plus reads these into context:
+- `CONTEXT = {PROJECT_PATH}/context.md`
+- `STRATEGY = {PROJECT_PATH}/strategy/strategy.md`
 - `BRAND_VOICE = {PROJECT_PATH}/marketing/brand-voice.md`
 - `VISUAL_IDENTITY = {PROJECT_PATH}/marketing/visual-identity.md`
 
@@ -63,27 +65,24 @@ Use the extracted path values **literally** — they are NOT shell environment v
 | What do I know about X, recall, synthesize knowledge | `workflows/search.md` (recall mode) |
 | Set up Atlas, initialize brain                       | `workflows/setup.md`                |
 
-### Project Management
+### Project Foundations
 
-| What the user wants                | Workflow                             |
-| ---------------------------------- | ------------------------------------ |
-| Create a new project               | `project/manage.md` → create section |
-| Link an external project           | `project/manage.md` → link section   |
-| Unlink an external project         | `project/manage.md` → unlink section |
-| List all projects, show projects   | `project/manage.md` → list section   |
-| Switch to a project, use project X | `project/manage.md` → use section    |
-| Show project details, project info | `project/manage.md` → info section   |
+| What the user wants                      | Workflow                         |
+| ---------------------------------------- | -------------------------------- |
+| Define what this project is, set context | `foundations/context.md`         |
+| Define strategy, set goals, vision       | `foundations/strategy.md`        |
+| Define brand voice, tone                 | `foundations/brand-voice.md`     |
+| Define visual identity, colors, style    | `foundations/visual-identity.md` |
 
-### Project Definition (Interactive Wizards)
+### Entity Management
 
-| What the user wants                      | Workflow                                  |
-| ---------------------------------------- | ----------------------------------------- |
-| Define what this project is, set context | `project/define.md` → context section     |
-| Define strategy, set goals, vision       | `project/define.md` → strategy section    |
-| Define brand voice, tone                 | `project/define.md` → brand section       |
-| Define visual identity, colors, style    | `project/define.md` → visuals section     |
-| Define audience persona, target user     | `project/define.md` → audience section    |
-| Document a competitor                    | `project/define.md` → competitors section |
+| What the user wants                                      | Entity                                                  |
+| -------------------------------------------------------- | ------------------------------------------------------- |
+| Create, link, unlink, list, switch, or view project info | `entities/project.md`                                   |
+| Create, list, edit, or archive themes                    | `entities/theme.md`                                     |
+| Create, list, edit, or delete competitors                | `entities/competitor.md`                                |
+| Create, list, edit, or delete audiences                  | `entities/audience.md`                                  |
+| Plan or view content calendar                            | `entities/calendar.md` & `marketing_content/calendar/*` |
 
 ### Invisible Actions
 
@@ -141,4 +140,4 @@ Subagents return data as structured text. The **main agent owns all file creatio
 ## Reference Files
 
 - **Folder structure**: `reference/folder-structure.md` — single source of truth for PARA structure
-- **Project templates**: `reference/project-templates.md` — all file templates for project assets
+- **Project templates**: `templates/` — individual template files for all project assets
