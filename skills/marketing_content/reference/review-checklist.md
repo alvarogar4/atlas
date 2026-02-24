@@ -1,6 +1,6 @@
 # Content Review Checklist
 
-Patterns and checklists for content quality control. Used by the `atlas:marketing:content_reviewer` agent.
+Patterns and checklists for content quality control. Used by the `atlas:content_reviewer` agent.
 
 ## Review Categories
 
@@ -75,15 +75,38 @@ Patterns and checklists for content quality control. Used by the `atlas:marketin
 - [ ] External links to authoritative sources
 - [ ] Images have alt text (if applicable)
 
+### 5. Flow & Structure
+
+**Check for:**
+
+- Ideas introduced in one section that are never resolved or addressed in a later section (orphaned concepts)
+- Problems listed in one section that aren't matched by solutions in a corresponding section
+- Non-linear jumps between unrelated ideas without transitions
+- Sections that don't build on each other logically
+- Repetitive back-and-forth between the same ideas
+
+**Process:**
+
+1. List all concepts, problems, or promises introduced in each section
+2. Verify each is resolved, addressed, or intentionally left open by the end
+3. Check that sections follow a logical progression (setup → development → resolution)
+4. Flag any structural gaps where the reader would be left wondering "what happened to X?"
+
+**Severity:**
+
+- BLOCKER: Key promises or problems introduced but never resolved (e.g., 4 problems listed, only 2 addressed)
+- WARNING: Minor structural jumps that may confuse the reader
+- SUGGESTION: Reordering that would improve readability
+
 ## Review Output Template
 
 ```yaml
 ---
 reviewed: {ISO timestamp}
 content_file: {relative path}
-content_type: {blog|email|linkedin|landing-page}
+channel: {blog|email|linkedin|twitter|hackernews|social}
 status: {pass|needs_revision|blocked}
-reviewer: content_reviewer
+reviewer: atlas:content_reviewer
 ---
 
 # Content Review: {Title}
@@ -139,31 +162,8 @@ reviewer: content_reviewer
 | "{claim text}" | {n} | {yes/no} | {yes/no/unable} | {verification details} |
 
 ---
-*Reviewed: {timestamp} by content_reviewer agent*
+*Reviewed: {timestamp} by `atlas:content_reviewer` agent*
 ```
-
-### 5. Flow & Structure
-
-**Check for:**
-
-- Ideas introduced in one section that are never resolved or addressed in a later section (orphaned concepts)
-- Problems listed in one section that aren't matched by solutions in a corresponding section
-- Non-linear jumps between unrelated ideas without transitions
-- Sections that don't build on each other logically
-- Repetitive back-and-forth between the same ideas
-
-**Process:**
-
-1. List all concepts, problems, or promises introduced in each section
-2. Verify each is resolved, addressed, or intentionally left open by the end
-3. Check that sections follow a logical progression (setup → development → resolution)
-4. Flag any structural gaps where the reader would be left wondering "what happened to X?"
-
-**Severity:**
-
-- BLOCKER: Key promises or problems introduced but never resolved (e.g., 4 problems listed, only 2 addressed)
-- WARNING: Minor structural jumps that may confuse the reader
-- SUGGESTION: Reordering that would improve readability
 
 ## Severity Definitions
 

@@ -18,7 +18,7 @@ A Claude Code plugin that transforms Claude into a personal assistant with memor
 /install atlas
 
 # 2. Initialize your knowledge base
-/atlas:second_brain:foundation setup
+/atlas:second_brain setup
 ```
 
 After setup, Atlas works conversationally:
@@ -33,29 +33,30 @@ After setup, Atlas works conversationally:
 ```
 atlas/
 ├── agents/                                 # Flat structure with domain prefixes
-│   ├── core_locate_knowledge.md            # Fast file discovery
-│   ├── core_analyze_knowledge.md           # Deep analysis and synthesis
+│   ├── locate_knowledge.md                 # Fast file discovery
+│   ├── analyze_knowledge.md                # Deep analysis and synthesis
 │   ├── marketing_content_reviewer.md       # Content QA
 │   ├── marketing_market_researcher.md      # Market intelligence
 │   └── business_strategist.md              # Framework-based analysis
 ├── skills/                                 # 6 skills
-│   ├── second_brain_foundation/            # Core knowledge + project management (16 actions)
+│   ├── second_brain/                       # Core knowledge + project management
 │   │   ├── SKILL.md                        # Config, capabilities, agent orchestration
-│   │   ├── reference/                      # folder-structure.md, project-templates.md
-│   │   ├── workflows/                      # setup, capture, search
-│   │   └── project/                        # manage (CRUD), define (wizards)
+│   │   ├── reference/                      # folder-structure.md
+│   │   ├── templates/                      # Project asset templates (9 files)
+│   │   ├── entities/                       # Entity definitions (project, theme, competitor, audience, calendar)
+│   │   ├── foundations/                     # Project foundations (context, strategy, brand-voice, visual-identity)
+│   │   └── workflows/                      # setup, capture, search
 │   ├── business_strategy/                  # Strategy + decisions (3 actions)
 │   │   ├── SKILL.md                        # Framework selection, capabilities
 │   │   ├── frameworks/                     # 12 frameworks (SWOT, Porter's, etc.)
-│   │   ├── templates/                      # decision-log.md
+│   │   ├── templates/                      # analysis, decision, review
 │   │   └── workflows/                      # analyze, decision, review
-│   ├── marketing_content/                  # Content lifecycle (11 actions)
+│   ├── marketing_content/                  # Content lifecycle
 │   │   ├── SKILL.md                        # Content lifecycle, state detection
 │   │   ├── channels/                       # blog, linkedin, twitter, email, hackernews, social
 │   │   ├── reference/                      # metrics.md, review-checklist.md
-│   │   ├── workflow/                       # research, plan, write, review, results
-│   │   ├── calendar/                       # plan, view
-│   │   └── themes/                         # manage (add/list/edit/remove)
+│   │   ├── workflow/                       # research, plan, write, review, results, status
+│   │   └── calendar/                       # plan, view
 │   ├── marketing_visuals/                  # Visual content creation
 │   │   ├── SKILL.md                        # Decision tree, workflow chaining
 │   │   ├── tools/                          # processing, schema-generation + assets
@@ -72,19 +73,19 @@ atlas/
 
 ## Capabilities
 
-### Knowledge Management (`second_brain_foundation`)
+### Knowledge Management (`second_brain`)
 
-PARA-based personal knowledge base with 16 operations: capture ideas, search notes, deep recall with synthesis, create and manage projects, define project context/strategy/brand/visuals/audience/competitors.
+PARA-based personal knowledge base: capture ideas, search notes, deep recall with synthesis. Manage projects with foundations (context, strategy, brand voice, visual identity) and entities (themes, competitors, audiences, calendars).
 
 ### Content Creation (`marketing_content`)
 
-Full content lifecycle with 11 operations: research, plan, write, review, results tracking, calendar planning, theme management. Supports 6 channels: blog, linkedin, twitter, email, hackernews, social.
+Full content lifecycle: research, plan, write, review, results tracking, status overview, calendar planning. Supports 6 channels: blog, linkedin, twitter, email, hackernews, social.
 
 Pipeline: research → plan → write → review → [publish] → results
 
 ### Business Strategy (`business_strategy`)
 
-Strategic frameworks with 3 operations: analyze (12 frameworks), document decisions, periodic reviews (weekly/monthly/quarterly).
+Strategic frameworks with 3 operations: analyze (12 frameworks), document decisions, periodic reviews (weekly/monthly/quarterly/annual).
 
 ### Visual Content (`marketing_visuals`)
 
@@ -146,17 +147,17 @@ Context-aware bilingual translation with 18 quality patterns. Prevents literal t
 
 ## Agents
 
-| Domain        | Agent               | Purpose                          |
-| ------------- | ------------------- | -------------------------------- |
-| **Core**      | `locate_knowledge`  | Fast file discovery (paths only) |
-| **Core**      | `analyze_knowledge` | Deep analysis and synthesis      |
-| **Marketing** | `market_researcher` | External market intelligence     |
-| **Marketing** | `content_reviewer`  | Content quality assurance        |
-| **Business**  | `strategist`        | Apply strategic frameworks       |
+| Domain        | Agent                     | Purpose                          |
+| ------------- | ------------------------- | -------------------------------- |
+| **Core**      | `atlas:locate_knowledge`  | Fast file discovery (paths only) |
+| **Core**      | `atlas:analyze_knowledge` | Deep analysis and synthesis      |
+| **Marketing** | `atlas:market_researcher` | External market intelligence     |
+| **Marketing** | `atlas:content_reviewer`  | Content quality assurance        |
+| **Business**  | `atlas:strategist`        | Apply strategic frameworks       |
 
 ## Configuration
 
-After running `/atlas:second_brain:foundation setup`, your brain path is stored in:
+After running `/atlas:second_brain setup`, your brain path is stored in:
 
 - `.env` file in your project
 

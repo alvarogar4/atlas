@@ -12,13 +12,14 @@
 2. **Find existing knowledge**:
 
 ```
-subagent_type: atlas:core:locate_knowledge
+subagent_type: atlas:locate_knowledge
 prompt: "Find all files related to '{topic}' strategy in {BRAIN_PATH}/
 
 Search in:
 - resources/strategy/ - Past strategic analyses
-- areas/decisions/ - Related decisions
+- areas/ - Related decisions (general and area-scoped)
 - projects/ - Active initiatives related to topic
+- {PROJECT_PATH}/strategy/ - Project-level strategic analyses and decisions (if project active)
 
 Search for:
 - Files containing '{topic}', 'strategy', 'market', 'competitors'
@@ -30,20 +31,25 @@ Return:
 - Brief relevance summary"
 ```
 
-3. **Read key files into context**: After locator completes, read the most relevant files (top 3-5) before spawning strategist.
+3. **Select appropriate framework** from the Framework Selection Guide in `atlas:business_strategy`.
 
-4. **Select appropriate framework** from the Framework Selection Guide in SKILL.md.
-
-5. **Spawn strategist with full context**:
+If the right framework isn't obvious from the question, ask the user:
 
 ```
-subagent_type: atlas:business:strategist
+Which angle would be most useful?
+- {relevant framework}: {brief description}
+```
+
+**CHECKPOINT — STOP AND WAIT** for user to confirm framework choice.
+
+4. **Spawn strategist with framework and file paths:**
+
+```
+subagent_type: atlas:strategist
 prompt: "Strategic analysis for: {topic}
 
-Context gathered:
-- Existing analyses: {summaries from files read}
-- Related decisions: {summaries}
-- Active initiatives: {list}
+Files to read for additional context:
+{file paths from atlas:locate_knowledge}
 
 Framework to apply: {selected framework}
 
@@ -52,18 +58,22 @@ Provide analysis following the framework structure with:
 - Key insights
 - Strategic options
 - Recommended direction
-- Implementation considerations"
+- Implementation considerations
+
+If there are too many files or they are too large to read directly, spawn atlas:analyze_knowledge to synthesize them first, then work from that briefing."
 ```
 
-6. **Save analysis**:
+5. **Save**:
+
+Resolve scope using `SKILL.md` routing, then look up the correct path from `reference/folder-structure.md`.
 
 ```bash
-mkdir -p {BRAIN_PATH}/resources/strategy/{topic}/
+mkdir -p {resolved_path}
 ```
 
-Save to: `{BRAIN_PATH}/resources/strategy/{topic}/analysis.md`
+Save using the Strategic Analysis template from `templates/analysis.md`.
 
-7. **Output summary**:
+6. **Output summary**:
 
 ```
 Strategic analysis complete: {path}

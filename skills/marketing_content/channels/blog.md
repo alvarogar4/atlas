@@ -25,12 +25,12 @@
 
 ### Word Count Targets
 
-| Content Type | Word Count | Reading Time |
-|--------------|-----------|--------------|
-| Short post | 800-1,200 | 3-5 min |
-| Standard post | 1,500-2,000 | 6-8 min |
-| Pillar content | 2,500-4,000 | 10-15 min |
-| Ultimate guide | 5,000+ | 20+ min |
+| Content Type   | Word Count  | Reading Time |
+| -------------- | ----------- | ------------ |
+| Short post     | 800-1,200   | 3-5 min      |
+| Standard post  | 1,500-2,000 | 6-8 min      |
+| Pillar content | 2,500-4,000 | 10-15 min    |
+| Ultimate guide | 5,000+      | 20+ min      |
 
 ## SEO Requirements
 
@@ -58,21 +58,22 @@ H1: Title (only one per post)
 ```
 
 **Rules:**
+
 - Never skip levels (H2 -> H4 is wrong)
 - Primary keyword in at least one H2
 - Use descriptive headings (not "Part 1", "Section A")
 
 ### Keyword Placement
 
-| Location | Requirement |
-|----------|-------------|
-| Title (H1) | Required - primary keyword |
-| First 100 words | Required - primary keyword |
-| URL/slug | Required - primary keyword |
+| Location         | Requirement                |
+| ---------------- | -------------------------- |
+| Title (H1)       | Required - primary keyword |
+| First 100 words  | Required - primary keyword |
+| URL/slug         | Required - primary keyword |
 | Meta description | Required - primary keyword |
-| H2 headings | At least one with primary |
-| Image alt text | Where relevant |
-| Throughout body | Natural usage, no stuffing |
+| H2 headings      | At least one with primary  |
+| Image alt text   | Where relevant             |
+| Throughout body  | Natural usage, no stuffing |
 
 ## Hook Techniques (Blog-Specific)
 
@@ -88,6 +89,7 @@ H1: Title (only one per post)
 ### Open Loops
 
 Create "mental gaps" that compel continued reading:
+
 - "In a moment, I'll show you the exact formula..."
 - "But first, you need to understand why this matters..."
 
@@ -96,6 +98,7 @@ Create "mental gaps" that compel continued reading:
 ## Bucket Brigades
 
 Short phrases that keep readers scrolling:
+
 - "Here's the thing:"
 - "But wait..."
 - "Truth is:"
@@ -126,13 +129,13 @@ Short phrases that keep readers scrolling:
 
 ### Images and Diagrams
 
-| Image Type | Tool |
-|-----------|------|
-| Architecture diagrams | `atlas:marketing:visuals` (schema-generation) |
-| Flowcharts, process flows | `atlas:marketing:visuals` (schema-generation) |
-| Comparison charts | `atlas:marketing:visuals` (schema-generation) |
-| Conceptual/artistic illustrations | `atlas:marketing:visuals` (ai-prompting) |
-| Photo cropping, background removal | `atlas:marketing:visuals` (processing) |
+| Image Type                         | Tool                                          |
+| ---------------------------------- | --------------------------------------------- |
+| Architecture diagrams              | `atlas:marketing_visuals` (schema-generation) |
+| Flowcharts, process flows          | `atlas:marketing_visuals` (schema-generation) |
+| Comparison charts                  | `atlas:marketing_visuals` (schema-generation) |
+| Conceptual/artistic illustrations  | `atlas:marketing_visuals` (ai-prompting)      |
+| Photo cropping, background removal | `atlas:marketing_visuals` (processing)        |
 
 All images go in `${CONTENT_FOLDER}/resources/` and are referenced as `./resources/{image}.png`.
 
@@ -140,16 +143,17 @@ All images go in `${CONTENT_FOLDER}/resources/` and are referenced as `./resourc
 
 ```yaml
 ---
+channel: "blog"
 title: "{Title from outline}"
-slug: {url-slug}
+slug: { url-slug }
 meta_description: "{150-160 chars, includes primary keyword}"
-keywords: [{primary}, {secondary keywords}]
-author: {from project context or "Author"}
+keywords: [{ primary }, { secondary keywords }]
+author: { from project context or "Author" }
 status: draft
-created: {ISO timestamp}
-project: {project}
-word_count: {actual count}
-target_word_count: {from outline}
+created: { ISO timestamp }
+project: { project }
+word_count: { actual count }
+target_word_count: { from outline }
 ---
 ```
 
@@ -169,11 +173,11 @@ target_word_count: {from outline}
 
 ## Content Upgrades (Optional)
 
-| Content Type | Best Upgrade |
-|-------------|-------------|
-| How-to guide | Checklist/Cheatsheet |
-| Listicle | Downloadable list |
-| Strategy guide | Template/Workbook |
-| Data post | Spreadsheet/Calculator |
+| Content Type   | Best Upgrade           |
+| -------------- | ---------------------- |
+| How-to guide   | Checklist/Cheatsheet   |
+| Listicle       | Downloadable list      |
+| Strategy guide | Template/Workbook      |
+| Data post      | Spreadsheet/Calculator |
 
 **Placement:** After the most valuable section, not at the end.

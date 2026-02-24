@@ -1,10 +1,10 @@
 # Workflow: Review
 
-**Purpose**: Quality control — MANDATORY before publishing. Runs content_reviewer agent + humanizer pass.
+**Purpose**: Quality control — MANDATORY before publishing. Runs `atlas:content_reviewer` agent + humanizer pass.
 
 ## Humanizer Checks (CRITICAL)
 
-Load the `atlas:humanizer` skill for the full pattern reference and zero-tolerance checklist. Scan the draft against every pattern listed there. You have rights to fix any pattern detected, even if it requires deep edits or its one of the less relevant patterns.
+Load the `atlas:humanizer` skill for the full pattern reference and zero-tolerance checklist. Verify the draft against every pattern listed there. The humanizer was applied during writing; this pass catches anything that slipped through. You have rights to fix any pattern detected, even if it requires deep edits or its one of the less relevant patterns.
 
 ## Checkpoint Enforcement (CRITICAL)
 
@@ -12,11 +12,11 @@ Load the `atlas:humanizer` skill for the full pattern reference and zero-toleran
 
 ## Setup
 
-Execute **Config** from SKILL.md.
+Execute **Full** config from `atlas:second_brain`.
 
 ## Process
 
-1. **Determine channel and topic**: Use the channel and topic from conversation.
+1. **Determine channel and topic**: Follow the Topic Determination pattern from SKILL.md. Channel from conversation.
 
 2. **Find content folder and verify draft exists:**
 
@@ -34,11 +34,19 @@ cat "${CONTENT_FOLDER}/3_draft-${channel}.md"
 cat "${CONTENT_FOLDER}/1_research.md"
 ```
 
-4. **Spawn content_reviewer agent:**
+4. **Apply humanizer verification pass:**
+
+The writing pass applied humanizer rules during generation. This pass is a **verification scan**: it catches patterns that slipped through because the model was balancing content quality with pattern avoidance. Load the `atlas:humanizer` skill, verify the draft against every pattern, use the zero-tolerance checklist for a fast scan. Fix any patterns found and track changes.
+
+This runs before QA so the reviewer evaluates the actual content that will be published.
+
+5. **Spawn `atlas:content_reviewer` agent on the humanized draft:**
 
 ```
-subagent_type: atlas:marketing:content_reviewer
+subagent_type: atlas:content_reviewer
 prompt: "Review {channel} content for quality
+
+IMPORTANT: Do NOT create any files or folders. Return your findings as text only. The main agent will handle it.
 
 Draft file: ${CONTENT_FOLDER}/3_draft-${channel}.md
 Research file: ${CONTENT_FOLDER}/1_research.md
@@ -49,11 +57,15 @@ Use the review checklist from reference/review-checklist.md as your primary refe
 Review checklist:
 1. Typos and grammar issues (with line numbers)
 2. Factual accuracy (verify against research sources)
-3. Legal issues (claims, trademark, copyright)
+3. Legal issues (claims, trademark, copyright). Scan the draft for every third-party product, technology, or brand name mentioned. For each one:
+  - Check `${PROJECT_PATH}/context.md` for project-specific trademark rules
+  - If not covered there, check the product's official website for their trademark usage guidelines
+  - Apply the correct symbol (®, ™) with the frequency and placement that brand requires
+  - This is a **blocking** check: missing trademark symbols = BLOCKED status
 4. Brand voice consistency
 5. Channel-specific requirements:
    - Blog: SEO optimization (title, meta, headings)
-   - LinkedIn: Hook effectiveness, hashtag count
+   - LinkedIn: Hook effectiveness, closing style matches brand voice
    - Twitter: Character limits, thread coherence
    - Email: Subject line, CTA placement
    - Hacker News: NO marketing language, Show HN title format, first comment structure
@@ -68,7 +80,7 @@ Return:
 - Strengths noted"
 ```
 
-5. **Apply reviewer fixes directly to draft:**
+6. **Apply reviewer fixes and append corrections log:**
 
 For each issue found:
 
@@ -76,61 +88,58 @@ For each issue found:
 2. Apply the recommended fix
 3. Track what was changed
 
-Update the draft file. Output:
+Then append a combined corrections section at the bottom of `3_draft-${channel}.md`:
 
-```
-Content Review Complete
+```markdown
+---
 
-{n} issues found and fixed:
-1. [Line X]: {issue type} - "{original}" → "{fixed}"
-2. [Line Y]: {issue type} - "{original}" → "{fixed}"
+## Corrections Applied
 
-Draft updated: ${CONTENT_FOLDER}/3_draft-${channel}.md
-```
+**Date**: {ISO date}
 
-6. **Apply humanizer as final polish pass:**
+### Humanizer Fixes
 
-Load the `atlas:humanizer` skill and scan the updated draft against every pattern. Use the zero-tolerance checklist for a fast scan. Apply ALL fixes directly to the draft.
+{n} AI patterns fixed:
 
-Output:
-
-```
-Humanizer Applied
-
-{n} AI writing patterns fixed:
 1. [Line X]: "{original}" → "{fixed}"
 
-Draft updated: ${CONTENT_FOLDER}/3_draft-${channel}.md
+### Reviewer Fixes
+
+{n} issues fixed:
+
+1. [Line X]: {issue type} - "{original}" → "{fixed}"
 ```
 
-If no patterns found: "No AI writing patterns detected. Draft unchanged."
+Save the draft once with both the reviewer fixes and corrections log applied.
 
-7. **CHECKPOINT — STOP AND WAIT.** Present review results:
+7. **Save reviewer findings as review file:** `${CONTENT_FOLDER}/4_review-${channel}.md`
+
+Use the Review Output Format below.
+
+8. **CHECKPOINT — STOP AND WAIT.** Present review results:
 
 **If BLOCKED:**
 
 ```
 Review: BLOCKED
 
-{n} issues must be fixed before publishing:
+{n} issues found and fixed, but {n} blockers remain:
 1. [Line X]: {issue} → Fix: {recommendation}
 
-Next: Edit draft manually, then let me re-review.
+Next: Edit draft manually, then re-run review.
 ```
-
-Save review file and STOP.
 
 **If NEEDS REVISION:**
 
 ```
 Review: NEEDS REVISION
 
-{n} warnings found:
+{n} warnings remain:
 1. [Line X]: {issue}
 
 Options:
 1. Fix and re-review
-2. Proceed to images anyway (not recommended)
+2. Override and proceed
 ```
 
 **STOP AND WAIT.**
@@ -144,36 +153,14 @@ Content is ready for publication!
 {n} suggestions for consideration (optional).
 ```
 
-8. **Save review file:** `${CONTENT_FOLDER}/4_review-${channel}.md`
-
-9. **Recommend images** (only if PASS or user chose to proceed):
-
-| Channel  | Recommendation                                                         |
-| -------- | ---------------------------------------------------------------------- |
-| blog     | "Blog posts need a hero image and OG card for social sharing."         |
-| linkedin | "LinkedIn posts with images get 2x engagement. You need an image."     |
-| twitter  | "Visual tweets perform better. Consider adding an image."              |
-| email    | "Plain text emails often have better deliverability. Images optional." |
-
-```
-Create image prompts? (y/n)
-```
-
-**CHECKPOINT — STOP AND WAIT.**
-
-10. **If images requested** — generate prompts using `atlas:marketing:visuals` → `guides/ai-prompting.md`:
-
-- Create: `mkdir -p ${CONTENT_FOLDER}/resources/`
-- For each image: ask subject, purpose/size, colors, style, mood
-- Check `visual-identity.md` for brand defaults
-- Save to: `${CONTENT_FOLDER}/resources/prompt-{image-name}.md`
-
 ### Output
+
+**If PASS:**
 
 ```
 Content is ready! You can now:
 - Copy content from 3_draft-${channel}.md to your publishing platform
-- Use image prompts in resources/ to generate visuals
+- Create image prompts using `atlas:marketing_visuals` if needed
 
 After publishing, I can help track performance results.
 ```
@@ -200,7 +187,7 @@ After publishing, I can help track performance results.
 
 **Status**: {PASS | ISSUES FOUND}
 
-### Legal Risks
+### Legal Risks (Trademarks, Copyright, etc.)
 
 **Status**: {PASS | ISSUES FOUND}
 

@@ -6,16 +6,16 @@ The first 140 characters appear before "see more" - this is your only chance to 
 
 ### Hook Techniques
 
-| Technique | Example |
-|-----------|---------|
-| Contrarian | "Networking events are a waste of time." |
-| Confession | "I got fired from my dream job." |
-| Achievement | "I just hit $1M ARR. Here's what actually worked:" |
-| Question | "What's the worst career advice you've ever received?" |
-| Bold claim | "Cold email is dead. Here's what's replacing it." |
-| Number/stat | "I spent 1,000 hours on this. Here's what I learned." |
-| Story opener | "3 years ago, I almost gave up on my startup." |
-| Direct address | "If you're a founder struggling with hiring..." |
+| Technique      | Example                                                |
+| -------------- | ------------------------------------------------------ |
+| Contrarian     | "Networking events are a waste of time."               |
+| Confession     | "I got fired from my dream job."                       |
+| Achievement    | "I just hit $1M ARR. Here's what actually worked:"     |
+| Question       | "What's the worst career advice you've ever received?" |
+| Bold claim     | "Cold email is dead. Here's what's replacing it."      |
+| Number/stat    | "I spent 1,000 hours on this. Here's what I learned."  |
+| Story opener   | "3 years ago, I almost gave up on my startup."         |
+| Direct address | "If you're a founder struggling with hiring..."        |
 
 ### Hook Formula
 
@@ -42,9 +42,7 @@ Example:
 
 [SPACE]
 
-[CTA or ENGAGEMENT QUESTION]
-
-[HASHTAGS - 3-5 relevant tags]
+[CLOSING THOUGHT or CTA — see brand voice]
 ```
 
 ### Story Post
@@ -56,7 +54,7 @@ Example:
 [TURNING POINT - the realization]
 [RESOLUTION - what changed]
 [LESSON - the takeaway]
-[CTA - relate it back to reader]
+[CLOSING THOUGHT or CTA — see brand voice]
 ```
 
 ### List Post
@@ -69,28 +67,29 @@ Example:
 3. [Point with brief explanation]
 
 [CLOSING THOUGHT]
-[ENGAGEMENT QUESTION]
 ```
 
 ## Character Limits
 
-| Element | Limit |
-|---------|-------|
-| Post text | 3,000 characters |
+| Element        | Limit                         |
+| -------------- | ----------------------------- |
+| Post text      | 3,000 characters              |
 | Hook (visible) | ~140 characters before "more" |
-| Ideal length | 800-1,200 characters |
-| Article title | 100 characters |
+| Ideal length   | 800-1,200 characters          |
+| Article title  | 100 characters                |
 
 ## Formatting Rules
 
 Use line breaks to create white space. LinkedIn compresses text.
 
 **Bad:**
+
 ```
 Here's what I learned about building a startup. First, you need to validate your idea. Then you need to find product-market fit. Finally, you need to scale.
 ```
 
 **Good:**
+
 ```
 Here's what I learned about building a startup.
 
@@ -111,25 +110,29 @@ The order matters less than the speed.
 - Never as bullet points (looks spammy)
 - Best at start of post or to emphasize key points
 
-## Hashtag Strategy
+## Hashtags
 
-- Use 3-5 hashtags (more looks spammy)
-- Place at end of post
-- Mix: 1-2 broad (1M+), 1-2 medium (100K-1M), 1-2 niche (10K-100K)
+Depends on brand voice. Options:
 
-## Engagement Drivers
+- **Strategic use**: 3-5 relevant, placed at end. Mix broad + niche
+- **None**: Some brands skip them entirely — they can feel forced
 
-### End with a Question
+Check `brand-voice.md` for the project's preference.
 
-Posts with questions get 50%+ more comments:
-- "What's your take?"
-- "Have you experienced this?"
-- "What would you add?"
-- "Agree or disagree?"
+## Engagement & Closing
+
+Adapt to brand voice. Common patterns:
+
+- **Strong close**: End with a takeaway that stands on its own
+- **Genuine question**: Only if it serves the content, not engagement farming
+- **Minimal CTA**: "Follow for more of this" or similar
+- **Action CTA** (product): Direct link or signup prompt
+
+Avoid generic engagement bait ("Comment YES if...") unless the brand voice explicitly calls for it.
 
 ### Tag Strategically
 
-- Tag people you mention (they may engage)
+- Tag people you genuinely mention (they may engage)
 - Don't tag randomly for attention
 
 ## Carousel Posts
@@ -150,14 +153,14 @@ Final Slide: CTA SLIDE - Summary, follow CTA, save/share prompt
 
 ## Content Types by Engagement
 
-| Content Type | Engagement | Best For |
-|-------------|-----------|----------|
-| Personal stories | Very High | Building connection |
-| Lessons learned | High | Thought leadership |
-| Contrarian takes | High | Driving discussion |
-| How-to guides | Medium-High | Providing value |
-| Industry news | Medium | Staying relevant |
-| Promotional | Low | Use sparingly |
+| Content Type     | Engagement  | Best For            |
+| ---------------- | ----------- | ------------------- |
+| Personal stories | Very High   | Building connection |
+| Lessons learned  | High        | Thought leadership  |
+| Contrarian takes | High        | Driving discussion  |
+| How-to guides    | Medium-High | Providing value     |
+| Industry news    | Medium      | Staying relevant    |
+| Promotional      | Low         | Use sparingly       |
 
 ## Posting Best Practices
 
@@ -169,13 +172,12 @@ Final Slide: CTA SLIDE - Summary, follow CTA, save/share prompt
 
 ```yaml
 ---
-type: "linkedin"
+channel: "linkedin"
 topic: "{topic}"
-project: {project}
+project: { project }
 status: draft
-created: {ISO timestamp}
+created: { ISO timestamp }
 hook_preview: "{first 140 chars}"
-hashtags: [{tag1}, {tag2}, {tag3}]
 ---
 ```
 
@@ -186,8 +188,7 @@ hashtags: [{tag1}, {tag2}, {tag3}]
 - [ ] Line breaks create visual rhythm
 - [ ] One idea per paragraph
 - [ ] Personal element or story included
-- [ ] Ends with question or CTA
-- [ ] 3-5 relevant hashtags at end
+- [ ] Closing matches brand voice (strong thought, question, or CTA)
 - [ ] No excessive emojis
 - [ ] Reads well on mobile
 - [ ] Authentic to your voice (not generic)
@@ -196,8 +197,8 @@ hashtags: [{tag1}, {tag2}, {tag3}]
 
 - Starting with "I'm excited to announce..."
 - Walls of text without line breaks
-- More than 5 hashtags
+- Hashtag overuse (more than 5, or any if brand voice says none)
+- Generic engagement bait ("Comment YES if...", "Tag someone who...")
 - Emoji bullet points
 - Humble bragging without value
-- Engagement bait ("Comment YES if...")
 - Tagging people who aren't relevant

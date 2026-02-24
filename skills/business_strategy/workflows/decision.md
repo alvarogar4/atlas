@@ -10,69 +10,43 @@
    - What's the deadline?
    - Who needs to be involved?
 
-2. **Check for relevant analysis**:
+2. **Load project context**:
 
-Read `{BRAIN_PATH}/resources/strategy/{topic}/analysis.md` if it exists.
+If an active project is set:
 
-3. If no analysis exists, offer to create one first.
+- Read `{PROJECT_PATH}/context.md` -- understand what the project is
+- Read `{PROJECT_PATH}/strategy/strategy.md` -- understand current strategy
+- Read all files in `{PROJECT_PATH}/competitors/` -- understand competitive landscape
 
-4. **Document the decision** using the template from `templates/decision-log.md`:
+3. **Check for relevant analysis**:
 
-```yaml
----
-captured: {timestamp}
-type: decision-log
-topic: {topic}
-status: {pending|decided|implemented}
-decided_date: {date if decided}
----
+Look for existing `*-analysis.md` files in the paths defined by `reference/folder-structure.md`:
 
-# Decision: {Topic}
+- If project-scoped: check project strategy path first, then brain-level resources if something relevant exists
+- If area-scoped or general: check brain-level resources
 
-## Context
-{What situation requires this decision}
+If no analysis exists, offer to create one first.
 
-## Decision Statement
-{Clear statement of what needs to be decided}
+4. **Document the decision**:
 
-## Options Considered
+Use the appropriate template from `templates/decision.md`:
 
-### Option A: {Name}
-- **Description**: {what this involves}
-- **Pros**:
-  - {benefit 1}
-  - {benefit 2}
-- **Cons**:
-  - {drawback 1}
-  - {drawback 2}
-- **Cost/Effort**: {estimate}
-- **Risk**: {high/medium/low}
+- For significant decisions: use the Full Decision Log template
+- For smaller decisions: use the Quick Decision template
 
-### Option B: {Name}
-...
+Consider using supplementary tools from the same file:
 
-## Decision
-**Chosen**: {Option name}
-**Rationale**: {Why this option}
-**Trade-offs accepted**: {What we're giving up}
+- Pre-Mortem Analysis (for high-risk decisions)
+- Second-Order Thinking (for decisions with cascading effects)
+- Reversibility Assessment (when unsure about commitment level)
 
-## Implementation
-- [ ] {Step 1}
-- [ ] {Step 2}
-- [ ] {Step 3}
+5. **Save**:
 
-## Success Criteria
-{How we'll know this was the right decision}
+Resolve scope using `SKILL.md` routing, then look up the correct path from `reference/folder-structure.md`.
 
-## Review Date
-{When to revisit this decision}
-
-## Related
-- {Link to analysis if exists}
-- {Link to related decisions}
+```bash
+mkdir -p {resolved_directory}
 ```
-
-5. **Save to**: `{BRAIN_PATH}/areas/decisions/YYYY-MM-DD-{topic}.md`
 
 6. **Output summary**:
 

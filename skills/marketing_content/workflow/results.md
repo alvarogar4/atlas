@@ -8,17 +8,18 @@
 
 ## Setup
 
-Execute **Config** from SKILL.md.
+Execute **Full** config from `atlas:second_brain`.
 
 ## Process
 
-1. **Determine channel and topic**: Use the channel and topic from conversation.
+1. **Determine channel and topic**: Follow the Topic Determination pattern from SKILL.md. Channel from conversation.
 
 2. **Find content folder:**
 
 ```bash
 CONTENT_FOLDER=$(ls -d ${PROJECT_PATH}/marketing/content/*${topic}* 2>/dev/null | head -1)
 ```
+
 If not found → "Content folder not found."
 
 3. **Read draft to understand what was published:**
@@ -27,13 +28,13 @@ If not found → "Content folder not found."
 cat "${CONTENT_FOLDER}/3_draft-${channel}.md"
 ```
 
-4. **CHECKPOINT — STOP AND WAIT.** Gather metrics by channel:
+4. **CHECKPOINT — STOP AND WAIT.** Gather metrics and learnings:
 
-**Blog:**
+**Blog metrics** (leave blank if not available):
+
 ```
 Recording results for: {title}
 
-Please provide metrics (leave blank if not available):
 - Page views:
 - Unique visitors:
 - Avg. time on page:
@@ -45,7 +46,8 @@ Please provide metrics (leave blank if not available):
 - Conversions (if applicable):
 ```
 
-**LinkedIn:**
+**LinkedIn metrics:**
+
 ```
 - Impressions:
 - Reactions:
@@ -57,7 +59,8 @@ Please provide metrics (leave blank if not available):
 - Engagement rate:
 ```
 
-**Twitter:**
+**Twitter metrics:**
+
 ```
 - Impressions:
 - Likes:
@@ -69,7 +72,8 @@ Please provide metrics (leave blank if not available):
 - New followers:
 ```
 
-**Email:**
+**Email metrics:**
+
 ```
 - Emails sent:
 - Delivered:
@@ -81,7 +85,7 @@ Please provide metrics (leave blank if not available):
 - Revenue (if applicable):
 ```
 
-5. **CHECKPOINT — STOP AND WAIT.** Gather learnings:
+**Learnings:**
 
 ```
 What worked well?
@@ -96,7 +100,7 @@ Should this content be:
 [ ] Promoted further
 ```
 
-6. **Save:** `${CONTENT_FOLDER}/5_results-${channel}.md`
+5. **Save:** `${CONTENT_FOLDER}/5_results-${channel}.md`
 
 ### Output
 
@@ -166,31 +170,4 @@ performance: {above_benchmark|meets_benchmark|below_benchmark}
 
 ## Benchmarks by Channel
 
-### Blog
-| Metric | Good | Great |
-|--------|------|-------|
-| Page views (first week) | 100+ | 500+ |
-| Avg. time on page | 2+ min | 4+ min |
-| Bounce rate | <70% | <50% |
-| Social shares | 10+ | 50+ |
-
-### LinkedIn
-| Metric | Good | Great |
-|--------|------|-------|
-| Impressions | 1,000+ | 5,000+ |
-| Engagement rate | 2%+ | 5%+ |
-| Comments | 10+ | 50+ |
-
-### Twitter
-| Metric | Good | Great |
-|--------|------|-------|
-| Impressions | 1,000+ | 10,000+ |
-| Engagement rate | 1%+ | 3%+ |
-| Retweets | 5+ | 25+ |
-
-### Email
-| Metric | Good | Great |
-|--------|------|-------|
-| Open rate | 20%+ | 35%+ |
-| Click rate | 2%+ | 5%+ |
-| Unsubscribe rate | <0.5% | <0.2% |
+See `reference/metrics.md` for full benchmark tables. Use these when comparing content performance.

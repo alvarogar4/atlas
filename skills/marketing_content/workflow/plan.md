@@ -8,17 +8,18 @@
 
 ## Setup
 
-Execute **Config** from SKILL.md.
+Execute **Full** config from `atlas:second_brain`.
 
 ## Process
 
-1. **Determine topic**: Use the topic from conversation.
+1. **Determine topic**: Follow the Topic Determination pattern from SKILL.md.
 
 2. **Find content folder** (follow Content Folder Discovery from SKILL.md):
 
 ```bash
 CONTENT_FOLDER=$(ls -d ${PROJECT_PATH}/marketing/content/*${topic}* 2>/dev/null | head -1)
 ```
+
 If not found → "I don't see a content folder for this topic. Want to start with research?"
 
 3. **Verify research exists:**
@@ -26,9 +27,21 @@ If not found → "I don't see a content folder for this topic. Want to start wit
 ```bash
 test -f "${CONTENT_FOLDER}/1_research.md"
 ```
+
 If missing → "Research hasn't been done yet for this topic. Want to start there?"
 
-4. **Determine target channels** — ask user:
+4. **Load calendar references for this topic:**
+
+Read the current calendar. Find the entry matching this topic. If the entry references audience files:
+
+- Read referenced audience personas from `{PROJECT_PATH}/marketing/audiences/{name}.md`
+- Use persona data to inform channel selection (where they hang out) and messaging alignment (tone, pain points, goals)
+
+Present audience-informed channel recommendations:
+
+- {Persona} hangs out on {platforms} -> recommend {channels}
+
+5. **Determine target channels** — ask user:
 
 ```
 Which channels do you want to target?
@@ -39,16 +52,16 @@ Options: blog, linkedin, twitter, email, hackernews, social
 
 Read the corresponding writing guidelines from the channel files listed in SKILL.md.
 
-5. **Read research and brand voice into context:**
+6. **Read research into context:**
 
 ```bash
 cat "${CONTENT_FOLDER}/1_research.md"
-cat ${PROJECT_PATH}/marketing/brand-voice.md 2>/dev/null
 ```
 
-6. **Create unified content brief** with per-channel outlines:
+7. **Create unified content brief** with per-channel outlines:
 
 ### Blog Outline Structure
+
 ```
 - Title options (3)
 - SEO Strategy (primary/secondary keywords, meta description)
@@ -60,16 +73,17 @@ cat ${PROJECT_PATH}/marketing/brand-voice.md 2>/dev/null
 ```
 
 ### LinkedIn Outline Structure
+
 ```
 - Hook (first 140 characters - before "see more")
 - Main message (3-5 key points)
 - Story/example element
-- Engagement question or CTA
-- Hashtags (3-5)
+- Closing thought or CTA (per brand voice)
 - Carousel slides (if applicable)
 ```
 
 ### Twitter Outline Structure
+
 ```
 - Thread hook (first tweet - must stand alone)
 - Thread structure (5-15 tweets)
@@ -79,6 +93,7 @@ cat ${PROJECT_PATH}/marketing/brand-voice.md 2>/dev/null
 ```
 
 ### Email Outline Structure
+
 ```
 - Subject line options (3)
 - Preheader text
@@ -89,7 +104,7 @@ cat ${PROJECT_PATH}/marketing/brand-voice.md 2>/dev/null
 - P.S. line (optional)
 ```
 
-7. **CHECKPOINT — STOP AND WAIT.** Present content brief:
+8. **CHECKPOINT — STOP AND WAIT.** Present content brief:
 
 ```
 Based on research, I propose this content brief:
@@ -103,11 +118,11 @@ Based on research, I propose this content brief:
 Does this structure work? Any sections to add/remove/adjust?
 ```
 
-8. If user requests changes, adjust and re-present.
+9. If user requests changes, adjust and re-present.
 
-9. **Only after user approves**, save: `${CONTENT_FOLDER}/2_plan.md`
+10. **Only after user approves**, save: `${CONTENT_FOLDER}/2_plan.md`
 
-### Output
+### Confirmation
 
 ```
 Content brief approved and saved: ${CONTENT_FOLDER}/2_plan.md
