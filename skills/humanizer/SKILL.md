@@ -200,6 +200,8 @@ Quick-reference for the review pass. If any of these appear in the draft, fix im
 
 **High-frequency AI words:** Additionally, align with, crucial, delve, emphasizing, enduring, enhance, fostering, garner, highlight (verb), interplay, intricate/intricacies, key (adjective), landscape (abstract noun), pivotal, showcase, tapestry (abstract noun), testament, underscore (verb), valuable, vibrant
 
+**Pseudo-insight openers:** "the real unlock is", "the part nobody mentions is", "the bigger concern is", "here's the thing nobody talks about", "what most people miss is", "the real question is". These are fine when followed by actual insight or specific knowledge. They become AI slop when they frame obvious or generic statements as hidden wisdom.
+
 **Problem:** These words appear far more frequently in post-2023 text. They often co-occur.
 
 **Before:**
