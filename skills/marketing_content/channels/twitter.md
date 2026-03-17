@@ -153,7 +153,9 @@ These 3 things > everything else.
 | ↓      | Continue reading     |
 | 1/     | Thread numbering     |
 
-## Visual Content
+## Image Requirements
+
+At least 1 image per post for the first tweet in a thread. The typical approach is an AI-generated image with a schema overlay — combining visual appeal with content value. Generate the image prompt and schema as part of the draft and save to `${CONTENT_FOLDER}/resources/`.
 
 | Content Type    | Image?      | Why                       |
 | --------------- | ----------- | ------------------------- |

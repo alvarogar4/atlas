@@ -20,20 +20,36 @@ Requires: `BRAIN_PATH`, `ACTIVE_PROJECT`, `PROJECT_PATH`
 Content follows a strict pipeline. Each step produces a numbered file:
 
 ```
-research (1_research.md) → plan (2_plan.md) → write (3_draft-{channel}.md) → review (4_review-{channel}.md) → [publish] → results (5_results-{channel}.md)
+context (0_context.md) → research (1_research.md) → plan (2_plan.md) → write (3_draft-{channel}.md) → review (4_review-{channel}.md) → [publish] → results (5_results-{channel}.md)
 ```
 
 **Starting point detection**: When a user wants to create content, determine where to start:
 
-- "I want to write about X" → Check if research exists. If not, start at research
-- "Let's plan content for X" → Check if research exists. If not, start at research
+- "I want to write about X" → Check if context exists. If not, start at context
+- "Let's plan content for X" → Check if context exists. If not, start at context
 - "Review my blog post about X" → Check if draft exists. If not, tell user to write first
-- Always enforce: research before plan, plan before write, write before review
+- Always enforce: context before research, research before plan, plan before write, write before review
+
+**Context is compulsory**: The `0_context.md` file is the single source of truth for angle, constraints, tone, narrative structure, and framing decisions. It is created through a conversational intake with the user before any research begins. All downstream workflows read it and validate against it.
+
+**Entity-aware routing**: The `second_brain` skill defines structured entities (competitors, themes, audiences, calendars, projects) with dedicated workflows for each. When the user's intent touches any of these entities, **read the entity definition first** — don't improvise with glob/ls patterns:
+
+| User intent relates to...                         | Read first                                               |
+| ------------------------------------------------- | -------------------------------------------------------- |
+| Upcoming content, schedule, what's planned        | `calendar/view.md` & `second_brain/entities/calendar.md` |
+| Quarterly planning, content cadence               | `calendar/plan.md` & `second_brain/entities/calendar.md` |
+| Competitor mentions, positioning, differentiation | `second_brain/entities/competitor.md`                    |
+| Content themes, topic areas, theme balance        | `second_brain/entities/theme.md`                         |
+| Target audience, personas, who we're writing for  | `second_brain/entities/audience.md`                      |
+| Project context, switching projects               | `second_brain/entities/project.md`                       |
+
+Entity definitions tell you where the data lives, what structure it follows, and how to query it. Always follow the entity's documented process instead of searching manually.
 
 ### Capabilities
 
 | What the user wants                                 | Workflow                                                 |
 | --------------------------------------------------- | -------------------------------------------------------- |
+| Define content context, angle, and constraints      | `workflow/context.md`                                    |
 | Research a content topic                            | `workflow/research.md`                                   |
 | Plan content structure                              | `workflow/plan.md`                                       |
 | Write content for a channel                         | `workflow/write.md`                                      |
@@ -50,6 +66,7 @@ Before starting any content workflow, check for existing work using the Content 
 
 If folder found, check which files exist to determine current state:
 
+- Has `0_context.md` → context defined
 - Has `1_research.md` → research done
 - Has `2_plan.md` → planning done
 - Has `3_draft-{channel}.md` → draft exists for that channel
@@ -65,6 +82,7 @@ Content is organized topic-first with shared research/plan and channel-suffixed 
 ```
 ${PROJECT_PATH}/marketing/content/
 └── {date}_{topic}/
+    ├── 0_context.md                # Angle, constraints, framing (context)
     ├── 1_research.md               # Research findings (research)
     ├── 2_plan.md                   # Content brief (plan)
     ├── 3_draft-{channel}.md        # Written content (write)
@@ -193,7 +211,7 @@ Content workflows spawn these agents:
 
 ## Error Handling
 
-- **Missing prerequisite**: Tell user which step is needed first and offer to start it. Example: "This topic needs research before we can plan. Want me to start researching?"
-- **Content folder not found**: "I don't see any work on this topic yet. Want to start with research?"
+- **Missing prerequisite**: Tell user which step is needed first and offer to start it. Example: "This topic needs context before we can research. Want me to start there?"
+- **Content folder not found**: "I don't see any work on this topic yet. Want to start with context?"
 - **Agent failure**: Log error, present partial results, offer to retry
 - **Checkpoint timeout**: Save progress, allow resume

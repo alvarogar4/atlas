@@ -14,7 +14,13 @@ If exists, use as color/style defaults.
 
 ### Step 2: Gather Requirements from User
 
-**Always ask before composing.** Use AskUserQuestion or conversational questions:
+**If visual identity exists (Step 1), use it as the source of truth** for colors, style, mood, and rendering. Only ask the user about subject, purpose, and restrictions.
+
+**If no visual identity exists**, prompt the user to create one first using the visual identity foundation (`second_brain/foundations/visual-identity.md`). If the user declines, ask the style/color/mood/rendering questions below before composing.
+
+> **Note**: Examples throughout this guide (e.g., "isometric", "3D depth", specific hex codes) define the prompt _structure_, not recommended defaults. Never treat example values as the style to use.
+
+**Always ask:**
 
 1. **Subject**: "What should the image depict? What concept or scene?"
 
@@ -26,20 +32,18 @@ If exists, use as color/style defaults.
    - Thumbnail/card (400x300)
    - Other (ask dimensions)
 
-3. **Colors**: "What colors should dominate?"
-   - If visual identity exists, confirm: "Use the brand palette?"
-   - If not: "What's the primary color? Secondary?"
+3. **Restrictions**: "Anything to avoid?"
+   - Default: no text, no logos, no human faces. Can be overwritten by visual identity, it always has priority.
 
-4. **Style**: "What visual style?"
-   - Clean/minimal, dramatic/bold, futuristic, classic/elegant, playful, organic, etc.
+**Only ask if no visual identity is defined and user declined to create one:**
 
-5. **Mood**: "What feeling should it evoke?"
-   - Professional, warm, energetic, calm, bold, sophisticated, etc.
+4. **Colors**: "What colors should dominate? Primary? Secondary?"
 
-6. **Rendering**: "Illustrated or photorealistic? 2D flat or 3D depth?"
+5. **Style**: "What visual style?" (clean/minimal, dramatic/bold, futuristic, classic/elegant, playful, organic, etc.)
 
-7. **Restrictions**: "Anything to avoid?"
-   - Default: no text, no logos, no human faces
+6. **Mood**: "What feeling should it evoke?" (professional, warm, energetic, calm, bold, sophisticated, etc.)
+
+7. **Rendering**: "Illustrated or photorealistic? 2D flat or 3D depth?"
 
 ### Step 3: Compose the Prompt
 

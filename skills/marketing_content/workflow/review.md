@@ -27,16 +27,23 @@ test -f "${CONTENT_FOLDER}/3_draft-${channel}.md"
 
 If missing → "I don't see a draft for this channel yet. Want to write it?"
 
-3. **Read draft and research into context:**
+3. **Read context, draft, and research into context:**
 
 ```bash
+cat "${CONTENT_FOLDER}/0_context.md"
 cat "${CONTENT_FOLDER}/3_draft-${channel}.md"
 cat "${CONTENT_FOLDER}/1_research.md"
 ```
 
-4. **Apply humanizer verification pass:**
+The `0_context.md` defines the angle, constraints, and framing decisions. The review must verify the draft respects these.
 
-The writing pass applied humanizer rules during generation. This pass is a **verification scan**: it catches patterns that slipped through because the model was balancing content quality with pattern avoidance. Load the `atlas:humanizer` skill, verify the draft against every pattern, use the zero-tolerance checklist for a fast scan. Fix any patterns found and track changes.
+4. **Apply humanizer verification pass (systematic, not intuitive):**
+
+The writing pass applied humanizer rules during generation. This pass is a **mandatory systematic scan**: go through every one of the 29 patterns in the zero-tolerance checklist, one by one, actively searching the draft text for each pattern. Do NOT do a "read and spot what jumps out" pass. That misses subtle variants.
+
+For each pattern: read its description, then scan the entire draft looking specifically for that pattern. Check for **variant forms**, not just the exact examples listed.
+
+Load the `atlas:humanizer` skill, work through the checklist row by row, fix any patterns found, track all changes.
 
 This runs before QA so the reviewer evaluates the actual content that will be published.
 
@@ -48,6 +55,7 @@ prompt: "Review {channel} content for quality
 
 IMPORTANT: Do NOT create any files or folders. Return your findings as text only. The main agent will handle it.
 
+Context file: ${CONTENT_FOLDER}/0_context.md
 Draft file: ${CONTENT_FOLDER}/3_draft-${channel}.md
 Research file: ${CONTENT_FOLDER}/1_research.md
 Channel: {channel}
@@ -55,6 +63,7 @@ Channel: {channel}
 Use the review checklist from reference/review-checklist.md as your primary reference.
 
 Review checklist:
+0. Context compliance (BLOCKING): Verify the draft respects every constraint, angle, and framing decision from 0_context.md. Any violation is a BLOCKED issue.
 1. Typos and grammar issues (with line numbers)
 2. Factual accuracy (verify against research sources)
 3. Legal issues (claims, trademark, copyright). Scan the draft for every third-party product, technology, or brand name mentioned. For each one:
@@ -63,12 +72,7 @@ Review checklist:
   - Apply the correct symbol (®, ™) with the frequency and placement that brand requires
   - This is a **blocking** check: missing trademark symbols = BLOCKED status
 4. Brand voice consistency
-5. Channel-specific requirements:
-   - Blog: SEO optimization (title, meta, headings)
-   - LinkedIn: Hook effectiveness, closing style matches brand voice
-   - Twitter: Character limits, thread coherence
-   - Email: Subject line, CTA placement
-   - Hacker News: NO marketing language, Show HN title format, first comment structure
+5. Channel compliance (BLOCKING): Read the channel guidelines file (channels/{channel}.md). Verify every measurable constraint — character limits, keyword placement, word counts, structure rules, quality checklist items. Any violation is a BLOCKED issue. This is a systematic check, not a spot check.
 6. CTA effectiveness
 7. Flow & structure: ideas introduced in one section are resolved in corresponding sections, logical linear progression, no orphaned concepts
 

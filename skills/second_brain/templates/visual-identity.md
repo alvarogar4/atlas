@@ -45,5 +45,22 @@ type: visual-identity
 
 - **Aesthetic**: {style}
 - **Mood**: {mood}
-- **Rendering**: {style}
+- **Rendering**: {rendering}
+
+## AI Image Generation Guidelines
+
+Defaults for AI-generated visuals (hero images, illustrations, conceptual art).
+
+- **Perspective**: {perspective}
+- **Rendering style**: {rendering style}
+- **Composition**: {composition}
+- **Lighting**: {lighting}
+- **Restrictions**: {restrictions}
+
+## AI Schema Diagram Guidelines
+
+Defaults for schema diagrams (architecture, flows, comparisons).
+
+- **Visual patterns**: {patterns, e.g., rounded cards, sharp edges, glassmorphism}
+- **Conveys**: {what they should communicate, e.g., technical precision, approachable simplicity}
 ```

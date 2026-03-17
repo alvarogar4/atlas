@@ -10,6 +10,7 @@ Execute **Project** config from `atlas:second_brain`.
 
 1. List all directories in `{PROJECT_PATH}/marketing/content/`. If user asks for a range of dates, use the calendar to identify the content in that range.
 2. For each directory, check which pipeline files exist:
+   - `0_context.md` -> Context defined
    - `1_research.md` -> Research complete
    - `2_plan.md` -> Planned
    - `3_draft-{channel}.md` -> Draft complete (note which channels)
@@ -24,7 +25,7 @@ Display a summary table:
 
 | Topic   | Date   | Stage                                          | Channels               | Next Step         |
 | ------- | ------ | ---------------------------------------------- | ---------------------- | ----------------- |
-| {topic} | {date} | {Research/Plan/Draft/Review/Published/Results} | {channels with status} | {what to do next} |
+| {topic} | {date} | {Context/Research/Plan/Draft/Review/Published/Results} | {channels with status} | {what to do next} |
 
 **Summary statistics**:
 

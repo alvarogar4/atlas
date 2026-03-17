@@ -20,17 +20,27 @@ Execute **Full** config from `atlas:second_brain`.
 CONTENT_FOLDER=$(ls -d ${PROJECT_PATH}/marketing/content/*${topic}* 2>/dev/null | head -1)
 ```
 
-If not found → "I don't see a content folder for this topic. Want to start with research?"
+If not found → "I don't see a content folder for this topic. Want to start with context?"
 
-3. **Verify research exists:**
+3. **Verify context and research exist:**
 
 ```bash
+test -f "${CONTENT_FOLDER}/0_context.md"
 test -f "${CONTENT_FOLDER}/1_research.md"
 ```
 
-If missing → "Research hasn't been done yet for this topic. Want to start there?"
+If context missing → "Context hasn't been defined yet for this topic. Let's start there to align on angle and constraints."
+If research missing → "Research hasn't been done yet for this topic. Want to start there?"
 
-4. **Load calendar references for this topic:**
+4. **Read context into planning scope:**
+
+```bash
+cat "${CONTENT_FOLDER}/0_context.md"
+```
+
+The context file defines the angle, constraints, tone, and framing decisions for this piece. The content brief must serve these — don't propose outlines that conflict with the context.
+
+5. **Load calendar references for this topic:**
 
 Read the current calendar. Find the entry matching this topic. If the entry references audience files:
 
@@ -41,7 +51,7 @@ Present audience-informed channel recommendations:
 
 - {Persona} hangs out on {platforms} -> recommend {channels}
 
-5. **Determine target channels** — ask user:
+6. **Determine target channels** — ask user:
 
 ```
 Which channels do you want to target?
@@ -50,15 +60,15 @@ Options: blog, linkedin, twitter, email, hackernews, social
 
 **CHECKPOINT — STOP AND WAIT.**
 
-Read the corresponding writing guidelines from the channel files listed in SKILL.md.
+Read the corresponding writing guidelines from the channel files listed in SKILL.md. **Channel guidelines are hard constraints, not suggestions.** Every measurable requirement (character limits, keyword placement, word count targets, structure rules) must be satisfied in the outline. Do not propose options that violate the channel's own rules.
 
-6. **Read research into context:**
+7. **Read research into context:**
 
 ```bash
 cat "${CONTENT_FOLDER}/1_research.md"
 ```
 
-7. **Create unified content brief** with per-channel outlines:
+8. **Create unified content brief** with per-channel outlines:
 
 ### Blog Outline Structure
 
@@ -104,7 +114,7 @@ cat "${CONTENT_FOLDER}/1_research.md"
 - P.S. line (optional)
 ```
 
-8. **CHECKPOINT — STOP AND WAIT.** Present content brief:
+9. **CHECKPOINT — STOP AND WAIT.** Present content brief:
 
 ```
 Based on research, I propose this content brief:
@@ -118,9 +128,9 @@ Based on research, I propose this content brief:
 Does this structure work? Any sections to add/remove/adjust?
 ```
 
-9. If user requests changes, adjust and re-present.
+10. If user requests changes, adjust and re-present.
 
-10. **Only after user approves**, save: `${CONTENT_FOLDER}/2_plan.md`
+11. **Only after user approves**, save: `${CONTENT_FOLDER}/2_plan.md`
 
 ### Confirmation
 

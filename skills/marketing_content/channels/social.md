@@ -92,6 +92,10 @@ One piece of pillar content can become:
 - [ ] No placeholder text
 - [ ] Formatting renders correctly
 
+## Image Requirements
+
+It really depends on the channel. Evaluate individually if not specific folder exists.
+
 ## Social Post Frontmatter
 
 ```yaml

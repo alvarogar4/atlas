@@ -14,7 +14,23 @@ Execute **Full** config from `atlas:second_brain`.
 
 1. **Determine topic**: Follow the Topic Determination pattern from SKILL.md.
 
-2. **Read calendar files for phase objectives:**
+2. **Verify context exists:**
+
+```bash
+test -f "${CONTENT_FOLDER}/0_context.md"
+```
+
+If missing → "Context hasn't been defined yet for this topic. Let's start there to align on angle, constraints, and framing." Then run `workflow/context.md`.
+
+If found, read it into context:
+
+```bash
+cat "${CONTENT_FOLDER}/0_context.md"
+```
+
+The context file is the source of truth for this piece. All research should serve the angle, respect the constraints, and align with the framing decisions defined there.
+
+3. **Read calendar files for phase objectives:**
 
 ```bash
 cat ${PROJECT_PATH}/marketing/calendars/*.md 2>/dev/null
@@ -26,7 +42,7 @@ Extract from active calendar:
 - Success Criteria (how to measure success)
 - Per-post objectives relevant to this topic
 
-3. **Read themes for topic context:**
+4. **Read themes for topic context:**
 
 ```bash
 ls ${PROJECT_PATH}/marketing/themes/*.md 2>/dev/null && cat ${PROJECT_PATH}/marketing/themes/*.md
@@ -34,7 +50,7 @@ ls ${PROJECT_PATH}/marketing/themes/*.md 2>/dev/null && cat ${PROJECT_PATH}/mark
 
 Match topic against themes to understand keywords, target frequency, subtopics.
 
-4. **Load calendar references for this topic:**
+5. **Load calendar references for this topic:**
 
 Find the calendar entry matching the current topic. If the entry has a `References` column:
 
@@ -42,38 +58,23 @@ Find the calendar entry matching the current topic. If the entry has a `Referenc
 - Pass competitor data to the `atlas:market_researcher` subagent for differentiation context
 - Pass audience data to inform research angle and reader perspective
 
-5. **Check for existing content folder** (follow Content Folder Discovery from SKILL.md):
+6. **Find content folder** (follow Content Folder Discovery from SKILL.md):
 
 ```bash
-DATE=$(date +%Y-%m-%d)
-TOPIC_SLUG=$(echo "{topic}" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -cd 'a-z0-9-')
-EXISTING_FOLDERS=$(ls -d ${PROJECT_PATH}/marketing/content/*${TOPIC_SLUG}* 2>/dev/null)
+CONTENT_FOLDER=$(ls -d ${PROJECT_PATH}/marketing/content/*${TOPIC_SLUG}* 2>/dev/null | head -1)
 ```
 
-**If existing folder(s) found:**
+The content folder should already exist from the context step. If not found → "I don't see a content folder for this topic. Let's start with context to define the angle and constraints."
 
-```
-Found existing campaign folder(s) for this topic:
-{list each folder with date}
+7. **Read context constraints into research scope:**
 
-Options:
-1. Use existing folder: {folder path}
-2. Create new folder for this topic
+The `0_context.md` defines what this piece is about, what angles to pursue, and what to avoid. Use these as filters during research:
 
-Your choice?
-```
+- Only pursue sources that serve the defined angle
+- Skip research directions that conflict with the constraints
+- Weight findings by relevance to the framing decisions
 
-**CHECKPOINT — STOP AND WAIT.**
-
-6. **Create content folder** (only if no existing folder chosen):
-
-```bash
-CONTENT_FOLDER="${PROJECT_PATH}/marketing/content/${DATE}_${TOPIC_SLUG}"
-mkdir -p "${CONTENT_FOLDER}"
-mkdir -p "${CONTENT_FOLDER}/resources"
-```
-
-7. **Locate similar past content**:
+8. **Locate similar past content**:
 
 ```
 subagent_type: atlas:locate_knowledge
@@ -92,7 +93,7 @@ Return:
 - Suggested differentiation angles"
 ```
 
-8. **Analyze past content patterns** (if content found):
+9. **Analyze past content patterns** (if content found):
 
 ```
 subagent_type: atlas:analyze_knowledge
@@ -114,7 +115,7 @@ Return patterns that should inform the new content research."
 
 **Wait for analysis to complete before checkpoint.**
 
-9. **CHECKPOINT — STOP AND WAIT.** If overlapping content found:
+10. **CHECKPOINT — STOP AND WAIT.** If overlapping content found:
 
 ```
 Found {n} related pieces:
@@ -129,13 +130,16 @@ Options:
 Your choice?
 ```
 
-10. **Only after user confirms**, spawn `atlas:market_researcher`:
+11. **Only after user confirms**, spawn `atlas:market_researcher`:
 
 ```
 subagent_type: atlas:market_researcher
 prompt: "Research content topic: '{topic}'
 
 IMPORTANT: Do NOT create any files or folders. Return your findings as text only. The main agent will handle saving.
+
+Content context (from 0_context.md — these are hard constraints):
+{paste relevant sections from 0_context.md: angle, constraints, framing decisions}
 
 Context from project:
 - Phase Objective: {from calendar}
@@ -166,7 +170,7 @@ Return:
 - Open questions requiring user input"
 ```
 
-11. **CHECKPOINT — STOP AND WAIT.** Present research findings:
+12. **CHECKPOINT — STOP AND WAIT.** Present research findings:
 
 ```
 Research complete!
@@ -181,9 +185,9 @@ Open questions:
 Proceed with this angle? (y/n/adjust)
 ```
 
-12. If user has questions or adjustments, iterate.
+13. If user has questions or adjustments, iterate.
 
-13. **Only after user confirms**, save: `${CONTENT_FOLDER}/1_research.md`
+14. **Only after user confirms**, save: `${CONTENT_FOLDER}/1_research.md`
 
 ### Output
 

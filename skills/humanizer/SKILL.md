@@ -596,7 +596,7 @@ AI detectors don't just look at words. They analyze statistical patterns across 
 ## Process
 
 1. Read the input text carefully
-2. Identify all instances of the patterns above
+2. **Mandatory systematic checklist scan.** Go through all 29 patterns one by one. For each pattern: read its description, then scan the entire text looking specifically for that pattern. Do NOT do a "read and spot what jumps out" pass. That catches obvious issues but misses subtle variants. Check for **variant forms**, not just the exact examples listed. Every pattern must be actively searched for across every paragraph.
 3. Rewrite each problematic section
 4. Ensure the revised text:
    - Sounds natural when read aloud

@@ -127,6 +127,16 @@ Short phrases that keep readers scrolling:
 - Use single-sentence paragraphs for emphasis
 - Visual break every 300-400 words (subheading, image, blockquote, bullet list)
 
+### Image Requirements
+
+Blog posts require visual assets as part of the draft. Prefer schemas and technical diagrams over AI-generated images — they carry more value, especially in technical articles where architecture diagrams, flowcharts, and data flows are essential.
+
+- **Social card**: Always 1 (schema or diagram that captures the article's core concept)
+- **In-content images**: Schemas and diagrams as needed. If the plan doesn't specify images, evaluate where architecture diagrams, flowcharts, comparison charts, or process flows would strengthen the piece
+- **AI-generated images**: Use sparingly — only when no schema/diagram fits (e.g., non-tech articles, abstract concepts, mood/tone pieces)
+
+All image prompts and assets go in `${CONTENT_FOLDER}/resources/`.
+
 ### Images and Diagrams
 
 | Image Type                         | Tool                                          |

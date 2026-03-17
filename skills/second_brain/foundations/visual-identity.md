@@ -20,11 +20,30 @@ Execute **Project** config from SKILL.md.
 
 ## Questions
 
+### Brand Colors
+
 1. "What is your primary brand color?" (hex or name)
 2. "What is your secondary brand color?"
+
+### Visual Style
+
 3. "What visual style?" (modern, classic, playful, minimal, bold)
 4. "What mood/feeling?" (energetic, calm, professional, creative)
-5. "Any design references or inspirations?"
+
+### AI Image Generation
+
+5. "For AI-generated images — what perspective?" (front-facing, bird's-eye, isometric, dramatic angle)
+6. "For AI-generated images — what rendering style?" (flat vector, 3D with soft shadows, painterly, photorealistic)
+7. "For AI-generated images — any restrictions?" (e.g., no human faces, no text overlays)
+
+### AI Schema Diagrams
+
+8. "For schema diagrams — what visual patterns?" (e.g., rounded cards, sharp edges, glassmorphism)
+9. "For schema diagrams — what should they convey?" (e.g., technical precision, approachable simplicity, data flow)
+
+### References
+
+10. "Any design references or inspirations?"
 
 ## Execution
 

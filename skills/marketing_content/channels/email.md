@@ -157,6 +157,10 @@ cta_primary: "{cta text}"
 ---
 ```
 
+## Image Requirements
+
+No images required unless the content brief explicitly specifies visual assets.
+
 ## Email Quality Checklist
 
 - [ ] Subject line is 30-50 characters
