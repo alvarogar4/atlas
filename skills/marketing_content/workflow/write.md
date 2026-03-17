@@ -32,16 +32,19 @@ test -f "${CONTENT_FOLDER}/2_plan.md"
 
 If missing → "The content brief isn't ready yet. Want to create one?"
 
-4. **Read channel-specific writing guidelines** from `channels/{channel}.md`.
+4. **Read channel-specific writing guidelines** from `channels/{channel}.md`. **These are hard constraints.** Every measurable requirement (character limits, keyword placement, word counts, structure rules, quality checklist items) must be satisfied in the draft. Do not produce content that violates the channel's own rules.
 
-5. **Read content brief and research into context:**
+5. **Read context, content brief, and research into context:**
 
 ```bash
+cat "${CONTENT_FOLDER}/0_context.md"
 cat "${CONTENT_FOLDER}/2_plan.md"
 cat "${CONTENT_FOLDER}/1_research.md"
 ```
 
-6. **Load the `atlas:humanizer` skill.** These are **generation constraints**, not post-processing. Internalize all 29 patterns BEFORE writing a single word, and make sure to apply them to the draft.
+The `0_context.md` file contains the framing decisions, constraints, and tone for this piece. These are **hard constraints** during writing — every sentence must respect the angle, use the approved terminology, and avoid anything the constraints rule out.
+
+6. **Load the `atlas:humanizer` skill.** These are **generation constraints**, not post-processing. Read the zero-tolerance checklist and every pattern description. Before writing a single word, you must know all 29 patterns well enough to avoid them during generation, including variant forms. The checklist exists because "internalizing" rules isn't enough. Treat each pattern as a hard constraint: if a sentence would trigger any pattern, rewrite it before moving on.
 
 7. **Write content following the channel guidelines and humanizer rules:**
 
@@ -62,12 +65,26 @@ Content guidelines:
 - Match format requirements for the channel
 - Include clear call-to-action
 - Do NOT carry over formatting patterns from research documents (em dashes, list styles, etc.)
-- Apply ALL humanizer rules from the `atlas:humanizer` skill during writing, not after
+- Every sentence and pargrpah must satisfy all 29 humanizer patterns as it is written. If you catch yourself generating a pattern, stop and rewrite that sentence before continuing. Do not plan to "fix it later."
 - Apply trademark symbols (®, ™) on first mention of third-party products per project context rules or check the product's official website for their trademark usage guidelines
 
 8. **Save draft immediately:** `${CONTENT_FOLDER}/3_draft-${channel}.md`
 
 The user will review via `git diff`. Do NOT ask for acknowledgment before saving.
+
+9. **Image assessment and generation (COMPULSORY):**
+
+After saving the draft, check the channel guidelines (`channels/{channel}.md`) for **Image Requirements**. Every channel defines how many images are needed and when to skip.
+
+**Process:**
+
+- Read the channel's image requirements section
+- Determine how many images are needed and their purpose (hero/social card, diagram, illustration, etc.)
+- Load `atlas:marketing_visuals` skill
+- Generate AI image prompts or schemas for each required image
+- Save prompts and any generated assets to `${CONTENT_FOLDER}/resources/`
+- If the channel guidelines say no images are needed, skip and note "No images required for this channel" in the output
+- **Reuse across channels**: Images in `resources/` are shared. When writing for a second channel on the same topic, check existing assets before generating new ones — if they fit for the use case, you can reuse or adapt across channels if they serve the purpose.
 
 ### Output
 
@@ -75,6 +92,7 @@ Present the article in the chat too
 
 ```
 Draft saved: ${CONTENT_FOLDER}/3_draft-${channel}.md
+Images: {N} resouce(s) saved to ${CONTENT_FOLDER}/resources/
 
 Ready for quality review?
 ```

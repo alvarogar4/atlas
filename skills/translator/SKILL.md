@@ -370,7 +370,7 @@ Translation patterns are only half the job. The other half is preserving the aut
 1. Read the full source text before starting (don't translate sentence by sentence)
 2. Identify the register and voice
 3. Translate in meaningful chunks (paragraphs, not lines)
-4. Run through the 18 anti-patterns checklist
+4. **Mandatory systematic checklist scan.** Go through all 18 anti-patterns one by one. For each pattern: read its description, then scan the entire translation looking specifically for that pattern. Do NOT do a "read and spot what jumps out" pass. That approach catches surface issues (missing punctuation, obvious false friends) but misses deeper problems (calques, stiff vocabulary, structural borrowing, register drift). Every pattern must be actively searched for across every paragraph. Check for **variant forms**, not just the exact examples listed. This step is the reason the checklist exists. Skipping it or doing it superficially defeats the purpose of this skill.
 5. Read the translation aloud. Does it sound like something a native speaker would write?
 6. Check terminology consistency across the document
 7. Verify punctuation follows target-language conventions

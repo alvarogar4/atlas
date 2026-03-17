@@ -2,7 +2,10 @@
 date: "2026-01-29 15:48:16"
 sha: "no-git"
 category: wrong-pattern
-status: pending
+status: applied
+applied-date: "2026-03-17 15:28:13"
+target: "skills/marketing_visuals/guides/ai-prompting.md"
+change-type: "update"
 observed-workflows:
   subagents: []
   skills: ["atlas:marketing_visuals", "atlas:marketing_visuals"]

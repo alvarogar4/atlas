@@ -2,7 +2,10 @@
 date: "2026-02-22 22:40:56"
 sha: "03455a3"
 category: "missing-check"
-status: pending
+status: applied
+applied-date: "2026-03-17 15:16:34"
+target: "skills/marketing_content/workflow/write.md"
+change-type: "update"
 observed-workflows:
   subagents: []
   skills: ["atlas:marketing_content", "atlas:marketing_visuals"]

@@ -181,6 +181,10 @@ hook_preview: "{first 140 chars}"
 ---
 ```
 
+## Image Requirements
+
+Every LinkedIn post requires exactly 1 image. The typical approach is an AI-generated image with a schema overlay — combining visual appeal with content value. Generate the image prompt and schema with the generated image as background as part of the draft and save to `${CONTENT_FOLDER}/resources/`.
+
 ## LinkedIn Quality Checklist
 
 - [ ] Hook is under 140 characters and stops the scroll

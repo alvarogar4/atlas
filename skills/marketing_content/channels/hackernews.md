@@ -208,6 +208,10 @@ github_url: "{url}"
 ---
 ```
 
+## Image Requirements
+
+None. Hacker News is text-only.
+
 ## HN Quality Checklist
 
 - [ ] Title starts with "Show HN: " exactly
