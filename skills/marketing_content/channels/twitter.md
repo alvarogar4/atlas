@@ -174,7 +174,6 @@ At least 1 image per post for the first tweet in a thread. The typical approach 
 
 Adapt to brand voice. Common patterns:
 
-- **Minimal**: "If this was useful, follow."
 - **Action-oriented** (product): "Try it free at [link]"
 - **Engagement** (community): Ask a genuine question related to the content
 - **Strong close**: End with a takeaway that stands on its own — no CTA needed
