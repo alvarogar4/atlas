@@ -78,6 +78,18 @@ Find files that reference this topic using Grep:
 - Glob: `*.md`
 - Output mode: `files_with_matches`
 
+### Step 4b: Link-Following (Cross-Reference Expansion)
+
+After steps 1-4, check if any matched files contain markdown links to other files (look for `**See also**:`, `## Related`, `**Content**:`, or `**Series**:` lines). Extract the linked paths and add them as additional results under a "Linked References" category.
+
+This expands discovery beyond keyword matches — files that are cross-referenced from a match are likely relevant even if they don't contain the search term directly.
+
+- Grep matched files for patterns: `\[.*\]\(.*\.md\)` and `\[.*\]\(\.\./`
+- Extract relative paths from the markdown links
+- Resolve them to absolute paths
+- Add unique paths not already in the results
+- Do NOT read the linked files' contents — just report their paths
+
 ### Step 5: Type Search
 
 If looking for specific content types using Grep:
@@ -169,6 +181,13 @@ Files linking to {topic}:
 
 - `projects/product-launch/plan.md` (references this topic)
 
+### Linked References ({count})
+
+Files cross-referenced from matches (via "See also", "Related", "Content", or "Series" links):
+
+- `projects/numia/marketing/calendars/2026-Q1.md` (linked from results file)
+- `projects/numia/marketing/audiences/enterprise-buyers.md` (linked from theme file)
+
 ### By Category
 
 | Category  | Count |
@@ -178,6 +197,7 @@ Files linking to {topic}:
 | resources | Z     |
 | inbox     | A     |
 | archives  | B     |
+| linked    | C     |
 
 ### Statistics
 

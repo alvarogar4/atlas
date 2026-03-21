@@ -102,6 +102,25 @@ Should this content be:
 
 5. **Save:** `${CONTENT_FOLDER}/5_results-${channel}.md`
 
+6. **Apply cross-referencing** (see `second_brain/reference/cross-referencing.md`):
+
+- Append a `**See also**` footer to `5_results-${channel}.md` linking to all siblings **plus** upward links to the calendar and quarterly review:
+
+```markdown
+---
+**See also**: [context](0_context.md) | [research](1_research.md) | [plan](2_plan.md) | [draft ${channel}](3_draft-${channel}.md) | [calendar](../../calendars/{year}-Q{n}.md) | [Q{n} review](../../../strategy/reviews/{year}-Q{n}-quarterly.md) | [resources](resources/index.md)
+```
+
+- If this content belongs to a named series, add a series navigation line before the "See also" footer:
+
+```markdown
+- **Series**: {Series Name} | prev: [#N: Title](../YYYY-MM-DD_slug/5_results.md) | next: [#N: Title](../YYYY-MM-DD_slug/5_results.md)
+```
+
+  Update the previous entry in the series to add a `next` link to this file.
+
+- Update the `**See also**` footers in all existing siblings to include `[results ${channel}](5_results-${channel}.md)`
+
 ### Output
 
 ```

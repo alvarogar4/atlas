@@ -86,13 +86,19 @@ After saving the draft, check the channel guidelines (`channels/{channel}.md`) f
 - If the channel guidelines say no images are needed, skip and note "No images required for this channel" in the output
 - **Reuse across channels**: Images in `resources/` are shared. When writing for a second channel on the same topic, check existing assets before generating new ones — if they fit for the use case, you can reuse or adapt across channels if they serve the purpose.
 
+10. **Apply cross-referencing** (see `second_brain/reference/cross-referencing.md`):
+
+- Append a `**See also**` footer to `3_draft-${channel}.md` linking to all existing siblings (context, research, plan, other drafts, resources/index.md)
+- Update the `**See also**` footers in all existing siblings to include `[draft ${channel}](3_draft-${channel}.md)`
+- Update `resources/index.md` to list any new resources created during image generation
+
 ### Output
 
 Present the article in the chat too
 
 ```
 Draft saved: ${CONTENT_FOLDER}/3_draft-${channel}.md
-Images: {N} resouce(s) saved to ${CONTENT_FOLDER}/resources/
+Images: {N} resource(s) saved to ${CONTENT_FOLDER}/resources/
 
 Ready for quality review?
 ```

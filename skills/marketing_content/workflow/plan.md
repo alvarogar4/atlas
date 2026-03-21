@@ -132,6 +132,11 @@ Does this structure work? Any sections to add/remove/adjust?
 
 11. **Only after user approves**, save: `${CONTENT_FOLDER}/2_plan.md`
 
+12. **Apply cross-referencing** (see `second_brain/reference/cross-referencing.md`):
+
+- Append a `**See also**` footer to `2_plan.md` linking to all existing siblings (e.g., `[context](0_context.md) | [research](1_research.md) | [resources](resources/index.md)`)
+- Update the `**See also**` footers in `0_context.md` and `1_research.md` to include `[plan](2_plan.md)`
+
 ### Confirmation
 
 ```

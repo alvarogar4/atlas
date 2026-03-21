@@ -93,3 +93,14 @@ List available files:
 Populate the References column accordingly. Leave empty for entries that don't need specific context.
 
 8. **If confirmed**, save the calendar using the Content Calendar template from `second_brain/templates/calendar.md` at path `{PROJECT_PATH}/marketing/calendars/{year}-Q{n}.md`.
+
+9. **Apply cross-referencing** (see `second_brain/reference/cross-referencing.md`):
+
+- Add a header-level reference to brand voice: `**Brand voice**: [brand-voice.md](../brand-voice.md)`
+- For each week block, check if content folders already exist for the scheduled entries. If so, add a `**Content**:` line linking to each folder:
+
+```markdown
+**Content**: [Topic display](../content/YYYY-MM-DD_slug/) | [Another topic](../content/YYYY-MM-DD_slug/)
+```
+
+- For entries that don't have content folders yet, the `**Content**:` link will be added later when the content folder is created (during the context workflow)

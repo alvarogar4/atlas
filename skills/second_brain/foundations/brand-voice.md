@@ -32,6 +32,7 @@ Execute **Project** config from SKILL.md.
 - Generate brand-voice.md using the Brand Voice template from `templates/brand-voice.md`
 - Derive key messages from context + personality
 - Write to `{PROJECT_PATH}/marketing/brand-voice.md`
+- **Apply cross-referencing** (see `reference/cross-referencing.md`): link inline to theme files where content pillars are described. If themes and audiences already exist, reference them. Update theme/audience files to link back to brand-voice.md if they don't already
 
 ## Output
 

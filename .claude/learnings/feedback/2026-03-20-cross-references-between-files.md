@@ -2,7 +2,10 @@
 date: "2026-03-20 22:16:02"
 sha: "6361526"
 category: "missing-check"
-status: pending
+status: applied
+applied-date: "2026-03-21 15:13:20"
+target: "skills/second_brain/reference/cross-referencing.md, skills/second_brain/SKILL.md, skills/second_brain/entities/theme.md, skills/second_brain/entities/audience.md, skills/second_brain/foundations/brand-voice.md"
+change-type: "create+update"
 observed-workflows:
   subagents: ["atlas:atlas:locate_knowledge", "atlas:atlas:analyze_knowledge", "code:codebase-analyzer"]
   skills: ["atlas:second_brain"]
