@@ -223,6 +223,7 @@ When creating marketing content, use appropriate copywriting frameworks:
 10. **When discussing content topics** → Check for past content patterns and results to inform strategy.
 11. **When making decisions** → Suggest using the decision framework with structured options.
 12. **When setting goals** → Offer OKR structure from business strategy skill.
+13. **When asked to write any text for others** → Load `atlas:humanizer` before writing. This applies to emails, articles, messages, proposals, or any prose meant for external readers, not just content pipeline work.
 
 ---
 
