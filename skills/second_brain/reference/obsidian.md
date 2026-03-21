@@ -10,7 +10,7 @@ Atlas uses **standard relative markdown links** exclusively:
 [Display Text](../relative/path/to/file.md)
 ```
 
-Obsidian also supports wikilinks (`[[Note]]`) but we do not use them. Standard links are portable across tools and match the cross-referencing rules in `cross-referencing.md`.
+Obsidian also supports wikilinks (`[[Note]]`) but we only use them in one place: the frontmatter `related` property (`- "[[path/to/file.md]]"`). Obsidian's graph engine only creates edges from wikilinks, so plain paths in YAML are invisible to the graph. Everywhere else (body text, series navigation), standard markdown links are used for portability.
 
 ## Callouts
 

@@ -5,18 +5,20 @@
 ## Why Cross-References Matter
 
 1. **Agent discovery**: `locate_knowledge` and `analyze_knowledge` follow the `related` property to find connected files
-2. **Graph navigation**: Obsidian renders `related` paths as edges in the graph view, forming navigable clusters
+2. **Graph navigation**: Obsidian renders `related` wikilinks as edges in the graph view, forming navigable clusters
 
 ## The `related` Property
 
-Every brain file should include a `related` property in frontmatter listing paths to connected files. Paths are **relative to the vault root** (the brain root).
+Every brain file should include a `related` property in frontmatter listing wikilinks to connected files. Wikilinks are required because Obsidian only creates graph edges from `[[...]]` syntax — plain YAML strings are invisible to the graph engine.
+
+Paths inside wikilinks are **relative to the vault root** (the brain root), without a leading `/`.
 
 ```yaml
 ---
 related:
-  - /projects/personal-brand/marketing/brand-voice.md
-  - /projects/personal-brand/marketing/audiences/technical-tim.md
-  - /projects/personal-brand/marketing/calendars/2026-Q1.md
+  - "[[projects/personal-brand/marketing/brand-voice.md]]"
+  - "[[projects/personal-brand/marketing/audiences/technical-tim.md]]"
+  - "[[projects/personal-brand/marketing/calendars/2026-Q1.md]]"
 ---
 ```
 
@@ -35,9 +37,10 @@ Add paths to files that are **directly related** to the current file:
 
 ### Rules
 
-- Use vault-root paths starting with `/` (e.g., `/projects/personal-brand/context.md`)
+- Use wikilink syntax with vault-root paths, no leading `/` (e.g., `"[[projects/personal-brand/context.md]]"`)
 - Always link to files, never to directories
-- No bidirectional maintenance needed -- Obsidian shows incoming links in the backlinks panel automatically
+- Quote wikilinks in YAML (`- "[[path]]"`) so the YAML parser treats brackets as a string
+- No bidirectional maintenance needed — Obsidian shows incoming links in the backlinks panel automatically
 - When creating a new file, populate `related` with known connections. No need to update other files to link back.
 - When a file is renamed or moved, grep for its old path across the brain and update any `related` entries that reference it
 
