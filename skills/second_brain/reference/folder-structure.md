@@ -132,15 +132,32 @@ YYYY-MM-DD-{kebab-case-topic}.md
 
 ```yaml
 ---
-captured: 2024-12-16T14:30:00Z
-type: { note|idea|decision|learning|reference|meeting|task|research }
-tags: [tag1, tag2]
-status: { inbox|active|someday|reference|archived }
-project: { project-name if applicable }
-area: { area-name if applicable }
-related: [path/to/related-note.md]
+created: 2024-12-16
+modified: 2024-12-16
+tags: [marketing, idea]
+project: project-name
+related:
+  - /projects/project-name/context.md
+  - /projects/project-name/marketing/brand-voice.md
 ---
 ```
+
+Content pipeline files add `topic` to group files for the same piece:
+
+```yaml
+---
+created: 2024-12-16
+modified: 2024-12-16
+tags: [marketing, content]
+project: project-name
+topic: clickhouse-deep-dive
+related:
+  - /projects/project-name/marketing/content/2024-12-16_clickhouse-deep-dive/0_context.md
+  - /projects/project-name/marketing/calendars/2024-Q4.md
+---
+```
+
+See `reference/cross-referencing.md` for what to link in `related` and tag guidelines.
 
 ## Categorization Guide
 
@@ -227,7 +244,8 @@ These files define purpose, storage paths, templates, and management behavior. T
 
 ## Tag Conventions
 
-- Topics: `#architecture`, `#trading`, `#product`
-- Types: `#idea`, `#decision`, `#learning`
-- Status: `#urgent`, `#blocked`, `#review`
-- Projects: `#project-name`
+Simple, broad categories. No namespaces or hierarchies.
+
+- `marketing`, `strategy`, `decision`, `idea`, `learning`, `reference`
+- `content`, `competitor`, `audience`, `review`
+- `architecture`, `trading`, `product`

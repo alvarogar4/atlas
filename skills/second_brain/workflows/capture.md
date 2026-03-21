@@ -18,18 +18,17 @@ Execute **Basic** config from SKILL.md.
 
 ```markdown
 ---
-captured: {ISO timestamp}
-tags: []
-type: idea
-status: inbox
+created: { YYYY-MM-DD }
+modified: { YYYY-MM-DD }
+tags: [idea]
+project: { project-name if clearly related }
+related:
+  - { vault-root paths to related files, if any }
 ---
 
 # {Title from idea}
 
 {Full idea text}
-
----
-*Captured via Atlas*
 ```
 
 4. Confirm:

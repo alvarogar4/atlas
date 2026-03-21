@@ -189,10 +189,7 @@ Proceed with this angle? (y/n/adjust)
 
 14. **Only after user confirms**, save: `${CONTENT_FOLDER}/1_research.md`
 
-15. **Apply cross-referencing** (see `second_brain/reference/cross-referencing.md`):
-
-- Append a `**See also**` footer to `1_research.md` linking to all existing siblings in the folder (e.g., `[context](0_context.md) | [resources](resources/index.md)`)
-- Update the `**See also**` footer in `0_context.md` to include `[research](1_research.md)`
+15. **Populate `related` in frontmatter** (see `second_brain/reference/cross-referencing.md`): Add vault-root paths to siblings in the content folder, calendar entry, and any referenced theme/audience files.
 
 ### Output
 

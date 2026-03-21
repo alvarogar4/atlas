@@ -30,10 +30,10 @@ Read `{PROJECT_PATH}/context.md` before creating a persona. This informs who the
 
 ## Management
 
-- **Create**: Read project context first. Gather required fields interactively. Check if slug exists (offer overwrite or cancel). Create `marketing/audiences/` directory if needed. Write using template. **Then apply cross-referencing** (see `reference/cross-referencing.md`): add `## Related` section linking to themes that target this persona, other related personas, and brand-voice.md. Update those theme files to link back to this audience.
+- **Create**: Read project context first. Gather required fields interactively. Check if slug exists (offer overwrite or cancel). Create `marketing/audiences/` directory if needed. Write using template. Populate `related` in frontmatter with paths to themes targeting this persona, other related personas, and brand-voice.md.
 - **List**: Read all `.md` files in audiences directory. Display table: persona name, role, key goal, primary pain point.
-- **Edit**: Find by name or slug. Show current values. Ask which sections to update. Preserve unchanged sections. Update `updated` timestamp. **Update cross-references** if related themes or personas changed — add/remove links in both directions.
-- **Delete**: Confirm before deleting. Remove incoming links from related files (themes, other personas, brand-voice).
+- **Edit**: Find by name or slug. Show current values. Ask which sections to update. Preserve unchanged sections. Update `modified` date. Update `related` if related themes or personas changed.
+- **Delete**: Confirm before deleting.
 
 ## Integration
 

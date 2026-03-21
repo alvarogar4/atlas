@@ -91,7 +91,7 @@ These should happen automatically without the user needing to ask:
 - When user expresses any idea → offer to capture it
 - When user asks about a topic → decide between search (file discovery) and recall (deep synthesis) based on the question
 - When user mentions a project name → check if it exists and offer to switch
-- **After creating or updating any file** → apply cross-referencing rules from `reference/cross-referencing.md`. This includes adding "See also" footers, bidirectional entity links, and updating related files that should link back
+- **After creating or updating any file** → populate the `related` frontmatter property with vault-root paths to connected files per `reference/cross-referencing.md`
 
 ## Agent Orchestration
 
@@ -141,5 +141,5 @@ Subagents return data as structured text. The **main agent owns all file creatio
 ## Reference Files
 
 - **Folder structure**: `reference/folder-structure.md` — single source of truth for PARA structure
-- **Cross-referencing**: `reference/cross-referencing.md` — rules for linking brain files to each other (bidirectional links, "See also" footers, entity cross-refs)
+- **Cross-referencing**: `reference/cross-referencing.md` — `related` property format, tag guidelines, series navigation
 - **Project templates**: `templates/` — individual template files for all project assets

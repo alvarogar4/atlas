@@ -25,10 +25,10 @@ Use the Content Theme template from `templates/theme.md`.
 
 ## Management
 
-- **Create**: Gather required fields interactively. Check if slug already exists (offer overwrite or cancel). Create `marketing/themes/` directory if needed. Write using template. **Then apply cross-referencing** (see `reference/cross-referencing.md`): add `## Related` section linking to target audience files and brand-voice.md. Update those audience files to link back to this theme.
+- **Create**: Gather required fields interactively. Check if slug already exists (offer overwrite or cancel). Create `marketing/themes/` directory if needed. Write using template. Populate `related` in frontmatter with paths to target audience files, brand-voice.md, and strategy docs.
 - **List**: Read all `.md` files in themes directory, excluding `_archived/`. Display table: name, objective, frequency, channels.
-- **Edit**: Find theme by name or slug (fuzzy match). Show current values. Ask which sections to update. Preserve unchanged sections. Update `updated` timestamp in frontmatter. **Update cross-references** if target audience or related entities changed — add/remove links in both directions.
-- **Archive**: Confirm before moving. Move file to `_archived/` subdirectory. File is preserved, just hidden from active lists. Remove incoming links from related files.
+- **Edit**: Find theme by name or slug (fuzzy match). Show current values. Ask which sections to update. Preserve unchanged sections. Update `modified` date in frontmatter. Update `related` if target audience or related entities changed.
+- **Archive**: Confirm before moving. Move file to `_archived/` subdirectory. File is preserved, just hidden from active lists.
 - **Restore**: Move back from `_archived/` to themes directory. Re-establish cross-references.
 
 ## Integration

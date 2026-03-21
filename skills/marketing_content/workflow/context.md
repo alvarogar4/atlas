@@ -45,14 +45,6 @@ mkdir -p "${CONTENT_FOLDER}"
 mkdir -p "${CONTENT_FOLDER}/resources"
 ```
 
-Create `${CONTENT_FOLDER}/resources/index.md` with an empty resources listing:
-
-```markdown
-# Resources
-```
-
-This file will be updated as resources are added during writing.
-
 4. **Load project context for grounding:**
 
 ```bash
@@ -111,10 +103,7 @@ Does this capture everything? Anything to add or change?
 
 8. **Only after user confirms**, save: `${CONTENT_FOLDER}/0_context.md`
 
-9. **Apply cross-referencing** (see `second_brain/reference/cross-referencing.md`):
-
-- Append a `**See also**` footer to `0_context.md` linking to `[resources](resources/index.md)` (the only sibling that exists at this point)
-- Check if a calendar entry exists for this topic. If so, add `[calendar](../../calendars/{year}-Q{n}.md)` to the footer. Update the calendar's week block to add a `**Content**:` link to this folder if not already present
+9. **Populate `related` in frontmatter** (see `second_brain/reference/cross-referencing.md`): Add vault-root paths to the calendar entry for this topic (if one exists) and any referenced theme/audience files.
 
 ### Output
 

@@ -72,7 +72,7 @@ Files to analyze:
 For each file:
 1. Read the full content
 2. Extract key insights related to '{topic}'
-3. Note explicit links (related: fields) to other files
+3. Note links to other files
 4. Identify temporal patterns
 
 Return:
