@@ -1,5 +1,5 @@
 ---
-name: atlas:strategist
+name: strategist
 description: Business strategy specialist. Use for strategic planning, business model analysis, competitive positioning, or major business decisions. Applies appropriate frameworks based on the question.
 allowed-tools: [Read, Write, Bash, WebSearch, WebFetch, Task]
 model: inherit

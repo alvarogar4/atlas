@@ -1,5 +1,5 @@
 ---
-name: atlas:locate_knowledge
+name: locate_knowledge
 description: Find WHERE knowledge lives in the brain. Fast discovery without reading contents. Returns file paths for atlas:analyze_knowledge to process.
 allowed-tools: [Grep, Glob, LS]
 model: inherit
