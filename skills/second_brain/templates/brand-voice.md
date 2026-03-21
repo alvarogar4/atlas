@@ -45,4 +45,7 @@ type: brand-voice
 
 ### Bad Example
 > {Counter-example showing what NOT to do}
+
+> [!warning] Voice Boundaries
+> {Lines not to cross: topics to avoid, tones that are off-brand, common mistakes.}
 ```

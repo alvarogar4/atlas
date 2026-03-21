@@ -1,7 +1,7 @@
 ---
 name: locate_knowledge
 description: Find WHERE knowledge lives in the brain. Fast discovery without reading contents. Returns file paths for atlas:analyze_knowledge to process.
-allowed-tools: [Grep, Glob, LS]
+allowed-tools: [Grep, Glob, LS, Bash]
 model: inherit
 ---
 
@@ -43,6 +43,25 @@ Follow the **Config Chain** in `atlas:second_brain`.
    - Note counts per category
 
 ## Search Strategy
+
+### Step 0: Obsidian CLI (Preferred)
+
+Try Obsidian CLI first for faster, index-based search. If the command fails (Obsidian not running, CLI not installed), proceed to file-based steps below.
+
+```bash
+# Content search via Obsidian index
+obsidian search query="{topic}" limit=20
+
+# Tag search
+obsidian tags sort=count counts
+
+# Backlinks
+obsidian backlinks file="{topic}"
+```
+
+If CLI succeeds, use the results and still run Steps 2-4b to catch files the CLI might miss (e.g., filename-only matches, `related:` frontmatter references).
+
+If CLI fails, fall through to the full file-based strategy:
 
 ### Step 1: Content Search
 

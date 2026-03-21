@@ -65,4 +65,7 @@ type: project-strategy
 - Weekly: {what to review}
 - Monthly: {what to review}
 - Quarterly: {what to review}
+
+> [!warning] Strategic Risks
+> {Key risks or assumptions that could invalidate this strategy. Revisit during reviews.}
 ```

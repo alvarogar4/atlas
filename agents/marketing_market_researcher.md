@@ -82,7 +82,12 @@ Break down research needs into:
 
 ### Step 4: Fetch and Analyze Content
 
-- Use WebFetch for promising search results
+- Use **defuddle** as the preferred extraction tool for standard web pages (articles, docs, blog posts):
+  ```bash
+  defuddle parse <url> --md
+  ```
+  Defuddle strips navigation, ads, and clutter, returning clean markdown. Saves tokens and produces better input for analysis.
+- **Fall back to WebFetch** when defuddle fails (SPAs, auth-gated content, dynamic pages, or if defuddle is not installed)
 - Prioritize: industry reports, reputable publications, company announcements
 - Extract specific quotes with attribution
 - Note publication dates

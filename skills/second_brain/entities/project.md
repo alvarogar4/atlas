@@ -2,12 +2,11 @@
 
 ## Purpose
 
-Projects are isolated silos for different businesses or clients. Each project contains its own context, strategy, competitors, brand, and content. Projects can be local (inside the brain) or external (linked via path variables).
+Projects are isolated silos for different businesses or clients. Each project contains its own context, strategy, competitors, brand, and content. All projects live inside the brain under `projects/`. Projects that need their own git history can have a separate repo inside their folder (gitignored from the main brain repo).
 
 ## Storage
 
-- **Local path**: `{BRAIN_PATH}/projects/{name}/` — one directory per project
-- **External path**: Configured via `ATLAS_PATH_{NAME}` in `.env`
+- **Path**: `{BRAIN_PATH}/projects/{name}/` — one directory per project
 - **Type**: Collection (multiple per brain)
 - **Name rule**: kebab-case (lowercase, hyphens, numbers only)
 
@@ -18,10 +17,8 @@ Use the Project README template from `templates/readme.md` when creating.
 ## Management
 
 - **Create**: Validate name is kebab-case. Check project doesn't already exist. Create directory and README.md using template. Set as active project in `.env`.
-- **Link**: Link an external project directory. Validate path exists. Add `ATLAS_PATH_{NAME}={path}` to `.env`. Set as active.
-- **Unlink**: Remove `ATLAS_PATH_{NAME}` from `.env`. Does NOT delete any files. Clear active project if it was the unlinked one.
-- **List**: Merge local projects (`{BRAIN_PATH}/projects/`) and external projects (`ATLAS_PATH_*` in `.env`). Show content stats and active indicator.
-- **Use**: Switch active project. Validate project exists (local or external). Update `ATLAS_ACTIVE_PROJECT` in `.env`.
+- **List**: List all projects in `{BRAIN_PATH}/projects/`. Show content stats and active indicator.
+- **Use**: Switch active project. Validate project exists. Update `ATLAS_ACTIVE_PROJECT` in `.env`.
 - **Info**: Show project overview, context summary, content stats, and recent activity.
 
 ## Create Flow
@@ -46,20 +43,24 @@ Execute **Basic** config from SKILL.md.
 
 3. Generate README.md using template from `templates/readme.md`.
 
-4. Set as active project — update `.env`:
+4. Generate `dashboard.base` using the Default Project Dashboard Template from `reference/obsidian-bases.md`. This provides an Obsidian Bases view with Recent Activity, Content Pipeline, and Strategy & Competitors tabs.
+
+5. Set as active project — update `.env`:
    - If `ATLAS_ACTIVE_PROJECT=` exists, update it
    - Otherwise, add `ATLAS_ACTIVE_PROJECT={name}` after `ATLAS_BRAIN_PATH`
 
-5. Output:
+6. Output:
 
 ```
 Project created: {name}
 
 Structure:
   projects/{name}/
-  └── README.md
+  ├── README.md
+  └── dashboard.base
 
 Folders are created on-demand as you define each aspect.
+Open dashboard.base in Obsidian for a live project overview.
 
 Active project set to: {name}
 
@@ -74,79 +75,6 @@ Next steps (recommended order):
 Want to start defining the project context?
 ```
 
-## Link Flow
-
-### Setup
-
-Execute **Basic** config from SKILL.md.
-
-### Arguments
-
-- `{name}` — project name (kebab-case)
-- `{path}` — absolute path to the external project directory
-
-### Validation
-
-1. Project name must be kebab-case
-2. Path must exist and be a directory
-3. Path should contain at least a `README.md` or `context.md` (warn if not, but proceed)
-
-### Process
-
-1. Validate the path exists:
-
-   ```bash
-   # If path doesn't exist → error: "Directory not found: {path}"
-   ls -d {path}
-   ```
-
-2. Convert project name to env var format:
-   - Uppercase the name
-   - Replace `-` with `_`
-   - Result: `ATLAS_PATH_{NAME}`
-
-3. Add to `.env`:
-   - If `ATLAS_PATH_{NAME}=` exists, update the value
-   - Otherwise, append `ATLAS_PATH_{NAME}={path}`
-
-4. Set as active project — update `ATLAS_ACTIVE_PROJECT={name}` in `.env`
-
-5. Output:
-
-```
-Linked external project: {name}
-Path: {path}
-Variable: ATLAS_PATH_{NAME}={path}
-
-Active project set to: {name}
-
-This project will be available in project-list and works like any other project.
-To unlink: tell me to unlink the project.
-```
-
-## Unlink Flow
-
-Remove the link to an external project. Does NOT delete any files.
-
-### Setup
-
-Execute **Basic** config from SKILL.md.
-
-### Process
-
-1. Convert name to env var: `ATLAS_PATH_{NAME}`
-2. Remove `ATLAS_PATH_{NAME}=` from `.env`
-3. If this was the active project, clear `ATLAS_ACTIVE_PROJECT`
-
-4. Output:
-
-```
-Unlinked project: {name}
-Removed: ATLAS_PATH_{NAME}
-
-No files were deleted. The project directory still exists at its original location.
-```
-
 ## List Flow
 
 ### Setup
@@ -156,13 +84,9 @@ Execute **Basic** config from SKILL.md.
 ### Process
 
 1. Read active project from `.env` → `ATLAS_ACTIVE_PROJECT`
-2. List all directories in `{BRAIN_PATH}/projects/` (local projects)
-3. Scan `.env` for all `ATLAS_PATH_*` variables (external projects)
-4. Merge into a single list. For each project:
-   - If it has an `ATLAS_PATH_*` entry → show as external with path
-   - Otherwise → show as local
-5. For each project, count content topics and drafts by channel
-6. Display with active indicator (\*)
+2. List all directories in `{BRAIN_PATH}/projects/`
+3. For each project, count content topics and drafts by channel
+4. Display with active indicator (\*)
 
 ### Output
 
@@ -178,11 +102,6 @@ Projects:
     - Content topics: 0
     - Last activity: 2025-12-15
 
-    obsessiondb (external: /path/to/obsessiondb)
-    - Content topics: 3
-    - Drafts: blog (1)
-    - Last activity: 2025-12-18
-
 To switch projects, just tell me which one to use.
 ```
 
@@ -196,9 +115,8 @@ Execute **Basic** config from SKILL.md.
 
 Verify project exists:
 
-1. Check `{BRAIN_PATH}/projects/{name}` (local)
-2. Check for `ATLAS_PATH_{NAME}` variable (external)
-3. If neither found → list available projects (both local and external)
+1. Check `{BRAIN_PATH}/projects/{name}` exists
+2. If not found → list available projects
 
 ### Process
 

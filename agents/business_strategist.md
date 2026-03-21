@@ -70,7 +70,7 @@ Use all available sources to populate the framework:
 
 - **Project files** (loaded in Step 1): Primary source for business context, positioning, competitive landscape, strategy, and goals
 - **Located knowledge** (from locate_knowledge): Past analyses, decisions, market intelligence already in the brain
-- **Web research**: When the framework requires current market data, industry trends, or external information not in project files (e.g., PESTEL macro factors, Porter's industry dynamics, competitor moves)
+- **Web research**: When the framework requires current market data, industry trends, or external information not in project files (e.g., PESTEL macro factors, Porter's industry dynamics, competitor moves). For web content extraction, prefer **defuddle** (`defuddle parse <url> --md`) over WebFetch — it strips navigation and clutter, producing cleaner input. Fall back to WebFetch for SPAs or auth-gated content.
 - **Gaps**: When project data is insufficient for a framework section, flag it in Open Questions for the main agent to surface to the user
 
 ### Step 4: Apply Framework

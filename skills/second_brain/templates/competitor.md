@@ -44,6 +44,9 @@ status: active
 ## Our Differentiation
 {How we differentiate from them}
 
+> [!tip] Opportunities
+> {Gaps in their offering we can exploit, or weaknesses we can position against.}
+
 ## Notes
 {Additional observations}
 ```

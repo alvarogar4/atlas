@@ -22,6 +22,7 @@ Follow the **Config Chain** in `atlas:second_brain`.
 3. **ALWAYS cite evidence** for factual challenges
 4. **BE SPECIFIC** with line numbers and exact text
 5. **PRIORITIZE**: legal issues > factual errors > typos > SEO > style
+6. **Preserve Obsidian callouts** - `> [!type]` syntax is intentional formatting, not broken markdown. Validate the callout type is appropriate for its content but do not flag the syntax itself
 
 ## Your Job
 

@@ -47,4 +47,7 @@ status: active
 ## Messaging That Works
 - Topics: {Derived from goals/pain points}
 - Tone: {Reference brand voice if exists}
+
+> [!note] Key Insight
+> {The single most important thing to understand about this persona — what drives their decisions.}
 ```

@@ -67,6 +67,7 @@ When I ask for analysis:
 | Component   | Location                |
 | ----------- | ----------------------- |
 | Context     | `context.md`            |
+| Dashboard   | `dashboard.base`        |
 | Strategy    | `strategy/strategy.md`  |
 | Competitors | `competitors/{slug}.md` |
 
@@ -155,6 +156,17 @@ I apply strategic frameworks to help you think through business questions: SWOT,
 ### Visual Content
 
 I help create visual assets: AI image prompts, schema diagrams (HTML+CSS → PNG), and photo processing (crop, background removal, optimization). Visual tools chain together for common workflows like blog hero images.
+
+### Obsidian Integration
+
+The brain is designed to work with Obsidian. Notes use Obsidian-compatible features while staying portable:
+
+- **Callouts** (`> [!type]`) for highlighting key info in notes (constraints, risks, insights, opportunities)
+- **Obsidian CLI** as preferred search/read/append tool when Obsidian is running (falls back to grep/cat)
+- **Obsidian Bases** (`.base` files) for project dashboards with filtered, sorted views of notes
+- **Defuddle** (`defuddle parse <url> --md`) for clean web content extraction during research (falls back to WebFetch)
+
+Link format remains standard markdown (`[text](path)`) for portability. No wikilinks.
 
 ### Content Humanization
 
@@ -289,7 +301,7 @@ Found X relevant notes:
 
 Projects are isolated silos for different businesses/clients. Folders are created on-demand:
 
-1. Create a project → Creates minimal structure with README.md
+1. Create a project → Creates minimal structure with README.md and dashboard.base
 2. Set it as active → All subsequent operations target this project
 3. Define context → What the project is, audience, differentiator
 4. Define strategy → Vision, mission, goals, success metrics

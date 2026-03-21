@@ -153,7 +153,9 @@ performance: {above_benchmark|meets_benchmark|below_benchmark}
 1. {insight}
 
 ### Key Learning
-{One paragraph summary}
+
+> [!note] Key Takeaway
+> {One paragraph summary}
 
 ## Recommendations
 

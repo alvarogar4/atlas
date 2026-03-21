@@ -130,7 +130,9 @@ approved: {ISO timestamp}
 {core thesis}
 
 ## Constraints
-{rules and boundaries}
+
+> [!warning] Hard Constraints
+> {rules and boundaries that cannot be violated}
 
 ## Tone
 {tone notes}

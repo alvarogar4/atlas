@@ -15,14 +15,14 @@ Atlas reads configuration from multiple sources in priority order:
 
 ### Config Chain
 
-1. **Conversation context**: Check current `system-reminder` for `ATLAS_BRAIN_PATH`, `ATLAS_ACTIVE_PROJECT`, and any `ATLAS_PATH_*` values already loaded from CLAUDE.md
+1. **Conversation context**: Check current `system-reminder` for `ATLAS_BRAIN_PATH` and `ATLAS_ACTIVE_PROJECT` values already loaded from CLAUDE.md
 2. **`.env` file**: Read `.env` in the plugin folder
 3. **Error**: "Brain not configured. Let's set it up — where should I store your knowledge base?"
 
 ### Reading `.env`
 
 ```bash
-# Source .env from the plugin folder (supports ATLAS_BRAIN_PATH, ATLAS_ACTIVE_PROJECT, ATLAS_PATH_*)
+# Source .env from the plugin folder (supports ATLAS_BRAIN_PATH, ATLAS_ACTIVE_PROJECT)
 # The plugin folder is the directory containing this SKILL.md
 ```
 
@@ -36,12 +36,8 @@ Atlas reads configuration from multiple sources in priority order:
 **Project** (active project context):
 
 - Required: `ATLAS_BRAIN_PATH` + `ATLAS_ACTIVE_PROJECT`
-- Optional: `ATLAS_PATH_{NAME}` entries (per-project external paths)
 - Provides: `BRAIN_PATH`, `ACTIVE_PROJECT`, `PROJECT_PATH`
-- `PROJECT_PATH` resolution:
-  1. Convert `ACTIVE_PROJECT` to uppercase, replace `-` with `_` → `{NAME}`
-  2. If `ATLAS_PATH_{NAME}` is set → `PROJECT_PATH = that value`
-  3. Otherwise → `PROJECT_PATH = {BRAIN_PATH}/projects/{ACTIVE_PROJECT}`
+- `PROJECT_PATH` resolution: `{BRAIN_PATH}/projects/{ACTIVE_PROJECT}`
 - If no active project: list available projects, ask user to choose
 
 **Full** (brand resources for content):
@@ -76,13 +72,13 @@ Use the extracted path values **literally** — they are NOT shell environment v
 
 ### Entity Management
 
-| What the user wants                                      | Entity                                                  |
-| -------------------------------------------------------- | ------------------------------------------------------- |
-| Create, link, unlink, list, switch, or view project info | `entities/project.md`                                   |
-| Create, list, edit, or archive themes                    | `entities/theme.md`                                     |
-| Create, list, edit, or delete competitors                | `entities/competitor.md`                                |
-| Create, list, edit, or delete audiences                  | `entities/audience.md`                                  |
-| Plan or view content calendar                            | `entities/calendar.md` & `marketing_content/calendar/*` |
+| What the user wants                        | Entity                                                  |
+| ------------------------------------------ | ------------------------------------------------------- |
+| Create, list, switch, or view project info | `entities/project.md`                                   |
+| Create, list, edit, or archive themes      | `entities/theme.md`                                     |
+| Create, list, edit, or delete competitors  | `entities/competitor.md`                                |
+| Create, list, edit, or delete audiences    | `entities/audience.md`                                  |
+| Plan or view content calendar              | `entities/calendar.md` & `marketing_content/calendar/*` |
 
 ### Invisible Actions
 
@@ -142,4 +138,6 @@ Subagents return data as structured text. The **main agent owns all file creatio
 
 - **Folder structure**: `reference/folder-structure.md` — single source of truth for PARA structure
 - **Cross-referencing**: `reference/cross-referencing.md` — `related` property format, tag guidelines, series navigation
+- **Obsidian features**: `reference/obsidian.md` — callouts, embeds, highlights, comments, CLI commands, defuddle extraction
+- **Obsidian Bases**: `reference/obsidian-bases.md` — `.base` file schema, formulas, views, default project dashboard template
 - **Project templates**: `templates/` — individual template files for all project assets

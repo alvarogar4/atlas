@@ -32,32 +32,17 @@
 └── archives/                   # Completed/inactive items
 ```
 
-## External Projects
+## Git Isolation
 
-Projects can also live outside the brain via per-project path variables:
+Projects that need their own git history (e.g., client projects, open-source work) can have a separate git repo inside their `projects/{name}/` folder. Add the project folder to the brain's `.gitignore`:
 
-```env
-# In .env
-ATLAS_PATH_OBSESSIONDB=/path/to/obsessiondb
-ATLAS_PATH_GYMBROS=/path/to/gymbros
+```gitignore
+# In {BRAIN_PATH}/.gitignore
+projects/obsessiondb/
+projects/client-project/
 ```
 
-External project directories follow the same structure as `projects/{project-name}/`:
-
-```
-/path/to/external-project/
-├── README.md
-├── context.md
-├── strategy/
-├── competitors/
-└── marketing/
-    ├── content/
-    ├── calendars/
-    ├── audiences/
-    ├── themes/
-    ├── brand-voice.md
-    └── visual-identity.md
-```
+These projects are managed identically to any other project — the only difference is git tracking.
 
 **Brain-level PARA** (inbox, areas, resources, archives) always uses `ATLAS_BRAIN_PATH`, regardless of which project is active.
 
@@ -68,6 +53,7 @@ Each project under `projects/{project-name}/`:
 ```
 {project-name}/
 ├── README.md                              # Project overview
+├── dashboard.base                         # Obsidian Bases project dashboard
 ├── context.md                             # Project context
 ├── strategy/                              # Business strategy
 │   ├── strategy.md                        # Main strategy document
@@ -84,6 +70,7 @@ Each project under `projects/{project-name}/`:
 └── marketing/
     ├── content/                           # Unified content workflow (topic-first)
     │   └── YYYY-MM-DD_{topic}/
+    │       ├── 0_context.md               # Angle, constraints, framing
     │       ├── 1_research.md              # Shared research
     │       ├── 2_plan.md                  # Shared content brief
     │       ├── 3_draft-{channel}.md       # Channel-specific draft
@@ -171,14 +158,37 @@ See `reference/cross-referencing.md` for what to link in `related` and tag guide
 
 ## Operations
 
+Try Obsidian CLI first (faster, uses vault index). Fall back to file operations if Obsidian isn't running. See `reference/obsidian.md` for full CLI reference.
+
 ### Search Notes
 
 ```bash
-# Content search
-grep -ri "{query}" {BRAIN_PATH}/ --include="*.md" -l
+# Obsidian CLI (preferred)
+obsidian search query="{query}" limit=10
+obsidian tags sort=count counts
+obsidian backlinks file="{note}"
 
-# Tag search
+# File fallback
+grep -ri "{query}" {BRAIN_PATH}/ --include="*.md" -l
 grep -r "tags:.*{tag}" {BRAIN_PATH}/ --include="*.md" -l
+```
+
+### Read & Append Notes
+
+```bash
+# Obsidian CLI (preferred)
+obsidian read file="{note}"
+obsidian append file="{note}" content="{content}"
+
+# File fallback
+cat {BRAIN_PATH}/path/to/{note}.md
+```
+
+### Daily Notes
+
+```bash
+obsidian daily:read
+obsidian daily:append content="- [ ] {task}"
 ```
 
 ### Recent Activity
@@ -244,8 +254,11 @@ These files define purpose, storage paths, templates, and management behavior. T
 
 ## Tag Conventions
 
-Simple, broad categories. No namespaces or hierarchies.
+Broad categories. Hierarchical tags via `/` are supported for sub-categorization:
 
-- `marketing`, `strategy`, `decision`, `idea`, `learning`, `reference`
-- `content`, `competitor`, `audience`, `review`
+- Topics: `#marketing`, `#strategy`, `#architecture`, `#trading`
+- Types: `#idea`, `#decision`, `#learning`, `#reference`
+- Status: `#urgent`, `#blocked`, `#review`
+- Projects: `#project/obsessiondb`, `#project/gymbros`
+- Content: `#content/blog`, `#content/linkedin`
 - `architecture`, `trading`, `product`

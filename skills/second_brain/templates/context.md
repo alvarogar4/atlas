@@ -37,6 +37,9 @@ type: project-context
 ## Marketing Goals
 {Primary objectives: awareness | leads | conversions | retention}
 
+> [!important] Constraints
+> {Key constraints, non-negotiables, or rules that all content and strategy must respect. E.g., trademark usage, engine clarification, positioning limits.}
+
 ## Summary
 {2-3 sentence elevator pitch based on above}
 ```
