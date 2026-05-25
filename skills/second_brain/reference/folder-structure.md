@@ -1,6 +1,9 @@
 # Knowledge Base Folder Structure
 
-**This is the single source of truth** for the Atlas folder structure. All other skills reference this.
+**This is the default Atlas folder structure** — the fallback used when a project does not pin its own. All other skills reference this.
+
+> [!important] A project's `STRUCTURE.md` overrides this document.
+> If the active project has a `STRUCTURE.md` at its root (`{PROJECT_PATH}/STRUCTURE.md`), that file is **authoritative** for that project's folder layout, file naming, frontmatter, and cross-link style. Use this document only as the fallback for whatever the project's `STRUCTURE.md` does not specify. See `SKILL.md` → Config → [Project Structure Spec](../SKILL.md#project-structure-spec).
 
 ## Brain Root
 

@@ -39,6 +39,7 @@ Atlas reads configuration from multiple sources in priority order:
 - Provides: `BRAIN_PATH`, `ACTIVE_PROJECT`, `PROJECT_PATH`
 - `PROJECT_PATH` resolution: `{BRAIN_PATH}/projects/{ACTIVE_PROJECT}`
 - If no active project: list available projects, ask user to choose
+- `STRUCTURE = {PROJECT_PATH}/STRUCTURE.md` — if this file exists, it is **authoritative** for that project's folder layout, naming, frontmatter, and cross-linking (see [Project Structure Spec](#project-structure-spec))
 
 **Full** (brand resources for content):
 
@@ -49,6 +50,16 @@ Atlas reads configuration from multiple sources in priority order:
 - `VISUAL_IDENTITY = {PROJECT_PATH}/marketing/visual-identity.md`
 
 Use the extracted path values **literally** — they are NOT shell environment variables.
+
+### Project Structure Spec
+
+A project may pin its own folder layout, file naming, frontmatter, and cross-link style in a `STRUCTURE.md` at its root (`{PROJECT_PATH}/STRUCTURE.md`). These specs are often team-imposed and intentionally differ from the Atlas PARA default.
+
+**Precedence**: when `{PROJECT_PATH}/STRUCTURE.md` exists, it is the **authoritative source** for that project — where files go, how they are named, what frontmatter they carry, and how they link. The plugin default (`reference/folder-structure.md`) becomes the **fallback**: consult it only for what `STRUCTURE.md` leaves unspecified. On any conflict (paths, phase files, frontmatter keys, wikilinks vs markdown links), `STRUCTURE.md` wins.
+
+**When to read it**: read `STRUCTURE.md` before any operation that depends on layout — capture, content creation, file placement, naming, frontmatter, or cross-linking. Never assume the default PARA layout for a project that ships a `STRUCTURE.md`.
+
+**No spec**: if `{PROJECT_PATH}/STRUCTURE.md` is absent, use `reference/folder-structure.md` exactly as before.
 
 ## Capabilities
 
@@ -87,6 +98,7 @@ These should happen automatically without the user needing to ask:
 - When user expresses any idea → offer to capture it
 - When user asks about a topic → decide between search (file discovery) and recall (deep synthesis) based on the question
 - When user mentions a project name → check if it exists and offer to switch
+- **When a project becomes active** → check for `{PROJECT_PATH}/STRUCTURE.md`; if present, treat it as the authoritative structure/naming/frontmatter/linking spec for that project (plugin defaults are fallback) per [Project Structure Spec](#project-structure-spec)
 - **After creating or updating any file** → populate the `related` frontmatter property with vault-root paths to connected files per `reference/cross-referencing.md`
 
 ## Agent Orchestration
