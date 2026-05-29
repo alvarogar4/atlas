@@ -99,6 +99,7 @@ These should happen automatically without the user needing to ask:
 - When user asks about a topic → decide between search (file discovery) and recall (deep synthesis) based on the question
 - When user mentions a project name → check if it exists and offer to switch
 - **When a project becomes active** → check for `{PROJECT_PATH}/STRUCTURE.md`; if present, treat it as the authoritative structure/naming/frontmatter/linking spec for that project (plugin defaults are fallback) per [Project Structure Spec](#project-structure-spec)
+- **Before any git operation scoped to a project** (pull, push, status, branch, commit) → a project can be its own git repo nested inside the brain (separate remote, separate branch, often team-shared and gitignored from the brain repo). NEVER assume the brain-root repo covers it and NEVER infer repo membership from the parent. Always resolve the real boundary first with `git -C {PROJECT_PATH} rev-parse --show-toplevel` (and `--abbrev-ref HEAD`), then operate on that repo. A nested project repo is invisible to the brain repo's `git status`, so a clean / "up to date" parent does NOT mean the project is synced.
 - **After creating or updating any file** → populate the `related` frontmatter property with vault-root paths to connected files per `reference/cross-referencing.md`
 
 ## Agent Orchestration
