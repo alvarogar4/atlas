@@ -75,7 +75,35 @@ Patterns and checklists for content quality control. Used by the `atlas:content_
 - [ ] External links to authoritative sources
 - [ ] Images have alt text (if applicable)
 
-### 5. Flow & Structure
+### 5. GEO Compliance (Blog only)
+
+Read the GEO section of `channels/blog.md` and verify against its checklist. This is a systematic pass, not a spot check.
+
+**Checklist:**
+
+- [ ] Answer capsule present, 40-80 words, positioned before the table of contents
+- [ ] Capsule is self-contained (names its subject, no unresolved "it" or "this")
+- [ ] Capsule answers the core question rather than teasing it
+- [ ] Capsule contains at least one concrete number, date, version, or named entity
+- [ ] Every H2 section opens by answering that section's question
+- [ ] Lead forms vary (no two consecutive sections use the same form or length)
+- [ ] No `TL;DR:` labels on individual sections
+- [ ] No section opener depends on a pronoun from the previous section
+- [ ] FAQ present with 4-8 questions, each answered in 40-60 self-contained words
+- [ ] FAQ questions are real, not invented to fill the section
+- [ ] FAQ does not repeat answers already given verbatim in the body
+- [ ] `Article`/`BlogPosting` and `FAQPage` JSON-LD specified with `dateModified`
+- [ ] `FAQPage` markup mirrors only questions visible on the page
+- [ ] Statistics and quotes carry inline sources
+- [ ] Comparison content: table has no empty cells, competitor strengths section present
+
+**Severity:**
+
+- BLOCKER: Capsule missing or teasing, sections that do not answer first, repeated lead forms (also a humanizer 27 violation), `FAQPage` markup for questions not on the page
+- WARNING: Fewer than 4 FAQ questions, invented FAQ questions, missing `dateModified`
+- SUGGESTION: Format could be a comparison page or listicle instead of a standard article
+
+### 6. Flow & Structure
 
 **Check for:**
 
@@ -119,6 +147,7 @@ reviewer: atlas:content_reviewer
 | Legal | {n} | {n} | {n} |
 | Factual | {n} | {n} | {n} |
 | SEO | {n} | {n} | {n} |
+| GEO | {n} | {n} | {n} |
 | **Total** | **{n}** | **{n}** | **{n}** |
 
 **Status**: {PASS / NEEDS REVISION / BLOCKED}
@@ -127,7 +156,7 @@ reviewer: atlas:content_reviewer
 
 ### 1. {Issue title}
 - **Location**: Line {X}, "{exact text}"
-- **Category**: {legal|factual|typo|seo}
+- **Category**: {legal|factual|typo|seo|geo}
 - **Issue**: {description of the problem}
 - **Risk**: {potential consequence if not fixed}
 - **Fix**: {specific recommendation}

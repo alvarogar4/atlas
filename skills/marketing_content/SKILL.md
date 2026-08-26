@@ -129,6 +129,12 @@ When writing or reviewing, read the channel-specific guidelines:
 | hackernews | `channels/hackernews.md` |
 | social     | `channels/social.md`     |
 
+### GEO (Blog)
+
+Blog content has a second set of structural requirements beyond SEO, aimed at getting cited by answer engines rather than ranked by search engines. They live in the **GEO section of `channels/blog.md`**, which is already a required read whenever you plan, write, or review a blog post.
+
+It covers the answer capsule, per-section leads, self-containment, FAQ and JSON-LD, the GEO-native formats (comparison pages, ranked listicles, original-data posts), and the refresh cadence. It also documents how the answer-first section rule reconciles with humanizer patterns 6, 25, and 27, which is the one place these two rule sets pull against each other.
+
 ### Shared Writing Patterns
 
 These apply across all channels:

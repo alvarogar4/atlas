@@ -73,8 +73,9 @@ Review checklist:
   - This is a **blocking** check: missing trademark symbols = BLOCKED status
 4. Brand voice consistency
 5. Channel compliance (BLOCKING): Read the channel guidelines file (channels/{channel}.md). Verify every measurable constraint — character limits, keyword placement, word counts, structure rules, quality checklist items. Any violation is a BLOCKED issue. This is a systematic check, not a spot check.
-6. CTA effectiveness
-7. Flow & structure: ideas introduced in one section are resolved in corresponding sections, logical linear progression, no orphaned concepts
+6. GEO compliance (blog only, BLOCKING): Read the GEO section of channels/{channel}.md and work through the GEO checklist item by item. Verify the answer capsule survives extraction, every H2 leads with its own answer, lead forms vary across sections, no section opener depends on a pronoun from a previous section, and the FAQ questions are real rather than invented. A missing or teasing capsule is BLOCKED. Repeated lead forms are BLOCKED (they are also a humanizer 27 violation).
+7. CTA effectiveness
+8. Flow & structure: ideas introduced in one section are resolved in corresponding sections, logical linear progression, no orphaned concepts
 
 Return:
 - Overall status: PASS / NEEDS_REVISION / BLOCKED
@@ -202,6 +203,13 @@ After publishing, I can help track performance results.
 ### Channel-Specific ({channel})
 
 **Status**: {PASS | ISSUES FOUND}
+
+### GEO (blog only)
+
+**Status**: {PASS | ISSUES FOUND | N/A}
+**Capsule**: {extractable | teasing | missing}
+**Section leads**: {n} of {n} answer-first, {n} distinct lead forms
+**FAQ**: {n} questions, {n} flagged as invented
 
 ### Flow & Structure
 

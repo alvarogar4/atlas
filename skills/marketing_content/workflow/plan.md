@@ -72,15 +72,27 @@ cat "${CONTENT_FOLDER}/1_research.md"
 
 ### Blog Outline Structure
 
+Read the GEO section of `channels/blog.md` before outlining a blog post. GEO decisions belong in the brief, not in the draft, because format and FAQ questions change the outline itself.
+
 ```
 - Title options (3)
+- GEO format (standard | comparison | listicle | original-data) with rationale
 - SEO Strategy (primary/secondary keywords, meta description)
+- Answer capsule draft (40-80 words, the question the article answers)
 - Introduction (~150-200 words) with hook type
 - 3-5 main sections with briefs (~300-500 words each)
+  - Per section: the question it answers, and the lead form (claim/number/
+    definition/verdict/contrast/concession). Lead forms must differ between
+    consecutive sections
 - Conclusion with CTA (~150-200 words)
+- FAQ: 4-8 real questions sourced from search suggestions, sales calls,
+  support tickets, or forums. Flag any that are invented
 - Internal/external links
 - Word count target
+- Refresh passes: proposed dates for +2 weeks, +4-6 weeks, +8-12 weeks
 ```
+
+**Format selection**: if the topic is a head-to-head, an "alternatives to X" query, or a tool selection question, propose a comparison page or ranked listicle instead of a standard article. If the project holds proprietary data on the topic (benchmarks, usage stats, survey results), propose an original-data post. Format specs and the citation evidence are in the GEO section of `channels/blog.md`.
 
 ### LinkedIn Outline Structure
 
