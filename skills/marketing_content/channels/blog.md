@@ -5,23 +5,38 @@
 ### Standard Blog Post
 
 ```
-1. Introduction (150-200 words)
+1. Hero image (schema or diagram)
+
+2. Answer capsule (40-80 words)
+   - Answers the article's core question completely, on its own
+   - No "TL;DR:" label, this is just the opening paragraph
+
+3. Table of contents
+
+4. Introduction (150-200 words)
    - Hook: Grab attention immediately
    - Context: Why this matters to the reader
    - Promise: What they'll learn/gain
    - Transition: Lead into first section
 
-2. Main Sections (3-5 sections, 300-500 words each)
+5. Main Sections (3-5 sections, 300-500 words each)
    - One main idea per section
+   - Opens by answering that section's own question, then expands
    - Subheadings for scannability
    - Examples and data to support claims
    - Citations with inline links
 
-3. Conclusion (150-200 words)
+6. Conclusion (150-200 words)
    - Summary of key takeaways
    - Clear call-to-action
    - Secondary CTA (optional)
+
+7. FAQ (4-8 real questions, one H3 each, 40-60 word answers)
+
+8. Sources
 ```
+
+The answer capsule, per-section leads, and FAQ are GEO requirements. See `reference/geo.md` for the rules behind each and the mandatory humanizer reconciliation.
 
 ### Word Count Targets
 
@@ -74,6 +89,41 @@ H1: Title (only one per post)
 | H2 headings      | At least one with primary  |
 | Image alt text   | Where relevant             |
 | Throughout body  | Natural usage, no stuffing |
+
+## GEO Requirements
+
+SEO targets ranked pages. GEO targets cited passages. Answer engines split a page into chunks, score each chunk independently, and quote the strongest ones, so a section that only makes sense in sequence never gets cited.
+
+**Read `reference/geo.md` before writing or planning any blog post.** The rules below are the summary, that file has the reasoning, the evidence, and the failure modes.
+
+### Required elements
+
+| Element              | Rule                                                                     |
+| -------------------- | ------------------------------------------------------------------------ |
+| Answer capsule       | 40-80 words, first paragraph, self-contained, holds a concrete number    |
+| Table of contents    | After the capsule                                                        |
+| Section leads        | Every H2 answers its own question first, then expands                    |
+| Self-containment     | No pronoun in a section opener reaching back across an H2 boundary       |
+| FAQ                  | 4-8 real questions as H3, answers 40-60 words                            |
+| `Article` JSON-LD    | Includes `dateModified`, synced with a visible "Last updated" date       |
+| `FAQPage` JSON-LD    | Mirrors the visible FAQ exactly, never questions absent from the page    |
+| Inline citations     | Every statistic and quote carries its source                             |
+
+### Section leads collide with the humanizer
+
+Answer-first governs **information order**, not paragraph shape. Writing "every section opens with a summary paragraph" as a template triggers humanizer patterns 6, 25, and 27 (formulaic sections, uniform paragraph lengths, parallel section structures).
+
+Vary the lead across sections: a direct claim, a number, a definition, a verdict, a contrast, a concession. Never repeat a lead form in consecutive sections, never label a section `TL;DR:`, never run one summary template with the nouns swapped. The full table of lead forms is in `reference/geo.md`.
+
+### GEO-native formats
+
+Comparison pages, ranked listicles, and original-data posts are the formats answer engines cite most. Listicles carry the volume (21.9% of all citations), comparison pages carry the rate (64% per page). When the topic supports it, pick the format deliberately rather than defaulting to a standard article. Format specs are in `reference/geo.md`.
+
+### Refresh cadence
+
+Content under 30 days old draws roughly 3.2x the AI citations. Publish complete, then schedule three substantive refresh passes (+2 weeks, +4-6 weeks, +8-12 weeks) on the content calendar. Each pass updates `dateModified` and the visible date.
+
+Do not publish a deliberately incomplete post to manufacture freshness events. The first crawl indexes the weak version.
 
 ## Hook Techniques (Blog-Specific)
 
@@ -161,9 +211,12 @@ keywords: [{ primary }, { secondary keywords }]
 author: { from project context or "Author" }
 status: draft
 created: { ISO timestamp }
+updated: { ISO date, maps to dateModified in schema }
 project: { project }
 word_count: { actual count }
 target_word_count: { from outline }
+geo_format: { standard | comparison | listicle | original-data }
+refresh_passes: { scheduled dates for passes 1-3, or "unscheduled" }
 ---
 ```
 
@@ -180,6 +233,19 @@ target_word_count: { from outline }
 - [ ] No orphan headings (single H3 under H2)
 - [ ] Conclusion has clear CTA
 - [ ] Read out loud - flows naturally
+
+### GEO
+
+- [ ] Answer capsule present, 40-80 words, self-contained, unlabeled
+- [ ] Capsule answers the core question rather than teasing it
+- [ ] Table of contents after the capsule
+- [ ] Every H2 leads with that section's answer
+- [ ] Lead forms vary across sections (humanizer 6, 25, 27 verified)
+- [ ] No section opener depends on a pronoun from the previous section
+- [ ] FAQ with 4-8 real questions, 40-60 word self-contained answers
+- [ ] `Article` and `FAQPage` JSON-LD specified, `dateModified` set
+- [ ] Visible "Last updated" date matches `dateModified`
+- [ ] Refresh passes scheduled on the calendar
 
 ## Content Upgrades (Optional)
 

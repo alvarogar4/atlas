@@ -46,6 +46,27 @@ Recording results for: {title}
 - Conversions (if applicable):
 ```
 
+**Blog GEO metrics** (from Peec, Profound, Scrunch, or manual prompt checks):
+
+```
+- Cited by (ChatGPT / Claude / Perplexity / AI Mode / AI Overviews):
+- Prompts where the page surfaced:
+- Share of voice vs. named competitors:
+- Referral traffic from AI assistants:
+```
+
+**Refresh log** (from `reference/geo.md` cadence):
+
+```
+| Pass | Due | Done | What changed | dateModified updated |
+|------|-----|------|--------------|----------------------|
+| 1 (+2w)     | | | | |
+| 2 (+4-6w)   | | | | |
+| 3 (+8-12w)  | | | | |
+```
+
+If a due pass is unrecorded, flag it. Comparison and category pages hold citation frequency for 60-90 days before measurable decay.
+
 **LinkedIn metrics:**
 
 ```
