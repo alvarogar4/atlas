@@ -72,7 +72,7 @@ cat "${CONTENT_FOLDER}/1_research.md"
 
 ### Blog Outline Structure
 
-Read `reference/geo.md` before outlining a blog post. GEO decisions belong in the brief, not in the draft, because format and FAQ questions change the outline itself.
+Read the GEO section of `channels/blog.md` before outlining a blog post. GEO decisions belong in the brief, not in the draft, because format and FAQ questions change the outline itself.
 
 ```
 - Title options (3)
@@ -92,7 +92,7 @@ Read `reference/geo.md` before outlining a blog post. GEO decisions belong in th
 - Refresh passes: proposed dates for +2 weeks, +4-6 weeks, +8-12 weeks
 ```
 
-**Format selection**: if the topic is a head-to-head, an "alternatives to X" query, or a tool selection question, propose a comparison page or ranked listicle instead of a standard article. If the project holds proprietary data on the topic (benchmarks, usage stats, survey results), propose an original-data post. Format specs and the citation evidence are in `reference/geo.md`.
+**Format selection**: if the topic is a head-to-head, an "alternatives to X" query, or a tool selection question, propose a comparison page or ranked listicle instead of a standard article. If the project holds proprietary data on the topic (benchmarks, usage stats, survey results), propose an original-data post. Format specs and the citation evidence are in the GEO section of `channels/blog.md`.
 
 ### LinkedIn Outline Structure
 

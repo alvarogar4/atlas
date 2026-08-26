@@ -49,7 +49,7 @@ From the loaded knowledge and content survey, build:
 - Audience coverage (which personas are being addressed)
 - Gaps (weeks with no content)
 - Scheduling conflicts
-- **Refresh passes due**: published blog posts whose `refresh_passes` dates (see `reference/geo.md`) fall in this quarter. Schedule them as calendar entries alongside new content. A published post decays out of AI citations in 60-90 days without an update, so a refresh pass is usually worth more than a net-new post in a saturated theme
+- **Refresh passes due**: published blog posts whose `refresh_passes` dates (see the GEO section of `channels/blog.md`) fall in this quarter. Schedule them as calendar entries alongside new content. A published post decays out of AI citations in 60-90 days without an update, so a refresh pass is usually worth more than a net-new post in a saturated theme
 
 5. **Present analysis and gather phase objectives:**
 

@@ -55,7 +55,7 @@ Recording results for: {title}
 - Referral traffic from AI assistants:
 ```
 
-**Refresh log** (from `reference/geo.md` cadence):
+**Refresh log** (from the refresh cadence in `channels/blog.md`):
 
 ```
 | Pass | Due | Done | What changed | dateModified updated |

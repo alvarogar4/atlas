@@ -34,7 +34,7 @@ If missing → "The content brief isn't ready yet. Want to create one?"
 
 4. **Read channel-specific writing guidelines** from `channels/{channel}.md`. **These are hard constraints.** Every measurable requirement (character limits, keyword placement, word counts, structure rules, quality checklist items) must be satisfied in the draft. Do not produce content that violates the channel's own rules.
 
-   **For blog: also read `reference/geo.md`.** The answer capsule, per-section leads, self-containment rule, and FAQ are structural requirements that have to be built during generation. They cannot be bolted on afterwards, and the section-lead rule interacts directly with humanizer patterns 6, 25, and 27, so both files need to be in context before the first paragraph.
+   **For blog: the GEO section is not optional.** The answer capsule, per-section leads, self-containment rule, and FAQ are structural requirements that have to be built during generation. They cannot be bolted on afterwards, and the section-lead rule interacts directly with humanizer patterns 6, 25, and 27, so read it before the first paragraph, not after the draft exists.
 
 5. **Read context, content brief, and research into context:**
 
@@ -52,7 +52,7 @@ The `0_context.md` file contains the framing decisions, constraints, and tone fo
 
 | Channel    | Key Requirements                                                                  |
 | ---------- | --------------------------------------------------------------------------------- |
-| blog       | Outline structure exactly, word count, inline sources, GEO structure per `reference/geo.md` |
+| blog       | Outline structure exactly, word count, inline sources, GEO structure per its GEO section |
 | linkedin   | Hook in first 140 chars, use line breaks, personal stories, close per brand voice |
 | twitter    | First tweet must hook alone, 280 char limit per tweet, close threads              |
 | email      | Subject 30-50 chars, one clear CTA, conversational tone, plain text ready         |

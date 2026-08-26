@@ -77,7 +77,7 @@ Patterns and checklists for content quality control. Used by the `atlas:content_
 
 ### 5. GEO Compliance (Blog only)
 
-Read `reference/geo.md` and verify against its checklist. This is a systematic pass, not a spot check.
+Read the GEO section of `channels/blog.md` and verify against its checklist. This is a systematic pass, not a spot check.
 
 **Checklist:**
 
