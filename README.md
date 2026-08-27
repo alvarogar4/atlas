@@ -8,7 +8,7 @@ A Claude Code plugin that transforms Claude into a personal assistant with memor
 - **Marketing Automation** - Campaign planning, content calendars, copywriting frameworks
 - **Business Strategy** - SWOT, Porter's Five Forces, Business Model Canvas, OKRs, and more
 - **Decision Support** - Structured decision logging with pre-mortems and prioritization
-- **Content Humanization** - 29 anti-patterns to detect and remove AI writing fingerprints
+- **Content Humanization** - 43 anti-patterns plus a deterministic linter to detect and remove AI writing fingerprints
 - **Translation** - Context-aware bilingual translation with 18 quality patterns
 
 ## Quick Start
@@ -61,7 +61,7 @@ atlas/
 │   │   ├── SKILL.md                        # Decision tree, workflow chaining
 │   │   ├── tools/                          # processing, schema-generation + assets
 │   │   └── guides/                         # ai-prompting
-│   ├── humanizer/                          # AI writing pattern detection (29 anti-patterns)
+│   ├── humanizer/                          # AI writing pattern detection (43 anti-patterns + linter)
 │   │   └── SKILL.md                        # Zero-tolerance checklist, generation constraints
 │   └── translator/                         # Context-aware bilingual translation (18 patterns)
 │       └── SKILL.md                        # Translation quality patterns, voice preservation
@@ -93,7 +93,9 @@ Internal skill for image processing, schema diagrams, and AI prompt composition.
 
 ### Content Humanization (`humanizer`)
 
-AI writing pattern detection with 29 anti-patterns. Loaded as generation constraints during content writing and verified during review. Covers content patterns, language/grammar, style, communication tone, filler/hedging, and structural uniformity.
+AI writing pattern detection with 43 anti-patterns split across `reference/phrases.md`, `reference/structures.md`, and `reference/style.md`. Loaded as generation constraints during content writing and verified during review. Covers content patterns, language/grammar, style, communication tone, filler/hedging, structural uniformity, directness, precision, and agency.
+
+`tools/lint.sh` catches the mechanically detectable patterns (em dashes, curly quotes, emoji, adverbs, jargon, throat-clearing openers, negative parallelism) with no model judgement involved. It runs on every draft during write and review. Passing the linter is necessary, not sufficient: it sees about a third of the patterns and none of the structural ones.
 
 ### Translation (`translator`)
 
