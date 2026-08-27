@@ -46,7 +46,7 @@ cat "${CONTENT_FOLDER}/1_research.md"
 
 The `0_context.md` file contains the framing decisions, constraints, and tone for this piece. These are **hard constraints** during writing — every sentence must respect the angle, use the approved terminology, and avoid anything the constraints rule out.
 
-6. **Load the `atlas:humanizer` skill.** These are **generation constraints**, not post-processing. Read the zero-tolerance checklist and every pattern description. Before writing a single word, you must know all 29 patterns well enough to avoid them during generation, including variant forms. The checklist exists because "internalizing" rules isn't enough. Treat each pattern as a hard constraint: if a sentence would trigger any pattern, rewrite it before moving on.
+6. **Load the `atlas:humanizer` skill and read all four reference files** (`reference/phrases.md`, `reference/structures.md`, `reference/style.md`, `reference/examples.md`). These are **generation constraints**, not post-processing. Do not load them selectively: you cannot know you need a pattern you have not read. Before writing a single word, you must know all 43 patterns well enough to avoid them during generation, including variant forms. The checklist exists because "internalizing" rules isn't enough. Treat each pattern as a hard constraint: if a sentence would trigger any pattern, rewrite it before moving on.
 
 7. **Write content following the channel guidelines and humanizer rules:**
 
@@ -67,7 +67,14 @@ Content guidelines:
 - Match format requirements for the channel
 - Include clear call-to-action
 - Do NOT carry over formatting patterns from research documents (em dashes, list styles, etc.)
-- Every sentence and pargrpah must satisfy all 29 humanizer patterns as it is written. If you catch yourself generating a pattern, stop and rewrite that sentence before continuing. Do not plan to "fix it later."
+- Every sentence and paragraph must satisfy all 43 humanizer patterns as it is written. If you catch yourself generating a pattern, stop and rewrite that sentence before continuing. Do not plan to "fix it later."
+- After saving the draft, run the humanizer linter and fix every blocking hit before moving on:
+
+  ```bash
+  ${CLAUDE_PLUGIN_ROOT}/skills/humanizer/tools/lint.sh {content-folder}/3_draft-{channel}.md
+  ```
+
+  A blocking hit is not a suggestion. Warnings need your judgement, not automatic removal.
 - Apply trademark symbols (®, ™) on first mention of third-party products per project context rules or check the product's official website for their trademark usage guidelines
 
 8. **Save draft immediately:** `${CONTENT_FOLDER}/3_draft-${channel}.md`

@@ -170,7 +170,9 @@ Link format remains standard markdown (`[text](path)`) for portability. No wikil
 
 ### Content Humanization
 
-All written content goes through the `atlas:humanizer` skill — a set of 29 anti-patterns that detect and remove AI writing fingerprints. The humanizer is loaded as generation constraints during writing (not as post-processing) and verified again during review. It covers content patterns, language/grammar, style, communication tone, filler/hedging, and structural uniformity.
+All written content goes through the `atlas:humanizer` skill: 43 anti-patterns that detect and remove AI writing fingerprints, plus a deterministic linter. The humanizer is loaded as generation constraints during writing (not as post-processing) and verified again during review. It covers content patterns, language/grammar, style, communication tone, filler/hedging, structural uniformity, directness, precision, and agency.
+
+The skill's four reference files must all be read before writing. `tools/lint.sh` runs on every draft and blocks on the patterns that need no judgement.
 
 **Key behaviors**:
 

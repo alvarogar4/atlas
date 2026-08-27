@@ -39,7 +39,17 @@ The `0_context.md` defines the angle, constraints, and framing decisions. The re
 
 4. **Apply humanizer verification pass (systematic, not intuitive):**
 
-The writing pass applied humanizer rules during generation. This pass is a **mandatory systematic scan**: go through every one of the 29 patterns in the zero-tolerance checklist, one by one, actively searching the draft text for each pattern. Do NOT do a "read and spot what jumps out" pass. That misses subtle variants.
+The writing pass applied humanizer rules during generation. This pass is a **mandatory systematic scan** in two stages.
+
+First, run the linter. It is deterministic and takes a second:
+
+```bash
+${CLAUDE_PLUGIN_ROOT}/skills/humanizer/tools/lint.sh {content-folder}/3_draft-{channel}.md
+```
+
+Every blocking hit must be fixed. Warnings need your judgement.
+
+Second, go through every one of the 43 patterns in the zero-tolerance checklist, one by one, actively searching the draft text for each pattern. Do NOT do a "read and spot what jumps out" pass. That misses subtle variants, and the linter only sees about a third of the patterns. The structural ones (25 to 29) and the agency ones (38 to 43) are invisible to it.
 
 For each pattern: read its description, then scan the entire draft looking specifically for that pattern. Check for **variant forms**, not just the exact examples listed.
 

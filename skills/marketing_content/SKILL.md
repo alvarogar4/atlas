@@ -193,7 +193,7 @@ Whenever you write or edit marketing content, you MUST load the `atlas:humanizer
 - Rewriting paragraphs or sections in existing drafts
 - Any content edit the user requests
 
-Load the skill, apply its 29 anti-patterns as generation-time constraints (not post-processing). Never show the user AI-patterned text and ask them to humanize it separately. The humanizer pass is automatic and non-negotiable.
+Load the skill, read all four of its reference files, and apply the 43 anti-patterns as generation-time constraints (not post-processing). Run `tools/lint.sh` on the draft before showing it. Never show the user AI-patterned text and ask them to humanize it separately. The humanizer pass is automatic and non-negotiable.
 
 **Visual Assets (MANDATORY):**
 
