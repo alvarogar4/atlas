@@ -1,8 +1,6 @@
 ---
-name: atlas:humanizer
+name: humanizer
 description: Identifies and removes AI writing patterns to make text sound natural and human. Loads 43 anti-patterns into context as generation-time constraints. Use when writing, editing, or reviewing ANY text - marketing content, website copy, documentation, emails.
-tools: Read, Write, Edit, Bash
-user_invocable: true
 ---
 
 # Humanizer: Remove AI Writing Patterns
