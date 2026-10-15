@@ -11,7 +11,12 @@
    - Answers the article's core question completely, on its own
    - No "TL;DR:" label, this is just the opening paragraph
 
-3. Table of contents
+3. Table of contents (only if the site does not generate one)
+   - Many blog templates build the table of contents from the H2s
+     automatically. Check before writing one: look at a published post on
+     the project's site or the blog template in its repo, or the project's
+     context/brand docs. If the page already renders one, leave it out of
+     the draft, otherwise readers see it twice
 
 4. Introduction (150-200 words)
    - Hook: Grab attention immediately
@@ -116,7 +121,7 @@ The first paragraph after the title. It answers the article's core question comp
 | Rule           | Detail                                                             |
 | -------------- | ------------------------------------------------------------------ |
 | Length         | 40-80 words                                                        |
-| Position       | Directly after H1/hero, before the table of contents               |
+| Position       | Directly after H1/hero, before the table of contents (if any)      |
 | Self-contained | Names the subject explicitly. No "it", "this approach", "the tool" |
 | Concrete       | At least one number, version, date, or named entity                |
 | Unlabeled      | No "TL;DR:" prefix. Write it as the opening paragraph              |
@@ -392,7 +397,7 @@ refresh_passes: { scheduled dates for passes 1-3, or "unscheduled" }
 
 - [ ] Answer capsule present, 40-80 words, self-contained, unlabeled
 - [ ] Capsule answers the core question rather than teasing it
-- [ ] Table of contents after the capsule
+- [ ] Table of contents after the capsule, unless the site generates one (then none in the draft)
 - [ ] Every H2 leads with that section's answer
 - [ ] Lead forms vary across sections (humanizer 6, 25, 27 verified)
 - [ ] No section opener depends on a pronoun from the previous section

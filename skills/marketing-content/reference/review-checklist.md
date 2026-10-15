@@ -81,7 +81,8 @@ Read the GEO section of `channels/blog.md` and verify against its checklist. Thi
 
 **Checklist:**
 
-- [ ] Answer capsule present, 40-80 words, positioned before the table of contents
+- [ ] Answer capsule present, 40-80 words, positioned before the table of contents (if any)
+- [ ] No hand-written table of contents when the site already generates one
 - [ ] Capsule is self-contained (names its subject, no unresolved "it" or "this")
 - [ ] Capsule answers the core question rather than teasing it
 - [ ] Capsule contains at least one concrete number, date, version, or named entity
