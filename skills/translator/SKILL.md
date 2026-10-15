@@ -1,8 +1,6 @@
 ---
-name: atlas:translator
+name: translator
 description: General-purpose translation quality skill. Loads translation anti-patterns into context to produce natural, native-sounding translations. Works with any text format. Use when translating any content - marketing copy, documentation, emails, UI text, blog posts.
-tools: Read, Write, Edit, AskUserQuestion
-user_invocable: true
 ---
 
 # Translator: Native-Quality Translation Patterns

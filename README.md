@@ -1,6 +1,6 @@
 # Atlas - Personal Assistant & Second Brain
 
-A Claude Code plugin that transforms Claude into a personal assistant with memory, marketing automation, and business strategy capabilities.
+A personal assistant with memory, marketing automation, and business strategy capabilities. Ships as a Claude Code plugin and as standard [Agent Skills](https://agentskills.io), so it also runs in Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode and any other agent that loads skills.
 
 ## Features
 
@@ -13,13 +13,27 @@ A Claude Code plugin that transforms Claude into a personal assistant with memor
 
 ## Quick Start
 
+### Claude Code
+
 ```bash
 # 1. Install the plugin
-/install atlas
+/plugin marketplace add alvarogar4/atlas
+/plugin install atlas@atlas-marketplace
 
 # 2. Initialize your knowledge base
-/atlas:second_brain setup
+/atlas:second-brain setup
 ```
+
+### Any other agent
+
+```bash
+# Install all six skills for every agent detected on this machine
+npx skills add alvarogar4/atlas --all
+```
+
+Then ask the agent to "set up the Atlas second brain". The brain path is saved to `~/.config/atlas/.env`, so every agent shares the same knowledge base.
+
+Subagents (`locate_knowledge`, `analyze_knowledge`, etc.) ship inside `skills/second-brain/agents/`. Agents that can spawn subagents use them as prompts; the rest run them inline. Atlas's persona lives in `CLAUDE.md` (symlinked as `AGENTS.md`); copy it into your agent's global instructions if you want the full Atlas behaviour outside this repo.
 
 After setup, Atlas works conversationally:
 
@@ -32,32 +46,32 @@ After setup, Atlas works conversationally:
 
 ```
 atlas/
-├── agents/                                 # Flat structure with domain prefixes
-│   ├── locate_knowledge.md                 # Fast file discovery
-│   ├── analyze_knowledge.md                # Deep analysis and synthesis
-│   ├── marketing_content_reviewer.md       # Content QA
-│   ├── marketing_market_researcher.md      # Market intelligence
-│   └── business_strategist.md              # Framework-based analysis
-├── skills/                                 # 6 skills
-│   ├── second_brain/                       # Core knowledge + project management
-│   │   ├── SKILL.md                        # Config, capabilities, agent orchestration
+├── skills/                                 # 6 Agent Skills (spec-compliant, portable)
+│   ├── second-brain/                       # Core knowledge + project management
+│   │   ├── SKILL.md                        # Config, capabilities, agent orchestration, portability
+│   │   ├── agents/                         # Subagents (registered in plugin.json for Claude Code)
+│   │   │   ├── locate_knowledge.md         # Fast file discovery
+│   │   │   ├── analyze_knowledge.md        # Deep analysis and synthesis
+│   │   │   ├── content_reviewer.md         # Content QA
+│   │   │   ├── market_researcher.md        # Market intelligence
+│   │   │   └── strategist.md               # Framework-based analysis
 │   │   ├── reference/                      # folder-structure.md
 │   │   ├── templates/                      # Project asset templates (9 files)
 │   │   ├── entities/                       # Entity definitions (project, theme, competitor, audience, calendar)
 │   │   ├── foundations/                     # Project foundations (context, strategy, brand-voice, visual-identity)
 │   │   └── workflows/                      # setup, capture, search
-│   ├── business_strategy/                  # Strategy + decisions (3 actions)
+│   ├── business-strategy/                  # Strategy + decisions (3 actions)
 │   │   ├── SKILL.md                        # Framework selection, capabilities
 │   │   ├── frameworks/                     # 12 frameworks (SWOT, Porter's, etc.)
 │   │   ├── templates/                      # analysis, decision, review
 │   │   └── workflows/                      # analyze, decision, review
-│   ├── marketing_content/                  # Content lifecycle
+│   ├── marketing-content/                  # Content lifecycle
 │   │   ├── SKILL.md                        # Content lifecycle, state detection
 │   │   ├── channels/                       # blog, linkedin, twitter, email, hackernews, social
 │   │   ├── reference/                      # metrics.md, review-checklist.md
 │   │   ├── workflow/                       # research, plan, write, review, results, status
 │   │   └── calendar/                       # plan, view
-│   ├── marketing_visuals/                  # Visual content creation
+│   ├── marketing-visuals/                  # Visual content creation
 │   │   ├── SKILL.md                        # Decision tree, workflow chaining
 │   │   ├── tools/                          # processing, schema-generation + assets
 │   │   └── guides/                         # ai-prompting
@@ -67,27 +81,27 @@ atlas/
 │       └── SKILL.md                        # Translation quality patterns, voice preservation
 ├── hooks/
 │   └── hooks.json                          # Event handlers
-├── CLAUDE.md                               # Personality & behavior
+├── CLAUDE.md                               # Personality & behavior (AGENTS.md symlinks here)
 └── README.md                               # This file
 ```
 
 ## Capabilities
 
-### Knowledge Management (`second_brain`)
+### Knowledge Management (`second-brain`)
 
 PARA-based personal knowledge base: capture ideas, search notes, deep recall with synthesis. Manage projects with foundations (context, strategy, brand voice, visual identity) and entities (themes, competitors, audiences, calendars).
 
-### Content Creation (`marketing_content`)
+### Content Creation (`marketing-content`)
 
 Full content lifecycle: research, plan, write, review, results tracking, status overview, calendar planning. Supports 6 channels: blog, linkedin, twitter, email, hackernews, social.
 
 Pipeline: research → plan → write → review → [publish] → results
 
-### Business Strategy (`business_strategy`)
+### Business Strategy (`business-strategy`)
 
 Strategic frameworks with 3 operations: analyze (12 frameworks), document decisions, periodic reviews (weekly/monthly/quarterly/annual).
 
-### Visual Content (`marketing_visuals`)
+### Visual Content (`marketing-visuals`)
 
 Internal skill for image processing, schema diagrams, and AI prompt composition.
 
@@ -159,9 +173,11 @@ Context-aware bilingual translation with 18 quality patterns. Prevents literal t
 
 ## Configuration
 
-After running `/atlas:second_brain setup`, your brain path is stored in:
+After running `/atlas:second-brain setup` (or asking any agent to set up Atlas), your brain path is stored in a config file shared by every agent:
 
-- `.env` file in your project
+- `~/.config/atlas/.env` (override the location with `ATLAS_CONFIG`)
+
+Exported shell variables with the same names take precedence. A legacy `.env` at the plugin root is still read as a fallback.
 
 ```
 ATLAS_BRAIN_PATH=~/brain

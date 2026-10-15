@@ -60,7 +60,7 @@ When I ask for analysis:
 
 ## Knowledge Base Structure (PARA Method)
 
-> Follow `atlas:second_brain` skill → `reference/folder-structure.md` for complete structure.
+> Follow `atlas:second-brain` skill → `reference/folder-structure.md` for complete structure.
 
 ### Project Structure
 
