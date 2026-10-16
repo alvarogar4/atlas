@@ -115,6 +115,8 @@ Scan every paragraph for each pattern. Check for **variant forms**, not just the
 
 **Problem:** Text meant as chatbot correspondence gets pasted as content.
 
+**In outreach and follow-ups**, the same reflex shows up as the silence tie-back: "Never got your side, so I'll go first", "Haven't heard back, so I'll start". The message opens on the other person's silence instead of on the content. Start at the content.
+
 **Before:**
 
 > Here is an overview of the French Revolution. I hope this helps! Let me know if you'd like me to expand on any section.
@@ -226,6 +228,16 @@ AI detectors don't just look at words. They analyze statistical patterns across 
 | Leverage (verb)        | Use                 |
 | Surface (verb)         | Show, raise         |
 
+**Dead metaphors for a decision or a boundary.** Same failure in a shorter form: a stock image stands in for the plain verb or the concrete thing. They read as slop in technical and 1:1 writing, where the reader expects the mechanism.
+
+| Avoid                                      | Use instead                                            |
+| ------------------------------------------ | ------------------------------------------------------ |
+| Land on / where did you land (a choice)    | Chose, picked, went with                               |
+| Landed in / landing in (data placement)    | Stored in, written to                                  |
+| Draw the line / where you draw the line    | Name the boundary: freshness, merge delay, which store |
+| Something to sit on (a foundation)         | Name what it needs: real data to act on, a shared store |
+| Caught my eye                              | Name what you saw                                      |
+
 **Before:**
 
 > As we navigate this landscape, let's unpack the tradeoffs and lean into what the data tells us.
@@ -238,7 +250,7 @@ AI detectors don't just look at words. They analyze statistical patterns across 
 
 ### 31. Throat-Clearing Openers
 
-**Words to watch:** "Here's the thing:", "Here's what/why/how [X]", "The uncomfortable truth is", "It turns out", "The real [X] is", "Let me be clear", "The truth is,", "I'll say it again:", "I'm going to be honest", "Can we talk about", "Here's what I find interesting", "Here's the problem though", "What most people miss is", "The real question is"
+**Words to watch:** "Here's the thing:", "Here's what/why/how [X]", "The uncomfortable truth is", "It turns out", "The real [X] is", "Let me be clear", "The truth is,", "I'll say it again:", "I'm going to be honest", "Can we talk about", "Here's what I find interesting", "Here's the problem though", "What most people miss is", "The real question is", "The interesting part is", "The honest answer is", "In the end"
 
 **Problem:** Any "here's what/this/that" construction announces a point before making it. The announcement carries no information and primes the reader to expect insight that the following sentence often fails to deliver.
 
@@ -293,6 +305,8 @@ AI detectors don't just look at words. They analyze statistical patterns across 
 **Rule:** default zero adverbs. Keep one only when it carries meaning no other word does ("the merge runs asynchronously" survives, "this is genuinely hard" does not).
 
 **Ban list, no budget:** really, just, literally, genuinely, honestly, simply, actually, deeply, truly, fundamentally, inherently, inevitably, interestingly, importantly, crucially, incredibly, remarkably, notably
+
+**Intensifiers on a noun count too:** "exactly these issues", "the very thing", "precisely this problem". Drop the intensifier; "these issues" carries the same fact. Keep "exactly" only when it means a precise quantity ("exactly 8,192 rows").
 
 **Also cut these filler openers:** "At its core", "In today's [X]", "It's worth noting", "At the end of the day", "When it comes to", "In a world where", "The reality is"
 

@@ -86,7 +86,7 @@ subtle variant. Full descriptions and before/after for each pattern are in `refe
 | 7   | AI vocabulary                | Very high       | Ban list: delve, crucial, landscape, tapestry, etc            |
 | 19  | Communication artifacts      | Very high       | Remove "I hope this helps", "Certainly!", etc                 |
 | 21  | Sycophantic tone             | Very high       | Remove "Great question!", "Excellent point!", etc             |
-| 31  | Throat-clearing openers      | Very high       | Cut "Here's the thing", "It turns out", "The truth is"        |
+| 31  | Throat-clearing openers      | Very high       | Cut "Here's the thing", "The interesting part", "In the end"  |
 | 35  | Adverbs and intensifiers     | Very high       | Default zero. Ban really, just, genuinely, honestly, actually |
 | 1   | Significance inflation       | High            | Remove "pivotal", "testament", "landmark", etc                |
 | 3   | Superficial -ing phrases     | High            | Rewrite as direct statements                                  |
@@ -100,7 +100,7 @@ subtle variant. Full descriptions and before/after for each pattern are in `refe
 | 25  | Uniform paragraph lengths    | High            | No 4+ paragraphs of similar word count                        |
 | 26  | Uniform sentence lengths     | High            | Mix short (5-8 words) with long (25+)                         |
 | 27  | Parallel section structures  | High            | Each section must have a distinct shape                       |
-| 30  | Business jargon              | High            | Ban navigate, unpack, lean into, deep dive, circle back       |
+| 30  | Business jargon              | High            | Ban navigate, unpack, lean into, land on, draw the line       |
 | 32  | Emphasis crutches            | High            | Cut "Full stop.", "Let that sink in.", "This matters because" |
 | 33  | Meta-commentary              | High            | Cut "Plot twist:", "Let me walk you through", "As we'll see"  |
 | 34  | Rhetorical setups            | High            | Cut "What if...?", "Think about it:", "And that's okay."      |
