@@ -44,9 +44,12 @@ read -r -d '' RULES <<'RULES_EOF'
 7~BLOCK~AI vocabulary~\b(delve|tapestry|testament to|pivotal|underscore(s|d)?|showcas(e|es|ing)|intricate|interplay|garner(ed|s)?|multifaceted|realm of|myriad|robust solution|seamless(ly)?|holistic|paradigm shift)\b
 7~WARN~AI vocabulary, softer~\b(crucial|vibrant|enduring|foster(s|ing)?|enhance(s|d)?|landscape|leverage|align with|key (role|moment|factor))\b
 35~BLOCK~confessional adverb~\b(genuinely|honestly|truly|literally|fundamentally|inherently|inevitably|crucially|importantly|interestingly|remarkably|incredibly)\b
-35~WARN~filler adverb~\b(really|simply|actually|just|deeply|notably|certainly|absolutely)\b
+35~WARN~filler adverb~\b(really|simply|actually|just|deeply|notably|certainly|absolutely|exactly|precisely)\b
 30~BLOCK~business jargon~([Dd]eep dive|[Cc]ircle back|[Dd]ouble down|[Gg]ame.changer|[Ll]ean into|[Tt]ake a step back|[Mm]oving forward|[Oo]n the same page|[Uu]npack (the|this|these))~s
-31~BLOCK~throat-clearing opener~(here's (the thing|what|why|how|this|that)|the uncomfortable truth|it turns out|let me be clear|the truth is,|i'm going to be honest|can we talk about|what most people miss|the real (question|unlock|problem) is)
+30~BLOCK~dead metaphor~(where (did|do|does|will|would) (you|they|we|it) land|draws? the line|drawing the line|(something|anything|nothing) to sit on|caught my eye)
+30~WARN~dead metaphor, check literal~\b(landed|landing|lands?) (on|in)\b
+31~BLOCK~throat-clearing opener~(here's (the thing|what|why|how|this|that)|the uncomfortable truth|it turns out|let me be clear|the truth is,|i'm going to be honest|can we talk about|what most people miss|the real (question|unlock|problem) is|the interesting (part|bit|thing) (is|here)|the honest answer|in the end\b)
+19~BLOCK~silence tie-back~(never got your side|so i'?ll go first|haven'?t heard back, so)
 32~BLOCK~emphasis crutch~(let that sink in|full stop\.|make no mistake|here's why that matters|this matters because|i keep coming back to)
 33~BLOCK~meta-commentary~(plot twist|spoiler:|let me walk you through|in this section|as we'll see|more on that later|but that's another (post|story)|the rest of this (essay|post|article))
 34~BLOCK~rhetorical setup~(think about it[:.]|here's what i mean|and that's okay|sound familiar|but wait[.,])
