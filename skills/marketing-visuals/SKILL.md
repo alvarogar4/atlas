@@ -43,9 +43,9 @@ ${CONTENT_FOLDER}/resources/
 ├── hero.png                    # Generated/processed image
 ├── 01-architecture.html        # Schema source
 ├── 01-architecture.png         # Schema output
-├── agent-flow.mp4              # Video (LinkedIn, blog)
-├── agent-flow.gif              # Looping GIF (X)
-├── agent-flow-src/             # Remotion source to re-render
+├── 02-agent-flow.mp4           # Video (LinkedIn, blog)
+├── 02-agent-flow.gif           # Looping GIF (X)
+├── 02-agent-flow-src/          # Remotion source to re-render
 ├── portrait_nobg.png           # Background removed
 └── hero-processed.webp         # Optimized for web
 ```

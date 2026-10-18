@@ -1,0 +1,12 @@
+{
+  "name": "video-generation",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "scaffold": "bash video.sh new",
+    "stills": "bash video.sh stills",
+    "render": "bash video.sh render",
+    "save": "bash video.sh save"
+  }
+}

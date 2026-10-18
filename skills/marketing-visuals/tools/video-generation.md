@@ -8,16 +8,22 @@ Short animated explainers (MP4 + looping GIF) written as React code with [Remoti
 
 ## Workflow
 
-The helper is `{SKILLS_DIR}/marketing-visuals/tools/video-generation-assets/video.sh`. Call it `V` below.
+Run every command from the assets folder (no `bun install` needed here; `scaffold` installs Remotion in the working directory):
+
+```bash
+cd {SKILLS_DIR}/marketing-visuals/tools/video-generation-assets
+```
+
+`{NN}-{name}` below follows the content folder's numbering, shared with diagrams (`01-architecture.png`, `02-agent-flow.mp4`).
 
 1. **Read the visual identity** (`${PROJECT_PATH}/marketing/visual-identity.md`) and find the brand font files (`.woff2`). The template ships with dark Blueprint-style defaults; replace them with the project's.
 
-2. **Write the storyboard first**, in the content folder as `resources/{name}-storyboard.md`: the one sentence the video says, then 3-5 beats with their time in seconds and what moves. A before/after is two beats plus the transition. Get the user's OK on the beats before animating if the post depends on them.
+2. **Write the storyboard first**, in the content folder as `resources/{NN}-{name}-storyboard.md`: the one sentence the video says, then 3-5 beats with their time in seconds and what moves. A before/after is two beats plus the transition. Get the user's OK on the beats before animating if the post depends on them.
 
 3. **Scaffold outside the brain** (the scratchpad), never in `resources/`:
 
    ```bash
-   V new ${SCRATCH}/{name} /path/to/brand/fonts
+   bun scaffold ${SCRATCH}/{NN}-{name} /path/to/brand/fonts
    ```
 
    This copies the template (pinned Remotion 4.0.535, React 19), copies the fonts into `public/fonts/` and installs dependencies with bun.
@@ -27,8 +33,8 @@ The helper is `{SKILLS_DIR}/marketing-visuals/tools/video-generation-assets/vide
 5. **Check stills before rendering** (MANDATORY). Render one frame per beat plus the transition midpoint, then `Read` the contact sheet:
 
    ```bash
-   V stills ${SCRATCH}/{name} 10 60 130 200
-   # → ${SCRATCH}/{name}/out/stills.png
+   bun stills ${SCRATCH}/{NN}-{name} 10 60 130 200
+   # → ${SCRATCH}/{NN}-{name}/out/stills.png
    ```
 
    Fix layout here. A still takes seconds; a full render takes a minute.
@@ -36,22 +42,22 @@ The helper is `{SKILLS_DIR}/marketing-visuals/tools/video-generation-assets/vide
 6. **Render and verify the encoded output**:
 
    ```bash
-   V render ${SCRATCH}/{name} {name}
+   bun render ${SCRATCH}/{NN}-{name} {NN}-{name}
    ```
 
-   It writes `out/{name}.mp4` (h264, crf 18) and `out/{name}.gif` (every 2nd frame), prints sizes and the luma of the first and last GIF frame, and builds `out/gif-sheet.png` from 6 encoded frames. `Read` the sheet: GIF palettes can band gradients and drop faint dots that looked fine in the stills.
+   It writes `out/{NN}-{name}.mp4` (h264, crf 18) and `out/{NN}-{name}.gif` (every 2nd frame), prints sizes and the luma of the first and last GIF frame, and builds `out/gif-sheet.png` from 6 encoded frames. `Read` the sheet: GIF palettes can band gradients and drop faint dots that looked fine in the stills.
 
 7. **Save into the content folder**:
 
    ```bash
-   V save ${SCRATCH}/{name} ${CONTENT_FOLDER}/resources {name}
+   bun save ${SCRATCH}/{NN}-{name} ${CONTENT_FOLDER}/resources {NN}-{name}
    ```
 
-   Copies the MP4 and GIF, plus `resources/{name}-src/` (source, `package.json`, re-render README). Never `node_modules` or fonts.
+   Copies the MP4 and GIF, plus `resources/{NN}-{name}-src/` (source, `package.json`, re-render README). Never `node_modules` or fonts.
 
 8. **Write alt text** in the draft next to the visual line: what each beat shows, in order.
 
-## Quality checks
+## Quality Checks
 
 Check every item on the stills and again on the GIF sheet. If one fails: edit, re-run stills, re-render.
 
@@ -79,7 +85,7 @@ Check every item on the stills and again on the GIF sheet. If one fails: edit, r
 - Solid filled shapes (`fill={T.surface}` plus a stroke) instead of outline icons; outlines disappear in GIF compression.
 - No emoji, no logos of third parties unless the brand guide allows them.
 
-## Formats and limits
+## Formats and Limits
 
 | Channel    | File  | Canvas    | Notes                                                    |
 | ---------- | ----- | --------- | -------------------------------------------------------- |
@@ -88,9 +94,9 @@ Check every item on the stills and again on the GIF sheet. If one fails: edit, r
 | Story/Reel | MP4   | 1080x1920 | Keep text inside the middle 1080x1420.                   |
 | Blog       | MP4   | 1200x675  | `<video autoplay muted loop playsinline>`, GIF as fallback. |
 
-24 fps is enough for diagram motion and halves the GIF size against 30. If a GIF goes over the limit: shorten the video, re-render with `GIF_NTH=3 V render ...` (every 3rd frame), or shrink the dot-grid and glow areas, which are the most expensive to encode.
+24 fps is enough for diagram motion and halves the GIF size against 30. If a GIF goes over the limit: shorten the video, re-render with `GIF_NTH=3 bun render ...` (every 3rd frame), or shrink the dot-grid and glow areas, which are the most expensive to encode.
 
-## Kit reference (`src/kit.tsx`)
+## Kit Reference (`src/kit.tsx`)
 
 | Export | What it does |
 | --- | --- |
@@ -107,11 +113,16 @@ Check every item on the stills and again on the GIF sheet. If one fails: edit, r
 
 The template's `Scene.tsx` uses all of them. For a larger scene, start from a `resources/*-src/` folder this tool saved for an earlier post.
 
-## File naming
+## File Naming
 
 ```
-{name}-storyboard.md   # Beats and timing
-{name}.mp4             # LinkedIn, blog
-{name}.gif             # X
-{name}-src/            # Remotion source to re-render
+{NN}-{description}-storyboard.md   # Beats and timing
+{NN}-{description}.mp4             # LinkedIn, blog
+{NN}-{description}.gif             # X
+{NN}-{description}-src/            # Remotion source to re-render
 ```
+
+Examples:
+
+- `02-agent-flow.mp4`
+- `03-before-after-migration.gif`

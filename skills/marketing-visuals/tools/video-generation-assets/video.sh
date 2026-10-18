@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Remotion video helper for marketing-visuals.
+# Remotion video helper for marketing-visuals. Run through package.json from this folder:
+# bun scaffold | bun stills | bun render | bun save (same arguments as below).
 #
 #   video.sh new    <workdir> [fonts_dir]      scaffold the template, copy fonts, install deps
 #   video.sh stills <workdir> <frame>...       render stills at those frames into out/stills.png (2 columns)
@@ -70,17 +71,17 @@ case "$cmd" in
     cat > "$R/$NAME-src/README.md" <<EOF
 Remotion source for \`../$NAME.gif\` and \`../$NAME.mp4\`.
 
-To re-render, use the marketing-visuals video tool (\`tools/video-generation.md\`):
+To re-render, from the marketing-visuals \`tools/video-generation-assets\` folder:
 
-    video.sh new <scratch-dir> <fonts-dir>
-    cp -R src <scratch-dir>/
-    video.sh render <scratch-dir> $NAME
+    bun scaffold <scratch-dir> <fonts-dir>
+    cp -R <path-to-this-folder>/src <scratch-dir>/
+    bun render <scratch-dir> $NAME
 EOF
     echo "saved: $R/$NAME.mp4, $R/$NAME.gif, $R/$NAME-src/"
     ;;
 
   *)
-    sed -n '2,10p' "$0" | sed 's/^# \{0,1\}//'
+    sed -n '2,12p' "$0" | sed 's/^# \{0,1\}//'
     exit 1
     ;;
 esac
