@@ -200,6 +200,7 @@ Whenever content involves visual assets, you MUST load the `atlas:marketing-visu
 - Composing AI image generation prompts (hero images, cover images, OG cards)
 - Processing or editing images (crop, resize, optimize, background removal)
 - Creating diagrams, schemas, or flowchart visualizations
+- Creating animations or videos (MP4, GIF) for social posts or the blog
 - Any task involving the `resources/` folder for visual content
 
 Do not attempt image work with ad-hoc approaches (raw Python/Pillow, manual prompt composition). The skill contains structured prompt templates, dedicated CLI tools (`bun crop`, `bun polish`, `bun optimize`), and brand-consistent visual guidelines from `visual-identity.md`. Load the skill, follow its decision tree.

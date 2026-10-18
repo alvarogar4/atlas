@@ -14,6 +14,7 @@ Consolidated visual content creation tools and guides.
 | Edit a photo (crop, enhance, optimize) | CLI processing tools          | `tools/processing.md`        |
 | Create a diagram/schema/flowchart      | HTML+CSS → PNG via Playwright | `tools/schema-generation.md` |
 | Compose an AI image generation prompt  | Prompt composition guide      | `guides/ai-prompting.md`     |
+| Create an animation/video (MP4, GIF)   | React → MP4/GIF via Remotion  | `tools/video-generation.md`  |
 
 ## Canvas Size Quick Reference
 
@@ -26,6 +27,7 @@ Consolidated visual content creation tools and guides.
 | Square (Instagram/LinkedIn) | 1080x1080 | 1:1          |
 | Story (vertical)            | 1080x1920 | 9:16         |
 | Hero background             | 1920x1080 | 16:9         |
+| Social video (X, LinkedIn)  | 1200x675  | 16:9         |
 | Thumbnail                   | 400x300   | 4:3          |
 | Icon/avatar                 | 400x400   | 1:1          |
 | Comparison (2 panels)       | 1200x660  | side-by-side |
@@ -41,6 +43,9 @@ ${CONTENT_FOLDER}/resources/
 ├── hero.png                    # Generated/processed image
 ├── 01-architecture.html        # Schema source
 ├── 01-architecture.png         # Schema output
+├── agent-flow.mp4              # Video (LinkedIn, blog)
+├── agent-flow.gif              # Looping GIF (X)
+├── agent-flow-src/             # Remotion source to re-render
 ├── portrait_nobg.png           # Background removed
 └── hero-processed.webp         # Optimized for web
 ```
@@ -57,6 +62,7 @@ Visual tools compose together for common workflows:
 | Schema diagram   | `tools/schema-generation.md` (HTML+CSS → PNG) → `tools/processing.md` (optimize)                |
 | Photo for social | `tools/processing.md` (remove background → crop to 1080x1080 → polish → optimize)               |
 | OG card          | `guides/ai-prompting.md` → generate → `tools/processing.md` (crop to 1200x630)                  |
+| Social animation | storyboard → `tools/video-generation.md` (stills → render → save); a still frame doubles as the fallback image |
 
 Always read the project's visual identity first for brand colors and style defaults.
 

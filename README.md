@@ -73,7 +73,7 @@ atlas/
 │   │   └── calendar/                       # plan, view
 │   ├── marketing-visuals/                  # Visual content creation
 │   │   ├── SKILL.md                        # Decision tree, workflow chaining
-│   │   ├── tools/                          # processing, schema-generation + assets
+│   │   ├── tools/                          # processing, schema-generation, video-generation + assets
 │   │   └── guides/                         # ai-prompting
 │   ├── humanizer/                          # AI writing pattern detection (43 anti-patterns + linter)
 │   │   └── SKILL.md                        # Zero-tolerance checklist, generation constraints
@@ -103,7 +103,7 @@ Strategic frameworks with 3 operations: analyze (12 frameworks), document decisi
 
 ### Visual Content (`marketing-visuals`)
 
-Internal skill for image processing, schema diagrams, and AI prompt composition.
+Internal skill for image processing, schema diagrams, AI prompt composition, and short animations (Remotion → MP4 for LinkedIn, looping GIF for X).
 
 ### Content Humanization (`humanizer`)
 
