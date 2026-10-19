@@ -1,5 +1,5 @@
 import React from 'react'
-import { AbsoluteFill, Easing, interpolate, staticFile } from 'remotion'
+import { AbsoluteFill, Easing, Html5Audio, interpolate, Sequence, staticFile } from 'remotion'
 
 // Brand tokens. Fill these from the project's visual-identity.md before writing the scene.
 export const T = {
@@ -47,6 +47,9 @@ export const lerp = (a: number, b: number, t: number) => a + (b - a) * t
 export type P = [number, number]
 export const lerpP = (a: P, b: P, t: number): P => [lerp(a[0], b[0], t), lerp(a[1], b[1], t)]
 
+// The point `d` px from `a` towards `b`. Lets a flow start at a figure's edge in any layout.
+export const toward = (a: P, b: P, d: number): P => lerpP(a, b, d / Math.hypot(b[0] - a[0], b[1] - a[1]))
+
 // ---------- backdrop ----------
 export const Backdrop: React.FC<{ opacity: number; children: React.ReactNode }> = ({ opacity, children }) => (
   <AbsoluteFill style={{ background: '#000' }}>
@@ -57,6 +60,21 @@ export const Backdrop: React.FC<{ opacity: number; children: React.ReactNode }> 
       {children}
     </AbsoluteFill>
   </AbsoluteFill>
+)
+
+// ---------- sound (optional, off by default) ----------
+// Files live in public/audio/. Each cue starts at a beat constant, so picture and sound share one
+// timeline: retiming a beat moves its cue with it. The track follows `master`, fading with the picture.
+export type Cue = { at: number; file: string; volume?: number }
+export const Soundtrack: React.FC<{ track?: string; cues?: Cue[]; duration: number; volume?: number }> = ({ track, cues = [], duration, volume = 0.8 }) => (
+  <>
+    {track && <Html5Audio src={staticFile(`audio/${track}`)} volume={(f) => volume * master(f, duration)} />}
+    {cues.map((c, i) => (
+      <Sequence key={i} from={c.at} layout="none">
+        <Html5Audio src={staticFile(`audio/${c.file}`)} volume={c.volume ?? 1} />
+      </Sequence>
+    ))}
+  </>
 )
 
 // ---------- text ----------
@@ -95,6 +113,9 @@ const bez = (a: P, c: P, b: P, t: number): P => [
   (1 - t) * (1 - t) * a[1] + 2 * (1 - t) * t * c[1] + t * t * b[1],
 ]
 
+// Point at `t` (0-1) along the curve Bubbles draws from `a` to `b`. Use it to put a barrier at `stopAt`.
+export const pathAt = (a: P, b: P, bend: number, t: number): P => bez(a, [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2 + bend], b, t)
+
 // Dots travelling a curved path from `a` to `b`, `count` in flight, one lap every `period` frames.
 // `stopAt` (0-1) blocks them partway: each dot pops in an accent ring at that point.
 export const Bubbles: React.FC<{
@@ -114,7 +135,7 @@ export const Bubbles: React.FC<{
           const pop = (u - stopAt) / (1 - stopAt)
           if (pop > 0.35) return null
           const [x, y] = bez(a, c, b, stopAt)
-          return <circle key={k} cx={x} cy={y} r={size + pop * 40} fill="none" stroke={T.accent} strokeWidth={2} opacity={1 - pop / 0.35} />
+          return <circle key={k} cx={x} cy={y} r={size * (1 + pop * 8)} fill="none" stroke={T.accent} strokeWidth={2} opacity={1 - pop / 0.35} />
         }
         const [x, y] = bez(a, c, b, u)
         const o = Math.min(1, u * 8, (1 - u) * 8)

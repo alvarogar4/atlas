@@ -1,14 +1,39 @@
 import React from 'react'
 import { useCurrentFrame } from 'remotion'
-import { appear, Backdrop, Bubbles, Fig, Label, master, P, T, Words } from './kit'
+import { appear, Backdrop, Bubbles, Cue, Fig, Label, master, P, pathAt, Soundtrack, T, toward, Words } from './kit'
 
-// Canvas and timeline. Every beat is a named frame so retiming means editing one line.
-export const W = 1200
-export const H = 675
+// Timeline. Every beat is a named frame so retiming means editing one line.
 export const FPS = 24
 export const DURATION = 240 // 10 s
 const FLOW_START = 48
 const BLOCK_START = 120
+
+// One composition per format, each with its own layout. Never crop or scale one format into
+// another: vertical gets bigger type and a stacked flow, so labels move out of the dots' path.
+export type Layout = {
+  w: number; h: number
+  head: { size: number; top: number; left: number }
+  fig: number; label: number // figure scale and label size: phone-sized formats need both larger
+  A: P; B: P; S: P // positions of the figures
+  la: P; lb: P; ls: P // positions of their labels
+}
+export const FORMATS: Record<string, Layout> = {
+  Video: {
+    w: 1200, h: 675, head: { size: 46, top: 46, left: 90 }, fig: 1, label: 12,
+    A: [300, 330], B: [300, 520], S: [860, 420],
+    la: [300, 392], lb: [300, 582], ls: [860, 526],
+  },
+  Story: {
+    w: 1080, h: 1920, head: { size: 84, top: 300, left: 90 }, fig: 2.2, label: 34,
+    A: [300, 820], B: [780, 820], S: [540, 1320],
+    la: [300, 720], lb: [780, 720], ls: [540, 1524],
+  },
+}
+
+// Sound is off by default. To add it, put files in public/audio/ and fill these
+// (see "Sound (Optional)" in video-generation.md). Cues start at beat constants, never raw numbers.
+const TRACK: string | undefined = undefined
+const CUES: Cue[] = [] // e.g. [{ at: BLOCK_START, file: 'tick.wav' }]
 
 // Starter scene: a source sends data to a store, then a second source gets blocked.
 // Replace it with the story of the post: one idea, one before/after or one flow.
@@ -32,24 +57,36 @@ function Store({ glow }: { glow: number }) {
   )
 }
 
-export const Scene: React.FC = () => {
+// A wall across the flow, so "blocked" shows in the picture and not only in a label.
+function Barrier({ at, angle }: { at: P; angle: number }) {
+  return (
+    <g transform={`translate(${at[0]}, ${at[1]}) rotate(${angle})`}>
+      <rect x={-4} y={-34} width={8} height={68} rx={4} fill={T.accent} />
+    </g>
+  )
+}
+
+export const Scene: React.FC<{ layout: Layout }> = ({ layout: L }) => {
   const frame = useCurrentFrame()
-  const A: P = [300, 330]
-  const B: P = [300, 520]
-  const S: P = [860, 420]
+  const { A, B, S } = L
+  const b0 = toward(B, S, 56 * L.fig)
+  const b1 = toward(S, B, 90 * L.fig)
+  const wall = pathAt(b0, b1, 20, 0.55)
 
   return (
     <Backdrop opacity={master(frame, DURATION)}>
-      <Words words={['One', 'clear', 'idea.']} frame={frame} start={14} size={46} top={46} accentFrom={1} />
-      <svg width={W} height={H} style={{ position: 'absolute', inset: 0 }}>
-        <Bubbles a={[A[0] + 50, A[1]]} b={[S[0] - 80, S[1] - 20]} bend={-20} frame={frame} start={FLOW_START} count={4} period={36} />
-        <Bubbles a={[B[0] + 50, B[1]]} b={[S[0] - 80, S[1] + 20]} bend={20} frame={frame} start={BLOCK_START} count={3} period={40} stopAt={0.55} />
-        <Fig at={A} scale={appear(frame, 18)}><Source /></Fig>
-        <Fig at={B} scale={appear(frame, BLOCK_START - 14)}><Source /></Fig>
-        <Fig at={S} scale={appear(frame, 30, 16)}><Store glow={0.5 + 0.5 * Math.sin(frame / 8)} /></Fig>
-        <Label at={[A[0], A[1] + 62]} text="Source A" show={appear(frame, 26)} />
-        <Label at={[B[0], B[1] + 62]} text="Source B · blocked" show={appear(frame, BLOCK_START)} color={T.accent} />
-        <Label at={[S[0], S[1] + 106]} text="Store" show={appear(frame, 40)} color={T.ink} size={13} />
+      <Soundtrack track={TRACK} cues={CUES} duration={DURATION} />
+      <Words words={['One', 'clear', 'idea.']} frame={frame} start={14} size={L.head.size} top={L.head.top} left={L.head.left} accentFrom={1} />
+      <svg width={L.w} height={L.h} style={{ position: 'absolute', inset: 0 }}>
+        <Bubbles a={toward(A, S, 56 * L.fig)} b={toward(S, A, 90 * L.fig)} bend={-20} frame={frame} start={FLOW_START} count={4} period={36} size={5 * L.fig} />
+        <Bubbles a={b0} b={b1} bend={20} frame={frame} start={BLOCK_START} count={3} period={40} stopAt={0.55} size={5 * L.fig} />
+        <Fig at={wall} scale={appear(frame, BLOCK_START + 10) * L.fig}><Barrier at={[0, 0]} angle={(Math.atan2(b1[1] - b0[1], b1[0] - b0[0]) * 180) / Math.PI} /></Fig>
+        <Fig at={A} scale={appear(frame, 18) * L.fig}><Source /></Fig>
+        <Fig at={B} scale={appear(frame, BLOCK_START - 14) * L.fig}><Source /></Fig>
+        <Fig at={S} scale={appear(frame, 30, 16) * L.fig}><Store glow={0.5 + 0.5 * Math.sin(frame / 8)} /></Fig>
+        <Label at={L.la} text="Source A" show={appear(frame, 26)} size={L.label} />
+        <Label at={L.lb} text="Source B · blocked" show={appear(frame, BLOCK_START + 10)} color={T.accent} size={L.label} />
+        <Label at={L.ls} text="Store" show={appear(frame, 40)} color={T.ink} size={L.label + 1} />
       </svg>
     </Backdrop>
   )
