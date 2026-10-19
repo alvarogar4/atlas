@@ -4,10 +4,12 @@
 #
 #   video.sh new    <workdir> [fonts_dir]      scaffold the template, copy fonts, install deps
 #   video.sh stills <workdir> <frame>...       render stills at those frames into out/stills.png (2 columns)
-#   video.sh render <workdir> <name>           render out/<name>.mp4 + out/<name>.gif, check loop, frame sheet
+#   video.sh render <workdir> <name>           render out/<name>.mp4 + out/<name>.gif, check loop, frame sheet,
+#                                              report audio loudness if the scene has sound
 #                                              (GIF_NTH=3 keeps every 3rd frame for a smaller GIF; default 2)
-#   video.sh save   <workdir> <resources_dir> <name>   copy outputs and source into the content folder
+#   video.sh save   <workdir> <resources_dir> <name>   copy outputs of every format, source and audio
 #
+# COMP=<id> picks the composition (a key of FORMATS in Scene.tsx) for stills and render; default Video.
 # Keep <workdir> outside the brain (scratchpad): node_modules must never land in resources/.
 set -euo pipefail
 
@@ -36,7 +38,7 @@ case "$cmd" in
     i=0
     for f in "$@"; do
       i=$((i + 1))
-      npx remotion still src/index.ts Video "out/still-$(printf %03d $i).png" --frame="$f" >/dev/null
+      npx remotion still src/index.ts "${COMP:-Video}" "out/still-$(printf %03d $i).png" --frame="$f" >/dev/null
     done
     rows=$(( (i + 1) / 2 ))
     ffmpeg -loglevel error -y -i out/still-%03d.png -vf "scale=600:-1,tile=2x${rows}:padding=4:color=white" -frames:v 1 out/stills.png
@@ -46,8 +48,8 @@ case "$cmd" in
   render)
     W="${1:?workdir}"; NAME="${2:?name}"
     cd "$W"; mkdir -p out
-    npx remotion render src/index.ts Video "out/$NAME.mp4" --codec=h264 --crf=18 >/dev/null
-    npx remotion render src/index.ts Video "out/$NAME.gif" --codec=gif --every-nth-frame="${GIF_NTH:-2}" >/dev/null
+    npx remotion render src/index.ts "${COMP:-Video}" "out/$NAME.mp4" --codec=h264 --crf=18 >/dev/null
+    npx remotion render src/index.ts "${COMP:-Video}" "out/$NAME.gif" --codec=gif --every-nth-frame="${GIF_NTH:-2}" >/dev/null
     # Loop check: first and last GIF frames should be black (luma max near 16).
     ffmpeg -loglevel error -i "out/$NAME.gif" -vf "signalstats,metadata=print:key=lavfi.signalstats.YMAX:file=out/ymax.txt" -f null -
     first=$(grep -o 'YMAX=[0-9]*' out/ymax.txt | head -1 | cut -d= -f2)
@@ -59,15 +61,30 @@ case "$cmd" in
     ls -la "out/$NAME.mp4" "out/$NAME.gif" | awk '{print $5, $9}'
     echo "gif frames: $frames  first-frame YMAX: $first  last-frame YMAX: $last"
     if [ "$first" -gt 24 ] || [ "$last" -gt 24 ]; then echo "warning: GIF does not start and end on black, the loop will show a seam"; fi
+    # Sound is optional. When the MP4 has it, report loudness; the GIF never carries sound.
+    if [ -n "$(ffprobe -v error -select_streams a -show_entries stream=index -of csv=p=0 "out/$NAME.mp4")" ]; then
+      lufs=$(ffmpeg -nostats -i "out/$NAME.mp4" -af ebur128 -f null - 2>&1 | awk '/Integrated loudness/{f=1} f&&/I:/{print $2; exit}')
+      peak=$(ffmpeg -nostats -i "out/$NAME.mp4" -af volumedetect -f null - 2>&1 | awk '/max_volume/{print $5}')
+      echo "audio: yes, ${lufs} LUFS integrated, peak ${peak} dB (the GIF is silent)"
+      echo "  music bed: aim for -16 to -14 LUFS; cues only: LUFS reads low, keep the peak between -10 and -1 dB"
+    else
+      echo "audio: none"
+    fi
     echo "check: out/gif-sheet.png"
     ;;
 
   save)
     W="${1:?workdir}"; R="${2:?resources_dir}"; NAME="${3:?name}"
     mkdir -p "$R/$NAME-src/src"
-    cp "$W/out/$NAME.mp4" "$W/out/$NAME.gif" "$R/"
+    # Every format rendered under this name: <name>.mp4 and <name>-<format>.mp4, plus their GIFs.
+    shopt -s nullglob
+    outs=("$W/out/$NAME".mp4 "$W/out/$NAME".gif "$W/out/$NAME"-*.mp4 "$W/out/$NAME"-*.gif)
+    [ ${#outs[@]} -gt 0 ] || { echo "no outputs named $NAME in $W/out" >&2; exit 1; }
+    cp "${outs[@]}" "$R/"
     cp "$W"/src/*.ts* "$R/$NAME-src/src/"
     cp "$W/package.json" "$R/$NAME-src/"
+    audio=("$W"/public/audio/*)
+    if [ ${#audio[@]} -gt 0 ]; then mkdir -p "$R/$NAME-src/audio"; cp "${audio[@]}" "$R/$NAME-src/audio/"; fi
     cat > "$R/$NAME-src/README.md" <<EOF
 Remotion source for \`../$NAME.gif\` and \`../$NAME.mp4\`.
 
@@ -75,9 +92,10 @@ To re-render, from the marketing-visuals \`tools/video-generation-assets\` folde
 
     bun scaffold <scratch-dir> <fonts-dir>
     cp -R <path-to-this-folder>/src <scratch-dir>/
-    bun render <scratch-dir> $NAME
+    mkdir -p <scratch-dir>/public/audio && cp <path-to-this-folder>/audio/* <scratch-dir>/public/audio/  # only if audio/ exists
+    COMP=<format> bun render <scratch-dir> $NAME[-<format>]
 EOF
-    echo "saved: $R/$NAME.mp4, $R/$NAME.gif, $R/$NAME-src/"
+    echo "saved: ${outs[*]##*/} and $R/$NAME-src/"
     ;;
 
   *)

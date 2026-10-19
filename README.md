@@ -103,7 +103,7 @@ Strategic frameworks with 3 operations: analyze (12 frameworks), document decisi
 
 ### Visual Content (`marketing-visuals`)
 
-Internal skill for image processing, schema diagrams, AI prompt composition, and short animations (Remotion → MP4 for LinkedIn, looping GIF for X).
+Internal skill for image processing, schema diagrams, AI prompt composition, and short animations (Remotion → MP4 for LinkedIn, looping GIF for X; one composition per format, blind review of stills, optional sound).
 
 ### Content Humanization (`humanizer`)
 

@@ -62,7 +62,7 @@ Visual tools compose together for common workflows:
 | Schema diagram   | `tools/schema-generation.md` (HTML+CSS → PNG) → `tools/processing.md` (optimize)                |
 | Photo for social | `tools/processing.md` (remove background → crop to 1080x1080 → polish → optimize)               |
 | OG card          | `guides/ai-prompting.md` → generate → `tools/processing.md` (crop to 1200x630)                  |
-| Social animation | storyboard → `tools/video-generation.md` (stills → render → save); a still frame doubles as the fallback image |
+| Social animation | storyboard → `tools/video-generation.md` (stills → blind review → render → save); a still frame doubles as the fallback image |
 
 Always read the project's visual identity first for brand colors and style defaults.
 
