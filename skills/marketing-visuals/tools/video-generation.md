@@ -4,7 +4,7 @@ Short animated explainers (MP4 + looping GIF) written as React code with [Remoti
 
 **Use this for**: social-post animations, before/after flows, data moving through a system, a headline that builds word by word. One idea per video, 8-15 s.
 
-**Don't use this for**: screen recordings, talking heads, real footage or voice-over. Those need a video editor. Sound is optional and off by default (see [Sound (Optional)](#sound-optional)).
+**Don't use this for**: screen recordings, talking heads, real footage or voice-over. Those need a video editor. A launch or feature film over about 15 s that tells a story: `launch-film.md`. Sound is optional and off by default (see [Sound (Optional)](#sound-optional)).
 
 ## Workflow
 
@@ -37,7 +37,7 @@ cd {SKILLS_DIR}/marketing-visuals/tools/video-generation-assets
    - **3-5 beats.** A before/after is two beats plus the transition. A beat that can't fill "Why it exists" gets cut.
    - **Write states, not effects.** "B's data stopped at a wall" is a state; "zoom, then morph" is not. Figures move between known states.
    - **Never invent facts.** Every number, product screen, query and logo in the video traces to a line in `Sources:` (the post draft, a benchmark note, a real screenshot). If one is missing, stop and ask. Never draw a plausible stand-in.
-   - **Reference (optional).** When the user gives a video, GIF or frame to match, look at it and write what it teaches: palette (hex), type, pacing (seconds between changes), motion (snap, glide, overshoot, cut, hold). Copy nothing of its subjects, copy or logos.
+   - **Reference (optional).** When the user gives a video, GIF or frame to match, look at it (`bun sheet ref.mp4` makes a one-frame-a-second contact sheet of a video) and write what it teaches: palette (hex), type, pacing (seconds between changes), motion (snap, glide, overshoot, cut, hold). Copy nothing of its subjects, copy or logos.
 
 3. **Scaffold outside the brain** (the scratchpad), never in `resources/`:
 
