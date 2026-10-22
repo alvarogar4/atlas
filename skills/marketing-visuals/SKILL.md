@@ -1,6 +1,6 @@
 ---
 name: marketing-visuals
-description: Visual content creation - image processing, schema diagrams, and AI image prompting. Use when creating visual assets for marketing content.
+description: Visual content creation - image processing, schema diagrams, AI image prompting, short animations and launch films. Use when creating visual assets for marketing content.
 ---
 
 # Marketing Visuals
@@ -15,6 +15,7 @@ Consolidated visual content creation tools and guides.
 | Create a diagram/schema/flowchart      | HTML+CSS → PNG via Playwright | `tools/schema-generation.md` |
 | Compose an AI image generation prompt  | Prompt composition guide      | `guides/ai-prompting.md`     |
 | Create an animation/video (MP4, GIF)   | React → MP4/GIF via Remotion  | `tools/video-generation.md`  |
+| Create a launch/feature film (20-60 s) | Story first, HyperFrames or Remotion | `tools/launch-film.md` |
 
 ## Canvas Size Quick Reference
 
@@ -63,6 +64,7 @@ Visual tools compose together for common workflows:
 | Photo for social | `tools/processing.md` (remove background → crop to 1080x1080 → polish → optimize)               |
 | OG card          | `guides/ai-prompting.md` → generate → `tools/processing.md` (crop to 1200x630)                  |
 | Social animation | storyboard → `tools/video-generation.md` (stills → blind review → render → save); a still frame doubles as the fallback image |
+| Launch film      | `tools/launch-film.md`: reference sheet → three storylines → storyboard → build → measured + blind review → save |
 
 Always read the project's visual identity first for brand colors and style defaults.
 
