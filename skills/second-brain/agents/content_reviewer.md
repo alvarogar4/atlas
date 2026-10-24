@@ -137,6 +137,7 @@ If content_type is blog:
 - Verify meta_description exists and contains keyword
 - Check header hierarchy (no skipped levels)
 - Count internal and external links
+- Flag every link to a competitor domain or one of its subdomains as a BLOCKER (domains from each competitor's `domains` field in `{PROJECT_PATH}/competitors/`), unless the project's `context.md` allows it
 
 ### Step 7: Generate Review Report
 

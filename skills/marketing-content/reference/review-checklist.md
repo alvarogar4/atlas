@@ -71,9 +71,14 @@ Patterns and checklists for content quality control. Used by the `atlas:content_
 - [ ] Meta description present (150-160 chars)
 - [ ] Meta description includes keyword
 - [ ] Headers properly structured (H1 > H2 > H3, no skipping)
-- [ ] Internal links to related content
+- [ ] Internal links to related content, all public on the release day
 - [ ] External links to authoritative sources
+- [ ] No links to competitor domains or their subdomains, `nofollow` or not (`channels/blog.md` → Never link to competitors)
 - [ ] Images have alt text (if applicable)
+
+**Severity:**
+
+- BLOCKER: A link to a competitor domain, unless the project's `context.md` allows it
 
 ### 5. GEO Compliance (Blog only)
 
@@ -101,7 +106,7 @@ Read the GEO section of `channels/blog.md` and verify against its checklist. Thi
 **Severity:**
 
 - BLOCKER: Capsule missing or teasing, sections that do not answer first, repeated lead forms (also a humanizer 27 violation), `FAQPage` markup for questions not on the page
-- WARNING: Fewer than 4 FAQ questions, invented FAQ questions, missing `dateModified`
+- WARNING: Fewer than 4 FAQ questions, invented FAQ questions, missing `dateModified`, `dateModified` moved without a substantive change
 - SUGGESTION: Format could be a comparison page or listicle instead of a standard article
 
 ### 6. Flow & Structure
