@@ -382,6 +382,34 @@ Provide:
 
 ---
 
+## Translating Web Pages for Search
+
+A blog post, landing page or doc page in a new language is a new page in a different search market. The patterns above make it read naturally. These rules make it findable, and keep it faithful.
+
+**Keywords are researched, not translated.** Build the title, description and slug around what speakers of the target language type into a search box. "Cómo hacer una newsletter" becomes "How to start a newsletter", not "How to make a newsletter". Check which term people use (newsletter or boletín, mailing list or email list) before choosing one.
+
+**Re-check every length limit.** Spanish usually runs longer than English, so a title or meta description that fits in one language can overflow in the other. Measure again after translating.
+
+**Translate the slug** (lowercase, ASCII, keyword included) and keep a map from each source slug to its target slug. The map is what rewrites internal links.
+
+**Links.** Internal links point to the target-language version of each page, using the slug map. External links (sources) stay as they are.
+
+**Quotes.** A quote that the source text had translated from the target language goes back to its original wording: open the cited page and copy it. A quote from a source-language source is translated faithfully and stays attributed.
+
+**Source-language-only content** is adapted or dropped, never translated word for word: asides about the source language itself (whether Spanish says "el" or "la newsletter"), or the search habits of that market.
+
+**Local names.** Institutions, laws and taxes keep their names, with a short gloss on first mention: "Spain's data protection agency (AEPD)". Product UI that only exists in the source language keeps its label with the meaning in brackets on first mention: «Enviar ahora» (Send now).
+
+**One locale, all the way through.** Pick the variant (en-GB or en-US, es-ES or es-MX) and keep its spelling, number, currency and date formats: €13.66 and 20 October 2026 in en-GB, 13,66 € and 20 de octubre de 2026 in es-ES.
+
+**Facts do not move.** Same numbers, dates, sources and caveats as the original. If a fact is out of date, fix the original first, then the translation.
+
+**A second reader.** For anything published, a separate pass (a fresh subagent works) reads the source and the translation side by side for fidelity and naturalness. It catches what the translator normalised without noticing.
+
+Publishing rules for translated blog posts (`hreflang`, release date) are in `atlas:marketing-content` → `channels/blog.md` → Translated editions.
+
+---
+
 ## Language-Pair Notes
 
 This skill defaults to EN<>ES (Spain) but the patterns are universal. When translating other pairs:

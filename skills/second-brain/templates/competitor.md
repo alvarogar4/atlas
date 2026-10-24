@@ -18,6 +18,7 @@ project: {project_name}
 captured: {ISO timestamp}
 type: competitor
 competitor: {competitor-name}
+domains: [{competitor.com}, {other domains they own or host customers on}]
 status: active
 ---
 

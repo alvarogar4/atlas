@@ -60,6 +60,7 @@ The answer capsule, per-section leads, and FAQ are GEO requirements. See the GEO
 - Keep under 60 characters (Google truncates after 60)
 - Front-load the keyword when possible
 - Use power words: "Ultimate", "Complete", "Essential", numbers
+- If the H1 needs more room, give the page a separate SEO title (the `<title>` and the social title) under 60 characters and let the H1 run longer
 
 ### Meta Description
 
@@ -268,12 +269,32 @@ Plan three substantive refresh passes at publish time and put them on the calend
 | Pass 2  | +4-6 weeks  | Add FAQ entries from questions actually received, refresh any stat that moved     |
 | Pass 3  | +8-12 weeks | Add proprietary data, or a section covering a query the page started surfacing for |
 
-Every pass updates `dateModified`, updates the visible "Last updated" date, and records what changed in `5_results-blog.md`.
+A pass that changes substance updates `dateModified`, updates the visible "Last updated" date, and records what changed in `5_results-blog.md`. A pass that checks the post and finds nothing worth changing touches neither date. Record it separately (a `reviewed` date in frontmatter), so the post leaves the refresh queue without faking freshness.
+
+Facts with a known expiry (a law entering into force, an annual price review, a "beta until" date) get a `recheck` entry in frontmatter: the day and what to check. On that day the post goes back into the refresh queue, whatever its age.
 
 > [!warning] Publish complete, then improve
 > A tempting variant of this is to ship a deliberately raw version and add the capsule, images, and FAQ later, manufacturing three freshness events. Do not. The first crawl indexes the weak version, and the page can be cited in that state for weeks before anything gets added. The staged schedule earns the same freshness signal without betting on the first version going unread.
 
 A pass that only touches the date is detectable and worthless. Each one adds substance.
+
+### Writing ahead, releasing on a schedule
+
+A batch written in one go and released over weeks needs the site to behave as if each post had been written on its day:
+
+- `datePublished` is the release instant in the site's time zone, with its offset (`2026-10-24T00:00:00+02:00`), not the day the post was written.
+- A post that is not out yet stays off the sitemap, the RSS feed, listing and topic pages, related-post blocks, and other posts' links (see Internal Linking).
+- Release on fixed weekdays, and let the build enforce the calendar (one post per release day, nothing public before its date) instead of someone remembering it.
+- On each release day: rebuild, deploy, and send the new URLs to IndexNow (Bing, Yandex and the engines that read from them).
+
+### Translated editions
+
+A post in a second language is a separate page in a separate search market:
+
+- Its own slug, title, description and keywords, researched in that language. See `atlas:translator` → Translating web pages for search.
+- `hreflang` links in both directions between the two versions, plus `x-default`, and a visible link to the other language.
+- It goes live on the same day as the original, never before it.
+- Its internal links point to the same-language edition of each post.
 
 ### GEO sources
 
@@ -322,12 +343,27 @@ Short phrases that keep readers scrolling:
 - Use descriptive anchor text (not "click here")
 - Link early in the post for important pages
 - Create content clusters around pillar topics
+- Link only to posts that are public on this post's release day. When a batch is released on a schedule, links to later posts stay as plain text until those posts go live (a build that publishes by date can unwrap them automatically), or get added in a refresh pass
 
 ## External Linking
 
 - Link to authoritative sources (research, stats, expert quotes)
 - 2-5 external links per 1000 words
 - Verify links work before publishing
+
+### Never link to competitors
+
+Do not link to any competitor domain, not even with `nofollow`. That covers the competitor's home and pricing pages, help centre, reports and blog. It also covers the newsletters, blogs and shops their customers host on the competitor's subdomains (`someone.substack.com`, `name.ghost.io`). Check the link's domain, not the brand named in the text.
+
+The reason is commercial more than technical. `rel="nofollow"` already stops PageRank from flowing, but it does not stop the click. A reader comparing tools leaves mid-decision for the competitor's site, the competitor gets the referral traffic, and the link reads as an endorsement.
+
+| The text needs                                | Write instead                                                                                                            |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| The competitor as a product                   | A link to your own comparison page with it, if there is one. Otherwise its name, unlinked                                |
+| A fact from their pricing page, docs, report  | The fact, cited in Sources as text with the address unlinked: `Competitor pricing (competitor.com/pricing)`, so it stays checkable |
+| An example site hosted on their platform      | Its name, unlinked                                                                                                       |
+
+The domains come from each competitor's `domains` field (`second-brain` → `entities/competitor.md`). When the site is built from code, enforce the rule with a build check that fails on any `<a>` pointing at one of those domains or their subdomains. A review pass misses links in old posts, translations and landing pages, and a check does not. A project that wants to allow some of these links says so in its `context.md`.
 
 ## Formatting for Readability
 
@@ -371,6 +407,8 @@ author: { from project context or "Author" }
 status: draft
 created: { ISO timestamp }
 updated: { ISO date, maps to dateModified in schema }
+reviewed: { ISO date of the last refresh pass that changed nothing, optional }
+recheck: [{ on: ISO date, what: "fact with an expiry to check" }]
 project: { project }
 word_count: { actual count }
 target_word_count: { from outline }
@@ -387,7 +425,8 @@ refresh_passes: { scheduled dates for passes 1-3, or "unscheduled" }
 - [ ] Word count hits target (within 10%)
 - [ ] All sections from outline are included
 - [ ] Sources are cited with inline links
-- [ ] Internal links to 2-5 related posts
+- [ ] Internal links to 2-5 related posts, all public on the release day
+- [ ] No links to competitor domains or their subdomains, `nofollow` or not
 - [ ] Images have alt text
 - [ ] No orphan headings (single H3 under H2)
 - [ ] Conclusion has clear CTA
@@ -403,7 +442,7 @@ refresh_passes: { scheduled dates for passes 1-3, or "unscheduled" }
 - [ ] No section opener depends on a pronoun from the previous section
 - [ ] FAQ with 4-8 real questions, 40-60 word self-contained answers
 - [ ] `Article` and `FAQPage` JSON-LD specified, `dateModified` set
-- [ ] Visible "Last updated" date matches `dateModified`
+- [ ] Visible "Last updated" date matches `dateModified`, and both move only with a substantive change
 - [ ] Statistics and quotes carry inline sources
 - [ ] Comparison content: table has no empty cells, competitor strengths section present
 - [ ] Refresh passes scheduled on the calendar

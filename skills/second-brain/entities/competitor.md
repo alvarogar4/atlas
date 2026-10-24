@@ -18,6 +18,7 @@ Use the Competitor Profile template from `templates/competitor.md`.
 
 - Competitor name
 - Website
+- Domains: every domain they own, including old brands and the ones their customers' sites live on (`ghost.io`, `substack.com`). Content never links to any of them (`marketing-content` → `channels/blog.md` → Never link to competitors)
 - Core offering
 - Target market
 - Positioning
