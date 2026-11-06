@@ -64,6 +64,14 @@ A project may pin its own folder layout, file naming, frontmatter, and cross-lin
 
 **No spec**: if `{PROJECT_PATH}/STRUCTURE.md` is absent, use `reference/folder-structure.md` exactly as before.
 
+### Project Knowledge Sources
+
+The brain folder is always the primary source. Search it first, following the workflows here (`atlas:locate_knowledge` → `atlas:analyze_knowledge`). An MCP query never replaces that step.
+
+A project can also turn on an external knowledge source, usually a team brain behind an MCP server, in its own `{PROJECT_PATH}/AGENTS.md` or `STRUCTURE.md`. When the task relates to such a project, its context is split between the two places, so query that source as well and combine the results. Follow the project file's own connection steps. When the task relates to no project, or to a project that turns on no external source, use the brain folder only.
+
+Personal notes (career, feedback, journal, anything outside a team-shared project) stay in the brain folder. Never write them into a project's external source.
+
 ## Capabilities
 
 ### Knowledge Operations
@@ -102,6 +110,7 @@ These should happen automatically without the user needing to ask:
 - When user asks about a topic → decide between search (file discovery) and recall (deep synthesis) based on the question
 - When user mentions a project name → check if it exists and offer to switch
 - **When a project becomes active** → check for `{PROJECT_PATH}/STRUCTURE.md`; if present, treat it as the authoritative structure/naming/frontmatter/linking spec for that project (plugin defaults are fallback) per [Project Structure Spec](#project-structure-spec)
+- **When the task relates to a project** → check its `AGENTS.md`/`STRUCTURE.md` for an external knowledge source (for example a team brain MCP). If it declares one, query it as well as the brain folder, per [Project Knowledge Sources](#project-knowledge-sources)
 - **Before any git operation scoped to a project** (pull, push, status, branch, commit) → a project can be its own git repo nested inside the brain (separate remote, separate branch, often team-shared and gitignored from the brain repo). NEVER assume the brain-root repo covers it and NEVER infer repo membership from the parent. Always resolve the real boundary first with `git -C {PROJECT_PATH} rev-parse --show-toplevel` (and `--abbrev-ref HEAD`), then operate on that repo. A nested project repo is invisible to the brain repo's `git status`, so a clean / "up to date" parent does NOT mean the project is synced.
 - **After creating or updating any file** → populate the `related` frontmatter property with vault-root paths to connected files per `reference/cross-referencing.md`
 
