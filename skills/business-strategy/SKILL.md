@@ -19,12 +19,13 @@ Requires: `BRAIN_PATH` (minimum), `ACTIVE_PROJECT` (when analyzing a specific pr
 | ------------------------------------------------- | ----------------------- |
 | Analyze a strategic question, understand position | `workflows/analyze.md`  |
 | Document a business decision                      | `workflows/decision.md` |
-| Weekly/monthly/quarterly/annual review            | `workflows/review.md`   |
+| Daily/weekly/monthly/quarterly/annual review      | `workflows/review.md`   |
 
 ### Intent Detection for Review Period
 
 When user asks for a review, route to the correct section in `workflows/review.md`:
 
+- "wrap up", "wrap up the day", "daily review", "how was today" → Daily section
 - "weekly review", "how was this week" → Weekly section
 - "monthly review", "month in review" → Monthly section
 - "quarterly review", "Q1 review", "strategic review" → Quarterly section
@@ -35,7 +36,7 @@ When user asks for a review, route to the correct section in `workflows/review.m
 
 - `analyze.md` and `decision.md`: **Project** config when project-scoped (need `ACTIVE_PROJECT`), **Basic** config when general or area-scoped.
 - Quarterly and Annual reviews: **Project** config when project-scoped, **Basic** config when personal. If no `ACTIVE_PROJECT`, default to personal.
-- Weekly and Monthly reviews use **Basic** config (only need `BRAIN_PATH`).
+- Daily, Weekly and Monthly reviews use **Basic** config (only need `BRAIN_PATH`).
 
 ## Framework Selection Guide
 
@@ -88,4 +89,4 @@ All paths follow `atlas:second-brain` → `reference/folder-structure.md`. This 
 
 Analyses skip step 2 — they are reference material (PARA: resources) and route either project or general.
 
-Reviews: weekly/monthly are always brain-level. Quarterly/annual ask whether project-scoped or personal.
+Reviews: daily/weekly/monthly are always brain-level, and personal: never write them into a project folder unless the user asks for a specific part to go there. Quarterly/annual ask whether project-scoped or personal.

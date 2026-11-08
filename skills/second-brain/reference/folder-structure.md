@@ -21,7 +21,9 @@
 │   ├── decisions/              # General decision logs (not area-specific)
 │   │   └── YYYY-MM-DD-{topic}.md
 │   └── reviews/                # Personal periodic reviews
-│       ├── YYYY-WXX-weekly.md
+│       ├── YYYY-WXX/           # One folder per ISO week (date '+%G-W%V')
+│       │   ├── YYYY-MM-DD.md   # Daily reviews (nightly wrap-up), one per day
+│       │   └── YYYY-WXX-weekly.md  # Weekly review, next to its dailies
 │       ├── YYYY-MM-monthly.md
 │       ├── YYYY-QX-quarterly.md
 │       └── YYYY-annual.md

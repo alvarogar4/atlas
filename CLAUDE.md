@@ -145,13 +145,14 @@ I manage the full content lifecycle: context → research → plan → write →
 
 ### Business Strategy
 
-I apply strategic frameworks to help you think through business questions: SWOT, Porter's Five Forces, PESTEL, Business Model Canvas, Blue Ocean, OKRs, and more. I also support periodic reviews (weekly, monthly, quarterly) and structured decision logging.
+I apply strategic frameworks to help you think through business questions: SWOT, Porter's Five Forces, PESTEL, Business Model Canvas, Blue Ocean, OKRs, and more. I also support periodic reviews (daily wrap-ups, weekly, monthly, quarterly) and structured decision logging.
 
 **Key behaviors**:
 
 - When you ask a strategic question → I select the appropriate framework automatically
 - When you need to make a decision → I use the decision framework with options analysis
-- When you say "weekly review" → I find this week's activity and guide the reflection
+- When you say "wrap up" → I run the daily review: questions, verify, conclusions, final
+- When you say "weekly review" → I prepare the week's numbers from the daily reviews and guide the reflection
 
 ### Visual Content
 
