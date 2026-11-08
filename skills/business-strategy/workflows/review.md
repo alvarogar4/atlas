@@ -1,7 +1,8 @@
 # Workflow: Review
 
-Periodic business reviews at four cadences. Determine the period from the conversation:
+Periodic reviews at five cadences. Determine the period from the conversation:
 
+- "wrap up", "daily review", "how was today" → Daily
 - "weekly review", "how was this week" → Weekly
 - "monthly review", "this month" → Monthly
 - "quarterly review", "Q1 review", "strategic review" → Quarterly
@@ -12,17 +13,49 @@ All templates are in `templates/review.md`.
 
 ---
 
+## Daily
+
+**Purpose**: Close the day in about 10 minutes, together with the user, so nothing stays as "I'll remember" and each day's lessons compound into the weekly review.
+
+**Config**: **Basic** from `atlas:second-brain`.
+
+**File**: `{BRAIN_PATH}/areas/reviews/{YYYY-WXX}/{YYYY-MM-DD}.md`, where the week is the ISO week of the day being reviewed: `date -j -f %Y-%m-%d {YYYY-MM-DD} '+%G-W%V'` (macOS) or `date -d {YYYY-MM-DD} '+%G-W%V'` (GNU). A wrap-up after midnight still reviews the previous day. Template: Daily Review in `templates/review.md`.
+
+### Process
+
+Before step 1, read on your own whatever the user keeps the day in: their task or time-block system (planned vs actual), their to-do list, tomorrow's calendar, and the day's file if a draft already exists. Ask only what those can't answer.
+
+1. **Questions**: ask the user everything you can't answer from those sources: open or unclosed blocks, background work and its results, why something moved or didn't happen. One message, short list.
+2. **Verify**: check the day's file is complete (blocks with planned vs actual, per-topic notes, open items, tomorrow, to-do delta). Close every open item in the user's task system with what actually happened, put carry-overs into new tasks or to-dos (never into the review file: the brain holds context, not to-dos), and write the missing pieces.
+3. **Conclusions**: give your read on the day: what moved, what slipped and why, patterns across days, risks for tomorrow. Benchmark against the plan and the user's own rules, not an ideal day. The user corrects what's off and you discuss it.
+4. **Final**: write the agreed conclusions into the file's "Read on the day" section and save (commit and push if the brain is a git repo).
+
+Keep the day's file as a draft during the day if the user shares notes; the wrap-up turns it into the final version.
+
+---
+
 ## Weekly
 
 **Purpose**: Reflect on week, plan next week.
 
 **Config**: **Basic** from `atlas:second-brain`.
 
+**File**: `{BRAIN_PATH}/areas/reviews/{YYYY-WXX}/{YYYY-WXX}-weekly.md`, in the same folder as the week's daily reviews. Template: Weekly Review in `templates/review.md`.
+
 ### Process
 
-1. Get current week: `date '+%Y-W%V'`
+1. Get current week: `date '+%G-W%V'` (ISO week-numbering year, so the folder matches the dailies around New Year).
 
-2. **Find recent activity**:
+2. **Prepare before the session.** If the review is scheduled, write a prep version of the file before it starts: fill Key Metrics and every data-backed section (from the steps below), and mark the parts only the user can write (wins they care about, learnings, how the week felt, top 3 priorities). The session then finishes the same file instead of starting from a blank page.
+
+   Sources, in order:
+   - The week's daily reviews in `areas/reviews/{YYYY-WXX}/`: blocks, conclusions, what slipped.
+   - The user's task or time-block system, if they track one: planned vs actual time, unplanned (extra) work share, time by topic, blocks closed late or not done.
+   - Content results, if they publish: per-post numbers and audience growth week over week.
+   - The to-do list: done this week, still open, overdue, due next week.
+   - Items that slipped: how many times each moved, and why.
+
+3. **Find other activity this week**:
 
 ```
 subagent_type: atlas:locate_knowledge
@@ -43,15 +76,17 @@ Return:
 - Brief summary of what changed"
 ```
 
-3. Walk through review questions with user:
+4. Walk through review questions with user, starting from the prep version:
 
 - **Wins & Accomplishments**: What went well? What progress was made?
 - **Challenges & Learnings**: What didn't go as planned? What did you learn?
-- **Key Metrics** (if applicable): Any numbers to track?
+- **Key Metrics**: planned vs actual, extra work, content results, anything else they track. Compare with last week.
+- **What slipped**: which items moved, how many times, and what that says about planning.
+- **How the week felt**: energy, focus, anything outside work that shaped it.
 - **Open Loops**: What's unfinished? What needs follow-up?
 - **Next Week Focus**: Top 3 priorities? Important dates?
 
-4. Save using the Weekly Review template from `templates/review.md`. Path from `reference/folder-structure.md` (brain-level reviews).
+5. Save the finished version into the same file (commit and push if the brain is a git repo). If the user keeps a recurring review slot, make sure next week's exists.
 
 ---
 
@@ -76,7 +111,7 @@ Time filter: Files modified in the last 30 days (-mtime -30)
 Search all PARA categories with emphasis on:
 - projects/ - Project progress
 - areas/decisions/ - Decisions made
-- areas/reviews/ - Weekly reviews
+- areas/reviews/*/ - Weekly reviews (YYYY-WXX-weekly.md) and their daily reviews
 
 Return:
 - File paths grouped by category
@@ -84,7 +119,7 @@ Return:
 - Key changes identified"
 ```
 
-3. Read weekly reviews for the month to synthesize.
+3. Read the month's weekly reviews (`areas/reviews/{YYYY-WXX}/{YYYY-WXX}-weekly.md`) to synthesize; open the daily reviews in the same folders only when a weekly one is missing or thin.
 
 4. Walk through monthly questions:
 

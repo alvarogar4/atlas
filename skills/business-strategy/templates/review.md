@@ -6,15 +6,64 @@ Templates for periodic business reviews at all cadences.
 
 Resolve scope via `SKILL.md` routing → paths from `atlas:second-brain` → `reference/folder-structure.md`.
 
+## Daily Review Template
+
+**Path**: `{BRAIN_PATH}/areas/reviews/YYYY-WXX/YYYY-MM-DD.md` (ISO week of the day)
+
+Drop sections that don't apply to the user (no task system → no blocks table). Add per-topic sections (one per client, project or area that moved that day) between Blocks and Open.
+
+```yaml
+---
+created: {timestamp}
+updated: {timestamp}
+type: review
+period: {YYYY-MM-DD}
+related:
+  - "{previous day's review}"
+---
+
+# {Day} {YYYY-MM-DD}
+
+{2-4 sentences: what the day was about, what got done, what moved and why.}
+
+## Blocks
+
+| When | Block | Planned | Actual |
+| --- | --- | --- | --- |
+| {time} | {block} | {planned} | {actual, or why it didn't happen} |
+
+{Short note on what changed against the plan.}
+
+## {Topic}
+
+{What happened, results, numbers, decisions.}
+
+## Open
+- {Unfinished item}: {next step and date}
+
+## Tomorrow
+- {time}: {block or event}
+
+## Read on the day
+{Atlas's conclusions after the user corrected them: what moved, what slipped and why, patterns, risks for tomorrow.}
+
+## To-do delta
+- **Done:** {items}
+- **Added:** {items}
+```
+
 ## Weekly Review Template
 
-**Path**: `{BRAIN_PATH}/areas/reviews/YYYY-WXX-weekly.md`
+**Path**: `{BRAIN_PATH}/areas/reviews/YYYY-WXX/YYYY-WXX-weekly.md` (next to the week's daily reviews)
+
+In the prep version, fill every data-backed section and mark the user's parts with `> [!todo] {user}: ...` callouts; the session replaces them.
 
 ```yaml
 ---
 captured: {timestamp}
 type: review
 period: {YYYY-WXX}
+status: prep | final
 ---
 
 # Weekly Review: {Week of Date}
@@ -33,7 +82,22 @@ period: {YYYY-WXX}
 ## Key Metrics
 | Metric | This Week | Last Week | Trend |
 |--------|-----------|-----------|-------|
+| Planned vs actual time | {value} | {value} | {trend} |
+| Unplanned (extra) work share | {value} | {value} | {trend} |
 | {metric} | {value} | {value} | {trend} |
+
+## What Slipped
+| Item | Times moved | Why |
+|------|-------------|-----|
+| {item} | {n} | {reason} |
+
+## Content Results
+| Post | Channel | Result |
+|------|---------|--------|
+| {post} | {channel} | {numbers} |
+
+## How the Week Felt
+{The user's words: energy, focus, what shaped the week.}
 
 ## Open Loops
 - [ ] {Unfinished item 1}

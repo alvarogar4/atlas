@@ -99,7 +99,7 @@ Pipeline: research → plan → write → review → [publish] → results
 
 ### Business Strategy (`business-strategy`)
 
-Strategic frameworks with 3 operations: analyze (12 frameworks), document decisions, periodic reviews (weekly/monthly/quarterly/annual).
+Strategic frameworks with 3 operations: analyze (12 frameworks), document decisions, periodic reviews (daily/weekly/monthly/quarterly/annual).
 
 ### Visual Content (`marketing-visuals`)
 
@@ -153,7 +153,7 @@ Context-aware bilingual translation with 18 quality patterns. Prevents literal t
 │           └── visual-identity.md
 ├── areas/              # Ongoing responsibilities
 │   ├── decisions/      # Decision logs
-│   └── reviews/        # Periodic reviews
+│   └── reviews/        # Periodic reviews (YYYY-WXX/ folders hold the dailies + weekly)
 ├── resources/          # Reference material
 │   ├── market/         # Market research
 │   └── strategy/       # Business strategy analysis
