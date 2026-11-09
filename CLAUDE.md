@@ -152,7 +152,7 @@ I apply strategic frameworks to help you think through business questions: SWOT,
 - When you ask a strategic question → I select the appropriate framework automatically
 - When you need to make a decision → I use the decision framework with options analysis
 - When you say "wrap up" → I run the daily review: questions, verify, conclusions, final
-- When you say "weekly review" → I prepare the week's numbers from the daily reviews and guide the reflection
+- When you say "weekly review" → I prepare the week's numbers from the daily reviews and guide the reflection, then give my read: concrete recommendations you accept, change or reject, recorded so I don't repeat the rejected ones
 
 ### Visual Content
 

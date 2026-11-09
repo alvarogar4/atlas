@@ -55,6 +55,8 @@ Keep the day's file as a draft during the day if the user shares notes; the wrap
    - The to-do list: done this week, still open, overdue, due next week.
    - Items that slipped: how many times each moved, and why.
 
+   Also draft **Atlas's read and recommendations**: 3-6 concrete recommendations, ordered by expected impact, each tied to evidence from this week (a number, a pattern across dailies, a repeated slip). Before drafting, read the "Atlas's Read and Recommendations" tables of the last few weekly reviews: do not re-propose anything the user rejected or deferred unless the reason they gave no longer holds (for example "after the funding round" once it has closed). Benchmark against the user's own constraints and rules, not an ideal week.
+
 3. **Find other activity this week**:
 
 ```
@@ -85,6 +87,7 @@ Return:
 - **How the week felt**: energy, focus, anything outside work that shaped it.
 - **Open Loops**: What's unfinished? What needs follow-up?
 - **Next Week Focus**: Top 3 priorities? Important dates?
+- **Atlas's read**: present the recommendations after the user's own answers. The user agrees, changes or rejects each one; record every answer in the table with its outcome, adopted ones also go into the user's planning rules (or wherever they keep standing rules), and rejected or deferred ones stay in the table so later reviews don't propose them again.
 
 5. Save the finished version into the same file (commit and push if the brain is a git repo). If the user keeps a recurring review slot, make sure next week's exists.
 
