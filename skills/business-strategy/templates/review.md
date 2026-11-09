@@ -56,7 +56,7 @@ related:
 
 **Path**: `{BRAIN_PATH}/areas/reviews/YYYY-WXX/YYYY-WXX-weekly.md` (next to the week's daily reviews)
 
-In the prep version, fill every data-backed section and mark the user's parts with `> [!todo] {user}: ...` callouts; the session replaces them.
+In the prep version, fill every data-backed section and mark the user's parts with `> [!todo] {user}: ...` callouts; the session replaces them. The prep also drafts **Atlas's read and recommendations**; the session turns it into the agreed table.
 
 ```yaml
 ---
@@ -98,6 +98,13 @@ status: prep | final
 
 ## How the Week Felt
 {The user's words: energy, focus, what shaped the week.}
+
+## Atlas's Read and Recommendations
+{Prep: 3-6 recommendations, each tied to a number or pattern from this week, ordered by expected impact. Skip anything the user already rejected in earlier weeks unless its reason changed.}
+
+| Recommendation | {User} | Outcome |
+|---|---|---|
+| {recommendation and the evidence behind it} | {the user's answer, in their words} | {adopted / adopted with changes / not now, revisit when X / dropped} |
 
 ## Open Loops
 - [ ] {Unfinished item 1}
