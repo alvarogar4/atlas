@@ -41,21 +41,25 @@ For prioritizing tasks and decisions based on urgency and importance.
 ## Eisenhower Matrix: {Context/Period}
 
 ### Q1: Do First (Urgent + Important)
+
 | Item | Deadline | Action |
 |------|----------|--------|
 | {task} | {date} | {what to do} |
 
 ### Q2: Schedule (Not Urgent + Important)
+
 | Item | When to Do | Time Blocked? |
 |------|------------|---------------|
 | {task} | {date/time} | {Yes/No} |
 
 ### Q3: Delegate (Urgent + Not Important)
+
 | Item | Delegate To | Status |
 |------|-------------|--------|
 | {task} | {person/tool} | {done/pending} |
 
 ### Q4: Eliminate (Not Urgent + Not Important)
+
 | Item | Why Eliminating | Replacement Activity |
 |------|-----------------|---------------------|
 | {task} | {reason} | {better use of time} |

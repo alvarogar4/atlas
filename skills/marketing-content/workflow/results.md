@@ -58,11 +58,13 @@ Recording results for: {title}
 **Refresh log** (from the refresh cadence in `channels/blog.md`):
 
 ```
+
 | Pass | Due | Done | What changed | dateModified updated |
 |------|-----|------|--------------|----------------------|
 | 1 (+2w)     | | | | |
 | 2 (+4-6w)   | | | | |
 | 3 (+8-12w)  | | | | |
+
 ```
 
 If a due pass is unrecorded, flag it. Comparison and category pages hold citation frequency for 60-90 days before measurable decay.
@@ -161,6 +163,7 @@ performance: {above_benchmark|meets_benchmark|below_benchmark}
 {Channel-specific metrics table}
 
 ### Benchmark Comparison
+
 | Metric | Result | Benchmark | Status |
 |--------|--------|-----------|--------|
 | {metric} | {value} | {benchmark} | {above/meets/below} |
@@ -188,11 +191,13 @@ performance: {above_benchmark|meets_benchmark|below_benchmark}
 - [ ] {pattern to avoid}
 
 ## Repurposing Opportunities
+
 | Format | Status | Notes |
 |--------|--------|-------|
 | LinkedIn post | {done/planned/skip} | |
 | Twitter thread | {done/planned/skip} | |
 | Email newsletter | {done/planned/skip} | |
+
 ```
 
 ## Benchmarks by Channel

@@ -27,6 +27,7 @@ Run the helper commands from `{SKILLS_DIR}/marketing-visuals/tools/video-generat
 
    ```markdown
    Reference: {url}
+
    | Dimension   | Adherence           | Note                                   |
    | ----------- | ------------------- | -------------------------------------- |
    | Structure   | follow / adapt / no | e.g. problem → betrayal → reveal → ... |
@@ -34,6 +35,7 @@ Run the helper commands from `{SKILLS_DIR}/marketing-visuals/tools/video-generat
    | Transitions | follow / adapt / no | which kinds, what causes them          |
    | Look        | no                  | always the brand's                     |
    | Copy        | no                  | never; nor subjects or logos           |
+
    ```
 
    No reference: skip this step and say so in the storyboard.

@@ -46,6 +46,7 @@ ls ${PROJECT_PATH}/marketing/themes/*.md 2>/dev/null | head -20
 Marketing Calendar: {Project} - Q{n} {Year}
 
 ## Overview
+
 | Month | Campaigns | Blog Posts | Primary Theme |
 |-------|-----------|------------|---------------|
 | {Month 1} | {name} | {n} posts | {theme} |

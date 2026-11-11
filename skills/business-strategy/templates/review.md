@@ -80,6 +80,7 @@ status: prep | final
    - Learning: {what you learned}
 
 ## Key Metrics
+
 | Metric | This Week | Last Week | Trend |
 |--------|-----------|-----------|-------|
 | Planned vs actual time | {value} | {value} | {trend} |
@@ -87,11 +88,13 @@ status: prep | final
 | {metric} | {value} | {value} | {trend} |
 
 ## What Slipped
+
 | Item | Times moved | Why |
 |------|-------------|-----|
 | {item} | {n} | {reason} |
 
 ## Content Results
+
 | Post | Channel | Result |
 |------|---------|--------|
 | {post} | {channel} | {numbers} |
@@ -137,6 +140,7 @@ period: {YYYY-MM}
 {3-4 sentence overview}
 
 ## Goals Review
+
 | Goal | Status | Progress | Notes |
 |------|--------|----------|-------|
 | {goal} | {status} | {%} | {notes} |
@@ -146,11 +150,13 @@ period: {YYYY-MM}
 2. {Major accomplishment 2}
 
 ## Metrics Dashboard
+
 | Metric | Target | Actual | vs Last Month |
 |--------|--------|--------|---------------|
 | {metric} | {target} | {actual} | +/-% |
 
 ## Projects Update
+
 | Project | Status | Progress | Next Milestone |
 |---------|--------|----------|----------------|
 | {project} | {status} | {%} | {milestone} |
@@ -183,11 +189,13 @@ period: {YYYY-QX}
 ## Quarter Goals Review
 
 ### Goals Achieved
+
 | Goal | Result | Notes |
 |------|--------|-------|
 | {goal} | {achievement} | {context} |
 
 ### Goals Not Achieved
+
 | Goal | Progress | Reason | Disposition |
 |------|----------|--------|-------------|
 | {goal} | {%} | {why} | {continue/drop/modify} |
@@ -201,6 +209,7 @@ period: {YYYY-QX}
 {Relevant changes in environment}
 
 ## Quarterly Metrics
+
 | Metric | Q Start | Q End | Change | Trend |
 |--------|---------|-------|--------|-------|
 | {metric} | {value} | {value} | +/-% | {trend} |
@@ -212,6 +221,7 @@ period: {YYYY-QX}
 1. **{Challenge 1}**: Impact, response, learning
 
 ## Key Decisions Made
+
 | Decision | Date | Outcome Assessment |
 |----------|------|-------------------|
 | {decision} | {date} | {good/okay/revisit} |
@@ -223,6 +233,7 @@ period: {YYYY-QX}
 2. **{Priority 2}**: {why and what}
 
 ### Goals
+
 | Goal | Metric | Target |
 |------|--------|--------|
 | {goal} | {how measured} | {target value} |
@@ -261,16 +272,19 @@ period: {YYYY}
 ## Annual Goals Review
 
 ### Goals Achieved
+
 | Goal | Result | Impact |
 |------|--------|--------|
 | {goal} | {achievement} | {what it enabled} |
 
 ### Goals Not Achieved
+
 | Goal | Progress | Root Cause | Disposition |
 |------|----------|------------|-------------|
 | {goal} | {%} | {why it didn't happen} | {carry forward/drop/redesign} |
 
 ## Year in Numbers
+
 | Metric | Year Start | Year End | Change |
 |--------|-----------|----------|--------|
 | {metric} | {value} | {value} | +/-% |
@@ -285,6 +299,7 @@ period: {YYYY}
 2. **{Miss 2}**: ...
 
 ## Strategic Pivots
+
 | Pivot | When | Why | Assessment |
 |-------|------|-----|------------|
 | {what changed} | {quarter} | {trigger} | {right call/wrong call/too early to tell} |
@@ -293,6 +308,7 @@ period: {YYYY}
 {How the market and competitors changed. Are you better or worse positioned than 12 months ago?}
 
 ## Key Decisions Made
+
 | Decision | Date | Outcome |
 |----------|------|---------|
 | {decision} | {date} | {impact assessment} |
@@ -312,6 +328,7 @@ period: {YYYY}
 3. **{Priority 3}**: ...
 
 ### Goals
+
 | Goal | Metric | Target | Quarter |
 |------|--------|--------|---------|
 | {goal} | {how measured} | {target value} | {target quarter} |

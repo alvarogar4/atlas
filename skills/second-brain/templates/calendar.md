@@ -32,4 +32,5 @@ type: content-calendar
 | W1 | {date} | {title} | Blog | {theme} | {objective} | competitors/acme.md | Planned |
 | W2 | {date} | {title} | LinkedIn | {theme} | {objective} | audiences/technical-tim.md | Planned |
 | W3 | {date} | {title} | Blog | {theme} | {objective} | | Planned |
+
 ```

@@ -53,4 +53,5 @@ status: active
 | Frequency | {n}/month |
 | Avg impressions | {n}+ |
 | Engagement rate | {n}%+ |
+
 ```

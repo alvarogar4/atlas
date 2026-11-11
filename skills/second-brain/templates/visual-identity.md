@@ -19,12 +19,14 @@ type: visual-identity
 ## Color Palette
 
 ### Primary Colors
+
 | Name | Hex | Usage |
 |------|-----|-------|
 | Primary | {hex} | Main brand color, CTAs, headers |
 | Secondary | {hex} | Supporting elements, accents |
 
 ### Extended Palette
+
 | Name | Hex | Usage |
 |------|-----|-------|
 | Tertiary | {derived} | Highlights, decorative |
@@ -34,6 +36,7 @@ type: visual-identity
 | Border | {derived} | Dividers, outlines |
 
 ### Semantic Colors
+
 | Name | Hex | Usage |
 |------|-----|-------|
 | Success | #10B981 | Positive states |
