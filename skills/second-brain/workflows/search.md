@@ -2,7 +2,7 @@
 
 ## Search
 
-**Purpose**: Quick file discovery by keyword.
+**Purpose**: Find the note or notes a request is about.
 
 ### Setup
 
@@ -10,7 +10,16 @@ Execute **Basic** config from SKILL.md.
 
 ### Process
 
-1. Spawn `atlas:locate_knowledge` for fast file discovery:
+1. Pick the tool by the kind of request (SKILL.md → Finding Notes; commands in `reference/search-tools.md`) and search directly:
+   - a question, a topic or "the note about X" → QMD keyword lines plus one meaning line
+   - a literal phrase or a name → QMD `search` with the phrase in quotes, or grep
+   - a note from this session, a known folder, a non-Markdown file → grep
+   - links, tags, orphans → Obsidian CLI
+   - QMD or the Obsidian CLI not available → grep
+
+   Read the top 3 to 5 results. If none fits, rephrase once, then fall back to grep.
+
+2. For a broad request ("everything about X", many folders), spawn `atlas:locate_knowledge` instead:
 
 ```
 subagent_type: atlas:locate_knowledge
@@ -19,7 +28,7 @@ prompt: "Query: {query}
 Find all files related to this query in {BRAIN_PATH}/. Search filenames, content, and tags."
 ```
 
-2. Return locator results directly to user.
+3. Return the results to the user with their paths.
 
 If no results: "No notes found for '{query}'. Want me to capture something about this topic?"
 
@@ -43,7 +52,7 @@ prompt: "Query: {topic}
 
 Search the entire brain at {BRAIN_PATH}/ for files related to this topic.
 
-Search strategy:
+Search strategy (use QMD first when it is available, then complete with these):
 1. Content search: Files containing '{topic}' keywords
 2. Filename search: Files named with topic words
 3. Tag search: Files tagged with related terms

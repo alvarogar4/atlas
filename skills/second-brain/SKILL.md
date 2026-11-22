@@ -22,7 +22,7 @@ Atlas reads configuration from multiple sources in priority order:
 ### Reading `.env`
 
 ```bash
-# Supports ATLAS_BRAIN_PATH, ATLAS_ACTIVE_PROJECT, ATLAS_PATH_*
+# Supports ATLAS_BRAIN_PATH, ATLAS_ACTIVE_PROJECT, ATLAS_PATH_*, ATLAS_QMD_CMD, ATLAS_OBSIDIAN_CMD
 CONFIG="${ATLAS_CONFIG:-$HOME/.config/atlas/.env}"
 [ -f "$CONFIG" ] && cat "$CONFIG"
 ```
@@ -66,11 +66,31 @@ A project may pin its own folder layout, file naming, frontmatter, and cross-lin
 
 ### Project Knowledge Sources
 
-The brain folder is always the primary source. Search it first, following the workflows here (`atlas:locate_knowledge` → `atlas:analyze_knowledge`). An MCP query never replaces that step.
+The brain folder is always the primary source. Search it first, with the tool that fits the request (see [Finding Notes](#finding-notes)). An MCP query never replaces that step.
 
 A project can also turn on an external knowledge source, usually a team brain behind an MCP server, in its own `{PROJECT_PATH}/AGENTS.md` or `STRUCTURE.md`. When the task relates to such a project, its context is split between the two places, so query that source as well and combine the results. Follow the project file's own connection steps. When the task relates to no project, or to a project that turns on no external source, use the brain folder only.
 
 Personal notes (career, feedback, journal, anything outside a team-shared project) stay in the brain folder. Never write them into a project's external source.
+
+## Finding Notes
+
+Three tools can find a note, and each wins a different kind of request. Pick by the request:
+
+| The request is...                                                          | Use                                                                        |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| A path you already have (given, in memory, a convention)                   | Read it. No search                                                         |
+| Inside a folder you already know (a client folder, a draft)                | grep and ls in that folder                                                 |
+| A question, a topic, "the note about X", location unknown                  | QMD: `lex:` keyword lines plus one `vec:` sentence, `--no-rerank`          |
+| A literal phrase, a name, an identifier                                    | QMD `search` with the phrase in quotes, or grep                            |
+| A note from this session, a non-Markdown file, a regular expression        | grep                                                                       |
+| What links to a note, tags, orphans, properties                            | Obsidian CLI                                                               |
+| QMD or the Obsidian CLI is not available here                              | grep                                                                       |
+
+- **grep always works.** QMD and the Obsidian CLI are optional. Check each once per session (`{QMD} status`, `{OBSIDIAN} version`) and fall back to grep where it is missing. Their commands come from `ATLAS_QMD_CMD` and `ATLAS_OBSIDIAN_CMD` in the config, or from `qmd` and `obsidian` on the PATH.
+- **A quick lookup needs no agent.** Search directly, read the top 3 to 5 results, answer. Spawn `atlas:locate_knowledge` and `atlas:analyze_knowledge` for deep recall across many notes.
+- **QMD answers from an index.** Run `{QMD} update` before the first search of a session so new and edited notes are in it.
+
+Commands, query syntax and the measurements behind this table: `reference/search-tools.md`. Read it before the first QMD or Obsidian CLI call.
 
 ## Capabilities
 
@@ -107,7 +127,7 @@ Personal notes (career, feedback, journal, anything outside a team-shared projec
 These should happen automatically without the user needing to ask:
 
 - When user expresses any idea → offer to capture it
-- When user asks about a topic → decide between search (file discovery) and recall (deep synthesis) based on the question
+- When user asks about a topic → decide between search (file discovery) and recall (deep synthesis) based on the question, and pick the search tool by the kind of request per [Finding Notes](#finding-notes)
 - When user mentions a project name → check if it exists and offer to switch
 - **When a project becomes active** → check for `{PROJECT_PATH}/STRUCTURE.md`; if present, treat it as the authoritative structure/naming/frontmatter/linking spec for that project (plugin defaults are fallback) per [Project Structure Spec](#project-structure-spec)
 - **When the task relates to a project** → check its `AGENTS.md`/`STRUCTURE.md` for an external knowledge source (for example a team brain MCP). If it declares one, query it as well as the brain folder, per [Project Knowledge Sources](#project-knowledge-sources)
@@ -118,13 +138,14 @@ These should happen automatically without the user needing to ask:
 
 Atlas uses a locate -> analyze -> domain-agent pattern:
 
-1. **`atlas:locate_knowledge`** — Fast file discovery. Returns paths only, never reads content. Use for: search, finding context before analysis, checking what exists.
+1. **`atlas:locate_knowledge`** — File discovery across the whole brain. Returns paths only, never reads content. Use for: broad searches, finding context before analysis, checking what exists. A single lookup is faster done directly (see [Finding Notes](#finding-notes)).
 2. **`atlas:analyze_knowledge`** — Deep content analysis. Receives paths from `atlas:locate_knowledge`. Use for: recall, understanding patterns, synthesizing knowledge.
 3. **Domain agents** — Specialized work. `atlas:market_researcher` for web research, `atlas:content_reviewer` for quality checks, `atlas:strategist` for framework application.
 
 When to use which:
 
-- "Find files about X" → `atlas:locate_knowledge` only
+- "Where is the note about X" → search directly with the tool that fits; no agent
+- "Find everything about X" → `atlas:locate_knowledge` only
 - "What do I know about X" → `atlas:locate_knowledge` → `atlas:analyze_knowledge` (sequentially always, pass the paths from the first to the second)
 - "Research the market for X" → `atlas:locate_knowledge` (check existing) → `atlas:market_researcher` (web search)
 - "Analyze our competitive position" → `atlas:locate_knowledge` → `atlas:market_researcher` → `atlas:strategist`
@@ -172,6 +193,7 @@ Atlas runs in Claude Code as a plugin and in any other agent that loads Agent Sk
 
 - **Folder structure**: `reference/folder-structure.md` — single source of truth for PARA structure
 - **Cross-referencing**: `reference/cross-referencing.md` — `related` property format, tag guidelines, series navigation
+- **Search tools**: `reference/search-tools.md` — which of grep, the Obsidian CLI and QMD to use for which request, with commands
 - **Obsidian features**: `reference/obsidian.md` — callouts, embeds, highlights, comments, CLI commands, defuddle extraction
 - **Obsidian Bases**: `reference/obsidian-bases.md` — `.base` file schema, formulas, views, default project dashboard template
 - **Project templates**: `templates/` — individual template files for all project assets

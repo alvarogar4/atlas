@@ -89,7 +89,7 @@ atlas/
 
 ### Knowledge Management (`second-brain`)
 
-PARA-based personal knowledge base: capture ideas, search notes, deep recall with synthesis. Manage projects with foundations (context, strategy, brand voice, visual identity) and entities (themes, competitors, audiences, calendars).
+PARA-based personal knowledge base: capture ideas, search notes, deep recall with synthesis. Search picks the tool by the request: grep always, plus QMD (ranked keyword and meaning search) and the Obsidian CLI (links and tags) when you have them. Manage projects with foundations (context, strategy, brand voice, visual identity) and entities (themes, competitors, audiences, calendars).
 
 ### Content Creation (`marketing-content`)
 

@@ -145,12 +145,14 @@ Tags in frontmatter (array format) and inline (`#tag`) are both searchable.
 
 ## Obsidian CLI
 
-Interact with Obsidian vaults via the `obsidian` command when Obsidian is running. Provides faster search and richer operations than raw file access.
+Interact with Obsidian vaults through its command line when Obsidian is running. It resolves links, tags and properties the way the app does, which raw file access cannot. For choosing between it, grep and QMD when searching, see `search-tools.md`.
 
 ### Prerequisites
 
-- Obsidian must be open
-- The `obsidian` CLI must be installed
+- Obsidian must be open on this machine, with the vault loaded
+- The CLI must be switched on by the user: Settings → General → Advanced → Command line interface. While it is off, every command answers "Command line interface is not enabled"
+- The command is `ATLAS_OBSIDIAN_CMD` from the Atlas config when set (for example the app binary itself, `/Applications/Obsidian.app/Contents/MacOS/Obsidian` on macOS), otherwise `obsidian` on the PATH. The examples below write `obsidian`
+- The CLI includes `eval` and developer commands that run code inside the app, so switching it on is the user's decision. Never do it for them
 - Falls back to standard file operations (grep, read) if unavailable
 
 ### Key Commands
@@ -159,8 +161,8 @@ Interact with Obsidian vaults via the `obsidian` command when Obsidian is runnin
 # Read a note
 obsidian read file="My Note"
 
-# Search vault content (faster than grep, uses Obsidian's index)
-obsidian search query="search term" limit=10
+# Search vault content: lists the notes that match, unranked. Words must all appear; OR, "quoted phrases", path: and tag: work
+obsidian search query="search term" limit=10 format=json
 
 # Create a note
 obsidian create name="New Note" content="# Hello" silent
@@ -191,11 +193,11 @@ obsidian vault="My Vault" search query="test"
 
 | Operation | Obsidian CLI | File Fallback |
 |-----------|-------------|---------------|
-| Search | `obsidian search query="X"` | `grep -ri "X" {BRAIN_PATH}/ --include="*.md"` |
+| Search | `obsidian search query="X"` (same job as grep; for questions use QMD, see `search-tools.md`) | `grep -ri "X" {BRAIN_PATH}/ --include="*.md"` |
 | Read | `obsidian read file="X"` | `cat {BRAIN_PATH}/path/to/X.md` |
 | Append | `obsidian append file="X" content="Y"` | Append to file directly |
 | Tags | `obsidian tags sort=count` | `grep -r "tags:.*" {BRAIN_PATH}/` |
-| Backlinks | `obsidian backlinks file="X"` | `grep -r "X" {BRAIN_PATH}/ --include="*.md"` |
+| Backlinks | `obsidian backlinks file="X"` (exact) | `grep -r "X" {BRAIN_PATH}/ --include="*.md"` (also returns mentions that are not links) |
 | Daily | `obsidian daily:read` | Find today's daily note file |
 
 Try the CLI command first. If it fails (Obsidian not running, CLI not installed), fall back to file operations silently.

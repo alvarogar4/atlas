@@ -1,3 +1,17 @@
 {
-  "hooks": {}
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/qmd-refresh.sh\"",
+            "async": true,
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
 }
