@@ -58,6 +58,7 @@ cd "{BRAIN_PATH}"
 - Leave the `vec:` line out when `{QMD} status` shows no embedded vectors.
 - Run `{QMD} update` first only when the Atlas config has `ATLAS_QMD_REFRESH=1`. Never run `{QMD} embed` or `{QMD} pull`.
 - If QMD also has collections outside `{BRAIN_PATH}`, add `-c <name>` for each collection inside it.
+- If the query is scoped to one project or one client, keep only the results under that folder. QMD ranks across the whole collection, and another project's notes must not reach the analyzer.
 
 Put QMD's results first in the report, in its order. Paths come back as `qmd://<collection>/<path>`; report them as file paths: `{QMD} collection show <collection>` prints the collection's folder (`Path:`).
 

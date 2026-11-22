@@ -7,7 +7,11 @@
 # optimisation: searches stay correct without it (grep sees every file).
 # It prints nothing, never waits for QMD and always exits 0.
 
+# The hook runs in whatever folder the agent is working in. Nothing here may depend on that
+# folder: system tools first on the PATH, and the config only by absolute path.
+PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 cfg="${ATLAS_CONFIG:-$HOME/.config/atlas/.env}"
+case "$cfg" in /*) ;; *) exit 0 ;; esac
 value() {  # value NAME: last NAME=... line of the config, quotes stripped, leading ~/ expanded
   v=$(sed -n "s/^[[:space:]]*$1=//p" "$cfg" 2>/dev/null | tail -n 1)
   v=${v%\"}; v=${v#\"}; v=${v%\'}; v=${v#\'}
@@ -24,7 +28,7 @@ if [ -r "$cfg" ] && [ "$(value ATLAS_QMD_REFRESH)" = 1 ]; then
     /*) if [ -f "$qmd" ] && [ -x "$qmd" ] && [ -d "$brain" ] && command -v python3 >/dev/null 2>&1; then enabled=1; fi ;;
   esac
 fi
-if [ "$enabled" != 1 ]; then cat >/dev/null 2>&1; exit 0; fi   # drain the event, do nothing
+[ "$enabled" = 1 ] || exit 0
 
 # The rest needs a JSON parser and a lock that the system releases if the process dies.
 # -I: Python must not import anything from the current folder or the user's environment.

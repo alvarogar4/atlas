@@ -150,7 +150,7 @@ Interact with Obsidian vaults through its command line when Obsidian is running.
 ### Prerequisites
 
 - Obsidian must already be open on this machine, with the vault loaded. Check before every call (`pgrep -x Obsidian` on macOS and Linux): calling the CLI with the app closed opens the app, so never call it then
-- Name the vault on every call. `obsidian vaults verbose` lists each vault with its path: use the one whose path is `{BRAIN_PATH}`. If none has that path, don't use the CLI
+- Name the vault on every call, reads and writes alike: `obsidian vault="<name>" <command> ...`. `obsidian vaults verbose` lists each vault with its path: use the one whose path is `{BRAIN_PATH}`. If none has that path, or two vaults share that name, don't use the CLI. The examples below leave `vault=` out to stay short
 - The CLI must be switched on by the user: Settings → General → Advanced → Command line interface. While it is off, every command answers "Command line interface is not enabled"
 - The command is `ATLAS_OBSIDIAN_CMD` from the Atlas config when set (for example the app binary itself, `/Applications/Obsidian.app/Contents/MacOS/Obsidian` on macOS), otherwise `obsidian` on the PATH. The examples below write `obsidian`
 - The CLI includes `eval` and developer commands that run code inside the app, so switching it on is the user's decision. Never do it for them

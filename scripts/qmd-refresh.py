@@ -11,6 +11,7 @@ Worker mode: run `<qmd> update` from the brain folder, one refresh at a time.
   files after they were written. So at most one refresh waits, and a burst of writes costs two.
 """
 import fcntl
+import hashlib
 import json
 import os
 import subprocess
@@ -20,12 +21,14 @@ import sys
 def worker(qmd: str, brain: str) -> None:
     state = os.path.join(os.environ.get("XDG_CACHE_HOME") or os.path.expanduser("~/.cache"), "atlas")
     os.makedirs(state, mode=0o700, exist_ok=True)
-    waiting = open(os.path.join(state, "qmd-refresh.waiting"), "w")
+    # One queue per QMD command and brain: a refresh waiting for another brain covers nothing here.
+    key = hashlib.sha256(f"{qmd}\0{os.path.realpath(brain)}".encode()).hexdigest()[:12]
+    waiting = open(os.path.join(state, f"qmd-refresh.{key}.waiting"), "w")
     try:
         fcntl.flock(waiting, fcntl.LOCK_EX | fcntl.LOCK_NB)
     except OSError:
         return  # a refresh is already waiting; it starts after this write and will see it
-    running = open(os.path.join(state, "qmd-refresh.running"), "w")
+    running = open(os.path.join(state, f"qmd-refresh.{key}.running"), "w")
     fcntl.flock(running, fcntl.LOCK_EX)  # let the refresh in progress finish
     fcntl.flock(waiting, fcntl.LOCK_UN)  # from here on, a new write queues its own refresh
     subprocess.run([qmd, "update"], cwd=brain, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
