@@ -21,14 +21,17 @@ import sys
 def worker(qmd: str, brain: str) -> None:
     state = os.path.join(os.environ.get("XDG_CACHE_HOME") or os.path.expanduser("~/.cache"), "atlas")
     os.makedirs(state, mode=0o700, exist_ok=True)
-    # One queue per QMD command and brain: a refresh waiting for another brain covers nothing here.
-    key = hashlib.sha256(f"{qmd}\0{os.path.realpath(brain)}".encode()).hexdigest()[:12]
-    waiting = open(os.path.join(state, f"qmd-refresh.{key}.waiting"), "w")
+    # Waiting: one place per QMD command and brain, because a refresh waiting for another brain
+    # may not cover this one. Running: one at a time per QMD command, because two brains can
+    # share one index.
+    cmd = hashlib.sha256(os.fsencode(qmd)).hexdigest()[:12]
+    both = hashlib.sha256(os.fsencode(qmd) + b"\0" + os.fsencode(os.path.realpath(brain))).hexdigest()[:12]
+    waiting = open(os.path.join(state, f"qmd-refresh.{both}.waiting"), "w")
     try:
         fcntl.flock(waiting, fcntl.LOCK_EX | fcntl.LOCK_NB)
     except OSError:
         return  # a refresh is already waiting; it starts after this write and will see it
-    running = open(os.path.join(state, f"qmd-refresh.{key}.running"), "w")
+    running = open(os.path.join(state, f"qmd-refresh.{cmd}.running"), "w")
     fcntl.flock(running, fcntl.LOCK_EX)  # let the refresh in progress finish
     fcntl.flock(waiting, fcntl.LOCK_UN)  # from here on, a new write queues its own refresh
     subprocess.run([qmd, "update"], cwd=brain, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,

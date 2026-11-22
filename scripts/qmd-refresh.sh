@@ -8,7 +8,10 @@
 # It prints nothing, never waits for QMD and always exits 0.
 
 # The hook runs in whatever folder the agent is working in. Nothing here may depend on that
-# folder: system tools first on the PATH, and the config only by absolute path.
+# folder: this script's own tools come from the system folders, and the config is read only
+# by absolute path. QMD itself is started with the PATH the hook was given (it may need the
+# user's own Node).
+USER_PATH=$PATH
 PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 cfg="${ATLAS_CONFIG:-$HOME/.config/atlas/.env}"
 case "$cfg" in /*) ;; *) exit 0 ;; esac
@@ -25,11 +28,11 @@ if [ -r "$cfg" ] && [ "$(value ATLAS_QMD_REFRESH)" = 1 ]; then
   # One executable by absolute path: never a command line, a bare name or a path relative to
   # whatever project the agent happens to be working in.
   case "$qmd" in
-    /*) if [ -f "$qmd" ] && [ -x "$qmd" ] && [ -d "$brain" ] && command -v python3 >/dev/null 2>&1; then enabled=1; fi ;;
+    /*) py=$(command -v python3 2>/dev/null); if [ -f "$qmd" ] && [ -x "$qmd" ] && [ -d "$brain" ] && [ -n "$py" ]; then enabled=1; fi ;;
   esac
 fi
 [ "$enabled" = 1 ] || exit 0
 
 # The rest needs a JSON parser and a lock that the system releases if the process dies.
 # -I: Python must not import anything from the current folder or the user's environment.
-exec python3 -I "$(dirname "$0")/qmd-refresh.py" "$qmd" "$brain" 2>/dev/null
+PATH=$USER_PATH exec "$py" -I "$(dirname "$0")/qmd-refresh.py" "$qmd" "$brain" 2>/dev/null
