@@ -48,23 +48,24 @@ Follow the **Config Chain** in `atlas:second-brain`.
 
 Read `reference/search-tools.md` in `atlas:second-brain` for the commands, the availability checks and when each tool applies. Both tools are optional; skip either one silently when its check fails.
 
-**QMD** (when `{QMD} status` exits 0): start here for a topic or a question. It ranks, and it finds notes that use other words or another language.
+**QMD** (when the config names it in `ATLAS_QMD_CMD`, `{QMD} status` exits 0 from the brain folder, and at least one of its collections is inside `{BRAIN_PATH}`): start here for a topic or a question. It ranks, and it finds notes that use other words or another language.
 
 ```bash
+cd "{BRAIN_PATH}"
 {QMD} query $'lex: {key terms}\nlex: {alternative terms}\nvec: {the topic as a plain question}' --no-rerank -n 15 --format files
 ```
 
 - Leave the `vec:` line out when `{QMD} status` shows no embedded vectors.
 - Run `{QMD} update` first only when the Atlas config has `ATLAS_QMD_REFRESH=1`. Never run `{QMD} embed` or `{QMD} pull`.
-- If QMD has collections outside `{BRAIN_PATH}`, add `-c <name>` for each collection inside it.
+- If QMD also has collections outside `{BRAIN_PATH}`, add `-c <name>` for each collection inside it.
 
 Put QMD's results first in the report, in its order. Paths come back as `qmd://<collection>/<path>`; report them as file paths: `{QMD} collection show <collection>` prints the collection's folder (`Path:`).
 
-**Obsidian CLI** (when the Obsidian app is already running and `{OBSIDIAN} version` prints a version; never start the app): use it for links and tags, which grep cannot resolve exactly.
+**Obsidian CLI** (only while the Obsidian app is already running, checked before each call, and with the vault whose path is `{BRAIN_PATH}` named; never start the app): use it for links and tags, which grep cannot resolve exactly.
 
 ```bash
-{OBSIDIAN} backlinks path="{path of a matched note}" format=json
-{OBSIDIAN} tags counts sort=count
+{OBSIDIAN} vault="{VAULT}" backlinks path="{path of a matched note}" format=json
+{OBSIDIAN} vault="{VAULT}" tags counts sort=count
 ```
 
 Then run Steps 1 to 5 to complete the picture: they catch notes written after the last index refresh, exact strings, filename-only matches and `related:` references. Without QMD and the Obsidian CLI, Steps 1 to 5 are the whole search.

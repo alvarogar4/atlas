@@ -1,10 +1,10 @@
 #!/bin/sh
 # PostToolUse hook (Write|Edit). When an agent writes a Markdown note inside the brain, re-read
-# changed notes into QMD's keyword index in the background, so the note is searchable at once.
+# changed notes into QMD's index in the background, so the note is searchable at once.
 #
-# Off unless the Atlas config says ATLAS_QMD_REFRESH=1 and names QMD in ATLAS_QMD_CMD. It only
-# ever runs `<qmd> update`: it never embeds, never downloads a model and never sends note text
-# anywhere. It is an optimisation: searches stay correct without it (grep sees every file).
+# Off unless the Atlas config has ATLAS_QMD_REFRESH=1 and ATLAS_QMD_CMD is the absolute path of
+# an executable. It only ever runs `<qmd> update`, from the brain folder. It is an
+# optimisation: searches stay correct without it (grep sees every file).
 # It prints nothing, never waits for QMD and always exits 0.
 
 cfg="${ATLAS_CONFIG:-$HOME/.config/atlas/.env}"
@@ -18,25 +18,14 @@ value() {  # value NAME: last NAME=... line of the config, quotes stripped, lead
 enabled=0
 if [ -r "$cfg" ] && [ "$(value ATLAS_QMD_REFRESH)" = 1 ]; then
   qmd=$(value ATLAS_QMD_CMD); brain=$(value ATLAS_BRAIN_PATH)
-  # ATLAS_QMD_CMD is one executable (a name on the PATH or a path), never a command line.
-  if [ -n "$qmd" ] && [ -n "$brain" ] && command -v "$qmd" >/dev/null 2>&1; then enabled=1; fi
+  # One executable by absolute path: never a command line, a bare name or a path relative to
+  # whatever project the agent happens to be working in.
+  case "$qmd" in
+    /*) if [ -f "$qmd" ] && [ -x "$qmd" ] && [ -d "$brain" ] && command -v python3 >/dev/null 2>&1; then enabled=1; fi ;;
+  esac
 fi
 if [ "$enabled" != 1 ]; then cat >/dev/null 2>&1; exit 0; fi   # drain the event, do nothing
 
-# The file path, read with a real JSON parser so quotes and escapes in names are handled.
-if command -v jq >/dev/null 2>&1; then
-  file=$(jq -r '.tool_input.file_path // empty' 2>/dev/null)
-elif command -v python3 >/dev/null 2>&1; then
-  file=$(python3 -c 'import json,sys; print((json.load(sys.stdin).get("tool_input") or {}).get("file_path") or "")' 2>/dev/null)
-else
-  cat >/dev/null 2>&1; exit 0
-fi
-case "$file" in
-  "${brain%/}"/*.md) ;;
-  *) exit 0 ;;
-esac
-
-# One refresh per write. QMD serialises overlapping refreshes itself, and each one reads the
-# files as they are when it starts, so the last write of a burst is always picked up.
-( "$qmd" update ) </dev/null >/dev/null 2>&1 &
-exit 0
+# The rest needs a JSON parser and a lock that the system releases if the process dies.
+# -I: Python must not import anything from the current folder or the user's environment.
+exec python3 -I "$(dirname "$0")/qmd-refresh.py" "$qmd" "$brain" 2>/dev/null

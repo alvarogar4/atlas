@@ -103,11 +103,11 @@ Personal knowledge base using PARA method.
 
 ### 7. Search Tools (optional)
 
-Atlas finds notes with grep out of the box. Two optional tools add to it (`reference/search-tools.md`): QMD for ranked keyword and meaning search, and the Obsidian CLI for links and tags. Do not install or switch on either one. Only record what is already there:
+Atlas finds notes with grep out of the box. Two optional tools add to it (`reference/search-tools.md`): QMD for ranked keyword and meaning search, and the Obsidian CLI for links and tags. Do not install or switch on either one. Only record what is already there, with the user's yes:
 
-- If `command -v qmd` finds QMD and `qmd status` exits 0, add `ATLAS_QMD_CMD=qmd` to the config file. The value is one executable, never a command line: if the user reaches QMD another way (another machine over ssh), ask them for a wrapper script and save its path.
-- Ask whether Atlas may refresh QMD's index (`qmd update`: it re-reads changed files and runs any update command they attached to a collection). Only on a yes, add `ATLAS_QMD_REFRESH=1`. Atlas then runs `qmd update` before the first search of a session and, in Claude Code, after an agent writes a note in the brain. Atlas never runs `qmd embed` or `qmd pull`: vectors stay the user's setup.
-- If the Obsidian app is running (`pgrep -x Obsidian`) and `obsidian version` prints a version, add `ATLAS_OBSIDIAN_CMD=obsidian`. On macOS the app binary also answers CLI commands: `/Applications/Obsidian.app/Contents/MacOS/Obsidian`. Don't start Obsidian to find out.
+- **QMD.** If `command -v qmd` finds it and `qmd status` exits 0, ask whether Atlas should use it for the brain. On a yes, add `ATLAS_QMD_CMD=` with the absolute path that `command -v qmd` printed. The value is one executable by absolute path, never a command line: if the user reaches QMD another way (another machine over ssh), ask them for a wrapper script and save its path. Atlas does not use QMD without this line.
+- **Refreshing QMD's index.** Ask whether Atlas may run `qmd update` (it re-reads changed files and runs any update command they attached to a collection). Only on a yes, add `ATLAS_QMD_REFRESH=1`. Atlas then runs `qmd update` before the first search of a session and, in Claude Code, after an agent writes a note in the brain. Atlas never runs `qmd embed` or `qmd pull`: vectors stay the user's setup.
+- **Obsidian CLI.** If the Obsidian app is running (`pgrep -x Obsidian`) and `obsidian version` prints a version, add `ATLAS_OBSIDIAN_CMD=obsidian`. On macOS the app binary also answers CLI commands: `/Applications/Obsidian.app/Contents/MacOS/Obsidian`. Don't start Obsidian to find out.
 
 Skip this step silently when neither tool is present.
 
