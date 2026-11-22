@@ -22,7 +22,7 @@ Atlas reads configuration from multiple sources in priority order:
 ### Reading `.env`
 
 ```bash
-# Supports ATLAS_BRAIN_PATH, ATLAS_ACTIVE_PROJECT, ATLAS_PATH_*, ATLAS_QMD_CMD, ATLAS_OBSIDIAN_CMD
+# Supports ATLAS_BRAIN_PATH, ATLAS_ACTIVE_PROJECT, ATLAS_PATH_*, ATLAS_QMD_CMD, ATLAS_QMD_REFRESH, ATLAS_OBSIDIAN_CMD
 CONFIG="${ATLAS_CONFIG:-$HOME/.config/atlas/.env}"
 [ -f "$CONFIG" ] && cat "$CONFIG"
 ```
@@ -76,21 +76,22 @@ Personal notes (career, feedback, journal, anything outside a team-shared projec
 
 Three tools can find a note, and each wins a different kind of request. Pick by the request:
 
-| The request is...                                                          | Use                                                                        |
-| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| A path you already have (given, in memory, a convention)                   | Read it. No search                                                         |
-| Inside a folder you already know (a client folder, a draft)                | grep and ls in that folder                                                 |
-| A question, a topic, "the note about X", location unknown                  | QMD: `lex:` keyword lines plus one `vec:` sentence, `--no-rerank`          |
-| A literal phrase, a name, an identifier                                    | QMD `search` with the phrase in quotes, or grep                            |
-| A note from this session, a non-Markdown file, a regular expression        | grep                                                                       |
-| What links to a note, tags, orphans, properties                            | Obsidian CLI                                                               |
-| QMD or the Obsidian CLI is not available here                              | grep                                                                       |
+| The request is...                                                             | Use                                                        |
+| ----------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| A path you already have (given, in memory, a convention)                      | Read it. No search                                         |
+| Inside a folder you already know (a client folder, a draft)                   | grep and ls in that folder                                 |
+| A question, a topic, "the note about X", location unknown                     | QMD: `lex:` keyword lines plus one `vec:` sentence         |
+| A phrase or a name you remember from a note                                   | QMD `search` with the phrase in quotes                     |
+| An exact string (identifier, code, file name, error), a regular expression    | `grep -F` or `grep -E`                                     |
+| A note written a moment ago, a file that is not Markdown                      | grep                                                       |
+| What links to a note, tags, orphans, properties                               | Obsidian CLI                                               |
+| QMD or the Obsidian CLI is not available here                                 | grep                                                       |
 
-- **grep always works.** QMD and the Obsidian CLI are optional. Check each once per session (`{QMD} status`, `{OBSIDIAN} version`) and fall back to grep where it is missing. Their commands come from `ATLAS_QMD_CMD` and `ATLAS_OBSIDIAN_CMD` in the config, or from `qmd` and `obsidian` on the PATH.
+- **grep always works.** QMD and the Obsidian CLI are optional. Check each once per session, quietly, and fall back to grep where one is missing. Their commands come from `ATLAS_QMD_CMD` and `ATLAS_OBSIDIAN_CMD` in the config (one executable each, no arguments), or from `qmd` and `obsidian` on the PATH.
 - **A quick lookup needs no agent.** Search directly, read the top 3 to 5 results, answer. Spawn `atlas:locate_knowledge` and `atlas:analyze_knowledge` for deep recall across many notes.
-- **QMD answers from an index.** Run `{QMD} update` before the first search of a session so new and edited notes are in it.
+- **Atlas uses these tools, it does not set them up.** Never install QMD, run `{QMD} embed` or `{QMD} pull`, switch the Obsidian CLI on, or start Obsidian to search. Run `{QMD} update` only when the config has `ATLAS_QMD_REFRESH=1`.
 
-Commands, query syntax and the measurements behind this table: `reference/search-tools.md`. Read it before the first QMD or Obsidian CLI call.
+Commands, availability checks, query syntax and the measurements behind this table: `reference/search-tools.md`. Read it before the first QMD or Obsidian CLI call.
 
 ## Capabilities
 

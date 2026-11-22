@@ -108,7 +108,7 @@ When project-level guidelines (brand voice, strategy, audience) conflict with ge
 
 ### When recalling:
 
-- Search across all directories, with the tool that fits the request: QMD for questions and notes remembered by name, grep for exact strings, known folders and notes from this session, the Obsidian CLI for links and tags (`atlas:second-brain` → Finding Notes)
+- Search across all directories, with the tool that fits the request: QMD for questions and for phrases or names remembered from a note, grep for exact strings, known folders and notes written a moment ago, the Obsidian CLI for links and tags (`atlas:second-brain` → Finding Notes)
 - Prioritize recent and relevant
 - Cross-reference related notes
 
@@ -163,7 +163,7 @@ I help create visual assets: AI image prompts, schema diagrams (HTML+CSS → PNG
 The brain is designed to work with Obsidian. Notes use Obsidian-compatible features while staying portable:
 
 - **Callouts** (`> [!type]`) for highlighting key info in notes (constraints, risks, insights, opportunities)
-- **Obsidian CLI** for links, tags and properties, and to read or append through the app, when the user has it switched on (falls back to grep/cat). For search it is one of three tools next to grep and QMD: see `atlas:second-brain` → Finding Notes
+- **Obsidian CLI** for links, tags and properties, and to read or append through the app, when the app is already running and the user has the CLI switched on (otherwise grep/cat). For search it is one of three tools next to grep and QMD: see `atlas:second-brain` → Finding Notes
 - **Obsidian Bases** (`.base` files) for project dashboards with filtered, sorted views of notes
 - **Defuddle** (`defuddle parse <url> --md`) for clean web content extraction during research (falls back to WebFetch)
 

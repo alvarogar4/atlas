@@ -4,27 +4,32 @@ Three tools can find a note. Each wins a different kind of request, so pick by t
 
 ## Which tool
 
-| The request is...                                                                            | Use                                                                                    | Why                                                                           |
-| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| A note whose path you already have (given by the user, in memory, a known convention)        | Read it                                                                                | No search needed                                                              |
-| Work inside a folder you already know (a client folder, a draft, a calendar)                 | grep and ls in that folder                                                             | Few files, and exact strings pin things down                                  |
-| A question, a topic, or "the note about X", location unknown                                 | QMD: keyword lines plus one meaning line                                               | Ranked; finds notes that use other words or another language                  |
-| A literal phrase, a name, an identifier                                                      | QMD keywords with the phrase in quotes. grep when QMD is missing or the note is recent | Both find it; QMD ranks it first                                              |
-| A note written or edited in this session, a file that is not Markdown, a regular expression  | grep                                                                                   | It reads the files as they are now                                            |
-| What links to a note, tags, orphans, unresolved links, properties                            | Obsidian CLI                                                                           | It resolves links; grepping for a name also returns mentions that aren't links |
-| Neither optional tool is available (another machine, a cloud session)                        | grep                                                                                   | Always there                                                                  |
+| The request is...                                                                       | Use                                                                    | Why                                                                            |
+| --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| A note whose path you already have (given by the user, in memory, a known convention)   | Read it                                                                | No search needed                                                               |
+| Work inside a folder you already know (a client folder, a draft, a calendar)            | grep and ls in that folder                                             | Few files, and exact strings pin things down                                   |
+| A question, a topic, or "the note about X", location unknown                            | QMD: keyword lines plus one meaning line                               | Ranked; finds notes that use other words or another language                   |
+| A phrase or a name you remember from a note                                             | QMD `search` with the phrase in quotes                                 | Finds it and ranks it first                                                    |
+| An exact string (an identifier, a code, a file name, an error message), a regular expression | `grep -F` (or `-E`)                                               | Byte-exact. An index splits identifiers into words                             |
+| A note written or edited a moment ago, a file that is not Markdown                      | grep                                                                   | It reads the files as they are now                                             |
+| What links to a note, tags, orphans, unresolved links, properties                       | Obsidian CLI                                                           | It resolves links; grepping for a name also returns mentions that aren't links |
+| QMD or the Obsidian CLI is not available here (another machine, a cloud session)        | grep                                                                   | Always there                                                                   |
 
 After any search: read the top 3 to 5 results before answering. If none fits, rephrase once, then fall back to grep.
 
 ## Is the tool available?
 
-Check once per session, not before every call.
+Check once per session, quietly, not before every call. A failed check is not an error to report: use grep.
 
-- **QMD**: the command is `ATLAS_QMD_CMD` from the Atlas config when set, otherwise `qmd` when it is on the PATH. It is available when `{QMD} status` exits 0.
-- **Obsidian CLI**: the command is `ATLAS_OBSIDIAN_CMD` from the Atlas config when set, otherwise `obsidian` when it is on the PATH. It is available when `{OBSIDIAN} version` prints a version. It needs the Obsidian app running on this machine with the vault open. "Command line interface is not enabled" means the user has it switched off.
+- **QMD**: the command is `ATLAS_QMD_CMD` from the Atlas config when set, otherwise `qmd`. It is one executable (a name on the PATH or a full path), never a command line with arguments. It is available when `command -v {QMD}` finds it and `{QMD} status` exits 0. Read two things from that output: whether any vectors are embedded, and which collections exist.
+- **Obsidian CLI**: the command is `ATLAS_OBSIDIAN_CMD` from the Atlas config when set, otherwise `obsidian`. Use it only when the Obsidian app is already running (`pgrep -x Obsidian` on macOS and Linux): calling the CLI with the app closed opens the app. Then it is available when `{OBSIDIAN} version` prints a version. "Command line interface is not enabled" means the user has it switched off.
 - **grep**: always. Use the harness's own search tool (Grep, ripgrep) when it has one.
 
-Never install QMD or switch the Obsidian CLI on for the user. The Obsidian CLI can run code inside the app (`eval`), so turning it on is their decision.
+What Atlas never does on its own:
+
+- Install QMD, or switch the Obsidian CLI on. The Obsidian CLI can run code inside the app (`eval`), so turning it on is the user's decision.
+- Start Obsidian in order to search.
+- Run `{QMD} embed` or `{QMD} pull`. Depending on how the user set QMD up, they download models or send note text to an embedding service. Vectors are part of the user's setup.
 
 ## QMD
 
@@ -34,18 +39,20 @@ Never install QMD or switch the Obsidian CLI on for the user. The Obsidian CLI c
 # A question or a topic: 1 to 3 keyword lines (alternatives) and one sentence in plain words
 {QMD} query $'lex: Newton School SOW\nlex: Newton School statement of work\nvec: the draft statement of work for Newton School' --no-rerank -n 5 --format files
 
-# A literal phrase or a name: all words must appear, quotes make an exact phrase
+# A phrase or a name you remember: all words must appear, quotes make an exact phrase
 {QMD} search '"hidden-resentment trap"' -n 5 --format files
 
-# One collection only, or snippets and line numbers
+# One collection only; json adds the title, the line and a snippet
 {QMD} search 'weekly review' -c brain -n 5 --format json
 ```
 
+- **The command comes first**, options after it: `{QMD} query '...' -n 5`, not `{QMD} -n 5 query '...'`.
 - **Write the lines yourself.** Each `lex:` line is a set of words that must all appear; several lines are alternatives. The `vec:` line is the question as you would ask a person, and it can stay in the user's language: a Spanish question finds English notes.
+- **No vectors?** If `{QMD} status` shows nothing embedded, leave the `vec:` line out: keyword lines and `search` work on their own.
 - **Don't use the automatic modes** (`{QMD} query "question"` without lines, `vsearch`, reranking) unless the user asks. They make QMD's own small models rewrite and rerank the query: slower, needs those models on the machine, and less accurate than lines you write.
-- **Results** are `#docid,score,qmd://<collection>/<path>`. Open one with `{QMD} get "#docid"`, or read the file itself: `{QMD} collection show <collection>` prints the collection's folder.
-- **Freshness.** QMD answers from its index. Before the first search of a session run `{QMD} update`: it re-reads only changed files and takes about a second. `{QMD} embed` then adds vectors for new notes. Where the setup refreshes by itself both return at once. A note you wrote a moment ago is found by keywords after `update`, and by meaning once `embed` has run.
-- **No vectors?** If `{QMD} status` shows nothing embedded, keep to keyword lines and `search`.
+- **Stay inside the brain.** QMD may index other folders too. Each collection is a folder: `{QMD} collection show <name>` prints its `Path:`. If some collections live outside `{BRAIN_PATH}`, pass `-c <name>` for each one that is inside it.
+- **Results** are `#docid,score,qmd://<collection>/<path>`. The file is the collection's `Path:` plus `<path>`. To print a note without mapping the path: `{QMD} get "qmd://<collection>/<path>"`.
+- **Freshness.** QMD answers from its index, which can be behind the files. `{QMD} update` re-reads changed files (about a second), and it also runs any update command the user attached to a collection, so run it only when the Atlas config has `ATLAS_QMD_REFRESH=1`: that is the user saying a refresh is cheap and safe here. With the flag, run `{QMD} update` before the first search of a session; in Claude Code the plugin also runs it after an agent writes a note. Without the flag, don't run it, and use grep for anything written recently.
 
 ## Obsidian CLI
 
@@ -64,12 +71,16 @@ Never install QMD or switch the Obsidian CLI on for the user. The Obsidian CLI c
 ```
 
 - Words separated by spaces must all appear. `OR`, quoted phrases, `path:` and `tag:` work. Case and accents are ignored.
-- Results are not ranked: it lists the notes that match, like `grep -l`. Use it for search when the note may be newer than QMD's index and you want Obsidian's operators.
+- Results are not ranked: it lists the notes that match, like `grep -l`. For search it does the same job as grep, with Obsidian's operators.
 - `path=` is exact (`folder/note.md` from the vault root); `file=` resolves a name the way a wikilink does.
+- It answers for the vault that was focused last. With more than one vault open (`{OBSIDIAN} vaults`), put `vault="<name>"` right after the command name.
 
 ## grep
 
 ```bash
+# An exact string, anywhere in the brain
+grep -rlF 'review-mwsd317q' --include='*.md' "{BRAIN_PATH}"
+
 # Inside a known folder
 grep -rilE 'compaction|merge tree' --include='*.md' "{BRAIN_PATH}/projects/acme/work"
 
@@ -78,7 +89,7 @@ grep -rciE 'pattern' --include='*.md' "{BRAIN_PATH}" | grep -v ':0$' | sort -t: 
 ```
 
 - Scope it to a folder whenever you know one. Across a whole brain a generic word matches hundreds of notes in no useful order.
-- It is the only one of the three that sees a file the moment it is written, reads files that are not Markdown, and takes regular expressions.
+- It is the only one of the three that sees a file the moment it is written, reads files that are not Markdown, matches a string byte for byte, and takes regular expressions.
 
 ## What the choice is based on
 

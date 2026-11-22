@@ -149,7 +149,7 @@ Interact with Obsidian vaults through its command line when Obsidian is running.
 
 ### Prerequisites
 
-- Obsidian must be open on this machine, with the vault loaded
+- Obsidian must already be open on this machine, with the vault loaded. Check first (`pgrep -x Obsidian` on macOS and Linux): calling the CLI with the app closed opens the app, so never call it then
 - The CLI must be switched on by the user: Settings → General → Advanced → Command line interface. While it is off, every command answers "Command line interface is not enabled"
 - The command is `ATLAS_OBSIDIAN_CMD` from the Atlas config when set (for example the app binary itself, `/Applications/Obsidian.app/Contents/MacOS/Obsidian` on macOS), otherwise `obsidian` on the PATH. The examples below write `obsidian`
 - The CLI includes `eval` and developer commands that run code inside the app, so switching it on is the user's decision. Never do it for them
@@ -200,7 +200,7 @@ obsidian vault="My Vault" search query="test"
 | Backlinks | `obsidian backlinks file="X"` (exact) | `grep -r "X" {BRAIN_PATH}/ --include="*.md"` (also returns mentions that are not links) |
 | Daily | `obsidian daily:read` | Find today's daily note file |
 
-Try the CLI command first. If it fails (Obsidian not running, CLI not installed), fall back to file operations silently.
+Use the CLI where it answers something files cannot (links, tags, properties) or where the user wants the change made through the app, and only when the prerequisites above hold. Otherwise use file operations, silently. For search, pick the tool by the request: `search-tools.md`.
 
 ## Defuddle (Web Content Extraction)
 

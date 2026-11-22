@@ -105,10 +105,11 @@ Personal knowledge base using PARA method.
 
 Atlas finds notes with grep out of the box. Two optional tools add to it (`reference/search-tools.md`): QMD for ranked keyword and meaning search, and the Obsidian CLI for links and tags. Do not install or switch on either one. Only record what is already there:
 
-- If `qmd status` works, add `ATLAS_QMD_CMD=qmd` to the config file. If the user reaches QMD another way (a wrapper, another machine over ssh), ask for that command and save it instead.
-- If `obsidian version` prints a version, add `ATLAS_OBSIDIAN_CMD=obsidian`. On macOS the app binary also answers CLI commands: `/Applications/Obsidian.app/Contents/MacOS/Obsidian`.
+- If `command -v qmd` finds QMD and `qmd status` exits 0, add `ATLAS_QMD_CMD=qmd` to the config file. The value is one executable, never a command line: if the user reaches QMD another way (another machine over ssh), ask them for a wrapper script and save its path.
+- Ask whether Atlas may refresh QMD's index (`qmd update`: it re-reads changed files and runs any update command they attached to a collection). Only on a yes, add `ATLAS_QMD_REFRESH=1`. Atlas then runs `qmd update` before the first search of a session and, in Claude Code, after an agent writes a note in the brain. Atlas never runs `qmd embed` or `qmd pull`: vectors stay the user's setup.
+- If the Obsidian app is running (`pgrep -x Obsidian`) and `obsidian version` prints a version, add `ATLAS_OBSIDIAN_CMD=obsidian`. On macOS the app binary also answers CLI commands: `/Applications/Obsidian.app/Contents/MacOS/Obsidian`. Don't start Obsidian to find out.
 
-With `ATLAS_QMD_CMD` set, the plugin also refreshes QMD's index in the background each time an agent writes a note in the brain. Skip this step silently when neither tool is present.
+Skip this step silently when neither tool is present.
 
 ### 8. Confirm
 
