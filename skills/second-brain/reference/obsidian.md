@@ -149,10 +149,10 @@ Interact with Obsidian vaults through its command line when Obsidian is running.
 
 ### Prerequisites
 
-- Obsidian must already be open on this machine, with the vault loaded. Check before every call (`pgrep -x Obsidian` on macOS and Linux): calling the CLI with the app closed opens the app, so never call it then
-- Name the vault on every call, reads and writes alike: `obsidian vault="<name>" <command> ...`. `obsidian vaults verbose` lists each vault with its path: use the one whose path is `{BRAIN_PATH}`. If none has that path, or two vaults share that name, don't use the CLI. The examples below leave `vault=` out to stay short
+- Obsidian must already be open on this machine, with the vault loaded. Check before every call, not once per session (`pgrep -x Obsidian` on macOS and Linux): the user may have quit it since your last call, and calling the CLI with the app closed opens the app, so never call it then
+- Name the vault on every call, reads and writes alike: `obsidian vault="<name>" <command> ...`. `obsidian vaults verbose` lists each vault with its path (once per session is enough): use the one whose path is `{BRAIN_PATH}`. If none has that path, or two vaults share that name, don't use the CLI. The examples below leave `vault=` out to stay short
 - The CLI must be switched on by the user: Settings → General → Advanced → Command line interface. While it is off, every command answers "Command line interface is not enabled"
-- The command is `ATLAS_OBSIDIAN_CMD` from the Atlas config when set (for example the app binary itself, `/Applications/Obsidian.app/Contents/MacOS/Obsidian` on macOS), otherwise `obsidian` on the PATH. The examples below write `obsidian`
+- The command is `ATLAS_OBSIDIAN_CMD` from the Atlas config when set (for example the app binary itself, `/Applications/Obsidian.app/Contents/MacOS/Obsidian` on macOS), otherwise `obsidian` on the PATH. The examples below write `obsidian`: put the configured command in its place. Where other Atlas files write `{OBSIDIAN}` and `{VAULT}`, they mean this command and the name of that vault
 - The CLI includes `eval` and developer commands that run code inside the app, so switching it on is the user's decision. Never do it for them
 - Falls back to standard file operations (grep, read) if unavailable
 
@@ -164,6 +164,8 @@ obsidian read file="My Note"
 
 # Search vault content: lists the notes that match, unranked. Words must all appear; OR, "quoted phrases", path: and tag: work
 obsidian search query="search term" limit=10 format=json
+obsidian search query='"disk encryption" path:resources' limit=20 format=json
+obsidian search query="onboarding (checklist OR template)" limit=20 format=json
 
 # Create a note
 obsidian create name="New Note" content="# Hello" silent
@@ -178,10 +180,19 @@ obsidian daily:append content="- [ ] New task"
 # Properties
 obsidian property:set name="status" value="done" file="My Note"
 
-# Tags and backlinks
+# Tags, links and structure: what grep cannot answer exactly
 obsidian tags sort=count counts
 obsidian backlinks file="My Note"
+obsidian backlinks path="areas/decisions/2026-04-02-budget.md" format=json
+obsidian links path="areas/decisions/2026-04-02-budget.md"
+obsidian unresolved
+obsidian orphans
+obsidian properties
 ```
+
+- Search: words separated by spaces must all appear. `OR`, quoted phrases, `path:` and `tag:` work. Case and accents are ignored.
+- Search results are not ranked: it lists the notes that match, like `grep -l`. For search it does the same job as grep, with Obsidian's operators.
+- `path=` is exact (`folder/note.md` from the vault root); `file=` resolves a name the way a wikilink does.
 
 ### Vault Targeting
 
@@ -190,11 +201,13 @@ obsidian backlinks file="My Note"
 obsidian vault="My Vault" search query="test"
 ```
 
+Without `vault=`, the CLI answers for whichever vault was focused last. Always pass the name of the vault whose path is `{BRAIN_PATH}` (`obsidian vaults verbose`).
+
 ### CLI vs File Operations
 
 | Operation | Obsidian CLI | File Fallback |
 |-----------|-------------|---------------|
-| Search | `obsidian search query="X"` (same job as grep; for questions use QMD, see `search-tools.md`) | `grep -ri "X" {BRAIN_PATH}/ --include="*.md"` |
+| Search | `obsidian search query="X"` (same job as grep; for questions use QMD, see `qmd.md`) | `grep -ri "X" {BRAIN_PATH}/ --include="*.md"` |
 | Read | `obsidian read file="X"` | `cat {BRAIN_PATH}/path/to/X.md` |
 | Append | `obsidian append file="X" content="Y"` | Append to file directly |
 | Tags | `obsidian tags sort=count` | `grep -r "tags:.*" {BRAIN_PATH}/` |

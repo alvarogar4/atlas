@@ -46,7 +46,7 @@ Follow the **Config Chain** in `atlas:second-brain`.
 
 ### Step 0: Ranked search and links, when the tools are there
 
-Read `reference/search-tools.md` in `atlas:second-brain` for the commands, the availability checks and when each tool applies. Both tools are optional; skip either one silently when its check fails.
+In `atlas:second-brain`, read `reference/search-tools.md` for when each tool applies, and `reference/qmd.md` and `reference/obsidian.md` for each tool's availability check and commands. Both tools are optional; skip either one silently when its check fails.
 
 **QMD** (when the config names it in `ATLAS_QMD_CMD`, `{QMD} status` exits 0 from the brain folder, and at least one of its collections is inside `{BRAIN_PATH}`): start here for a topic or a question. It ranks, and it finds notes that use other words or another language.
 

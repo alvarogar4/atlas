@@ -176,7 +176,7 @@ grep -r "tags:.*{tag}" {BRAIN_PATH}/ --include="*.md" -l
 obsidian tags sort=count counts
 obsidian backlinks file="{note}"
 
-# Questions and topics: QMD, when available (reference/search-tools.md)
+# Questions and topics: QMD, when available (reference/qmd.md)
 ```
 
 ### Read & Append Notes

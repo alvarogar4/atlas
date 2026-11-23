@@ -10,7 +10,7 @@ Execute **Basic** config from SKILL.md.
 
 ### Process
 
-1. Pick the tool by the kind of request (SKILL.md → Finding Notes; commands in `reference/search-tools.md`) and search directly:
+1. Pick the tool by the kind of request (SKILL.md → Finding Notes; commands in `reference/qmd.md`, `reference/obsidian.md` and, for grep, `reference/search-tools.md`) and search directly:
    - a question, a topic or "the note about X" → QMD keyword lines plus one meaning line
    - a phrase or a name you remember from a note → QMD `search` with the phrase in quotes
    - an exact string inside a note (identifier, code, error), a regular expression → `grep -F` or `grep -E`
