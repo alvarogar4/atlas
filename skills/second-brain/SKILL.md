@@ -74,25 +74,13 @@ Personal notes (career, feedback, journal, anything outside a team-shared projec
 
 ## Finding Notes
 
-Three tools can find a note, and each wins a different kind of request. Pick by the request:
-
-| The request is...                                                             | Use                                                        |
-| ----------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| A path you already have (given, in memory, a convention)                      | Read it. No search                                         |
-| Inside a folder you already know (a client folder, a draft)                   | grep and ls in that folder                                 |
-| A question, a topic, "the note about X", location unknown                     | QMD: `lex:` keyword lines plus one `vec:` sentence         |
-| A phrase or a name you remember from a note                                   | QMD `search` with the phrase in quotes                     |
-| An exact string inside a note (identifier, code, error), a regular expression | `grep -F` or `grep -E`                                     |
-| A file name, or part of one                                                   | `find` or Glob                                             |
-| A note written a moment ago, a file that is not Markdown                      | grep                                                       |
-| What links to a note, tags, orphans, properties                               | Obsidian CLI                                               |
-| QMD or the Obsidian CLI is not available here                                 | grep                                                       |
+Three tools can find a note, and each wins a different kind of request: QMD for questions and for phrases or names remembered from a note, grep for exact strings, known folders and notes written a moment ago, the Obsidian CLI for links and tags. That sentence is only the outline. **Before the first search of a session, read `reference/search-tools.md`**: it holds the routing table (which tool for which request, and why), and it is the only copy.
 
 - **grep and find always work.** QMD and the Obsidian CLI are optional, and each has a check to pass first (`reference/qmd.md`, `reference/obsidian.md`). QMD is used only when the config names it (`ATLAS_QMD_CMD`, the absolute path of one executable) and it indexes the brain. The Obsidian CLI (`ATLAS_OBSIDIAN_CMD`, or `obsidian`) only while the app is already running, and always with the brain's vault named. Where a check fails, use grep.
 - **A quick lookup needs no agent.** Search directly, read the top 3 to 5 results, answer. Spawn `atlas:locate_knowledge` and `atlas:analyze_knowledge` for deep recall across many notes.
 - **Atlas uses these tools, it does not set them up.** Never install QMD, run `{QMD} embed` or `{QMD} pull`, switch the Obsidian CLI on, or start Obsidian to search. Run `{QMD} update` only when the config has `ATLAS_QMD_REFRESH=1`.
 
-Before the first QMD call read `reference/qmd.md` (config, check, commands, query syntax). Before the first Obsidian CLI call read `reference/obsidian.md` → Obsidian CLI (check, commands). This table with its reasons, the grep commands and the measurements behind it: `reference/search-tools.md`.
+Before the first QMD call read `reference/qmd.md` (config, check, commands, query syntax). Before the first Obsidian CLI call read `reference/obsidian.md` → Obsidian CLI (check, commands).
 
 ## Capabilities
 
@@ -195,7 +183,7 @@ Atlas runs in Claude Code as a plugin and in any other agent that loads Agent Sk
 
 - **Folder structure**: `reference/folder-structure.md` — single source of truth for PARA structure
 - **Cross-referencing**: `reference/cross-referencing.md` — `related` property format, tag guidelines, series navigation
-- **Search tools**: `reference/search-tools.md` — which of grep, the Obsidian CLI and QMD to use for which request, grep commands, the measurements behind the routing
+- **Search tools**: `reference/search-tools.md` — the routing table (which of grep, the Obsidian CLI and QMD to use for which request; the only copy), grep commands, the measurements behind the routing
 - **QMD**: `reference/qmd.md` — config, availability check, commands, query syntax, index freshness
 - **Obsidian features**: `reference/obsidian.md` — callouts, embeds, highlights, comments, the CLI (availability check and commands), defuddle extraction
 - **Obsidian Bases**: `reference/obsidian-bases.md` — `.base` file schema, formulas, views, default project dashboard template
