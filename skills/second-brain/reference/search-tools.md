@@ -77,7 +77,7 @@ cd "{BRAIN_PATH}"
 {OBSIDIAN} vault="{VAULT}" properties
 
 # Search of the live files, with Obsidian's operators
-{OBSIDIAN} vault="{VAULT}" search query='"disk encryption" path:areas/remote-setup' limit=20 format=json
+{OBSIDIAN} vault="{VAULT}" search query='"disk encryption" path:areas/setup' limit=20 format=json
 {OBSIDIAN} vault="{VAULT}" search query="tenor (iceberg OR delta)" limit=20 format=json
 ```
 
