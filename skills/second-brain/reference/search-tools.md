@@ -47,7 +47,10 @@ grep -rciE 'pattern' --include='*.md' "{BRAIN_PATH}" | grep -v ':0$' | sort -t: 
 
 ## What the choice is based on
 
-Measured on a 2,584-note brain in November 2026.
+Measured on a 2,584-note brain in November 2026. Two things improve with this routing, by different amounts:
+
+- **The right note on the first try: a large gain.** In one shot, the right note is in the first 5 results for 77 to 84% of requests with QMD (keyword lines plus a meaning line), against 50 to 55% for grep at its best ordering and 39 to 47% for an Obsidian CLI search.
+- **Searches per request: about half. Notes found in the end: slightly more.** Agents free to retry found 126 of 150 notes with this routing against 122 with the previous instructions (Obsidian CLI first, then grep), in 1.4 to 2.5 searches per request instead of 2.5 to 6.4. Per agent, the notes found moved between one fewer and four more out of 30.
 
 **One shot per tool.** 171 requests with a known right note. Five models (Opus, Sonnet, Haiku, Codex, Grok) each wrote, without seeing the notes, the first query they would try with each tool. The figure is the share of requests with the right note in the first 5 results, as a range across the five.
 
@@ -75,4 +78,4 @@ Measured on a 2,584-note brain in November 2026.
 | Codex         | 24 → 25 of 30            | 6.4 → 1.5                          |
 | Grok          | 26 → 25 of 30            | 3.8 → 2.3                          |
 
-With retries, grep gets there about as often (122 against 126 of 150). The routing roughly halves the searches it takes.
+With retries, the previous instructions get there almost as often (122 against 126 of 150), so end to end the gain in notes found is small and the gain in work is large: about half the searches. Why fewer searches also find slightly more notes was not measured.
