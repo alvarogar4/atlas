@@ -107,13 +107,30 @@ grep -rciE 'pattern' --include='*.md' "{BRAIN_PATH}" | grep -v ':0$' | sort -t: 
 
 ## What the choice is based on
 
-Measured on a 2,576-note brain in November 2026: 171 requests with a known right note, the first query each agent would try, one shot per tool.
+Measured on a 2,584-note brain in November 2026.
 
-| Kind of request                       | grep, best ordering | Obsidian CLI search | QMD keyword lines + meaning |
-| ------------------------------------- | ------------------- | ------------------- | --------------------------- |
-| Literal phrase                        | 100%                | 100%                | 100%                        |
-| A note recalled by name               | 40%                 | 35%                 | 92%                         |
-| A question in other words             | 32%                 | 28%                 | 82%                         |
-| The same question in another language | 35%                 | 28%                 | 78%                         |
+**One shot per tool.** 171 requests with a known right note. Four models (Opus, Sonnet, Haiku, Codex) each wrote, without seeing the notes, the first query they would try with each tool. The figure is the share of requests with the right note in the first 5 results, as a range across the four.
 
-The figure is the share of requests with the right note in the first 5 results. grep and Obsidian usually do contain the note (72 to 100% of the time), but among a median of 13 to 30 unranked matches, which is what costs the extra round trips. For backlinks, the Obsidian CLI returned 231 real links where grepping for the note names returned 1,321 hits, 1,091 of them not links.
+| Kind of request                       | grep, best ordering | Obsidian CLI search | QMD keyword lines | QMD keyword lines + meaning |
+| ------------------------------------- | ------------------- | ------------------- | ----------------- | --------------------------- |
+| Literal phrase                        | 100%                | 100%                | 100%              | 98 to 100%                  |
+| A note recalled by name               | 40 to 55%           | 30 to 42%           | 82 to 90%         | 85 to 95%                   |
+| A question in other words             | 25 to 40%           | 18 to 28%           | 52 to 72%         | 68 to 78%                   |
+| The same question in another language | 30 to 40%           | 15 to 28%           | 55 to 75%         | 58 to 78%                   |
+| All requests                          | 50 to 55%           | 39 to 47%           | 72 to 82%         | 77 to 84%                   |
+
+- grep and Obsidian usually do contain the note (about 9 times in 10), but among a median of 9 to 19 unranked matches. QMD's gain is the ranking.
+- The tool matters more than the model that writes the query: the four models are within a few points of each other on every tool.
+- Meaning alone found 0 to 10% of literal phrases. It is one line to add to keyword lines, not a mode of its own.
+- For backlinks, the Obsidian CLI returned 231 real links where grepping for the note names returned 1,321 hits, 1,091 of them not links.
+
+**End to end.** 30 requests, each answered by an agent following either the previous instructions (Obsidian CLI first, then grep) or this routing, free to retry.
+
+| Agent         | Right note, before → now | Searches per request, before → now |
+| ------------- | ------------------------ | ---------------------------------- |
+| Claude Opus   | 26 → 25 of 30            | 2.5 → 1.6                          |
+| Claude Sonnet | 24 → 25 of 30            | 2.8 → 1.4                          |
+| Claude Haiku  | 22 → 26 of 30            | 4.3 → 2.5                          |
+| Codex         | 24 → 25 of 30            | 6.4 → 1.5                          |
+
+With retries, grep gets there about as often. The routing roughly halves the searches it takes.
