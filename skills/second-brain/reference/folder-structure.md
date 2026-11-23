@@ -163,30 +163,31 @@ See `reference/cross-referencing.md` for what to link in `related` and tag guide
 
 ## Operations
 
-Try Obsidian CLI first (faster, uses vault index). Fall back to file operations if Obsidian isn't running. See `reference/obsidian.md` for full CLI reference.
+File operations always work. The Obsidian CLI adds links, tags and daily notes when the app is already running and the user has the CLI switched on (`reference/obsidian.md`). For search, pick the tool by the request: `reference/search-tools.md`.
 
 ### Search Notes
 
 ```bash
-# Obsidian CLI (preferred)
-obsidian search query="{query}" limit=10
+# Files (always)
+grep -ri "{query}" {BRAIN_PATH}/ --include="*.md" -l
+grep -r "tags:.*{tag}" {BRAIN_PATH}/ --include="*.md" -l
+
+# Obsidian CLI, when available: tags and links resolved by the app
 obsidian tags sort=count counts
 obsidian backlinks file="{note}"
 
-# File fallback
-grep -ri "{query}" {BRAIN_PATH}/ --include="*.md" -l
-grep -r "tags:.*{tag}" {BRAIN_PATH}/ --include="*.md" -l
+# Questions and topics: QMD, when available (reference/qmd.md)
 ```
 
 ### Read & Append Notes
 
 ```bash
-# Obsidian CLI (preferred)
+# Files (always)
+cat {BRAIN_PATH}/path/to/{note}.md
+
+# Obsidian CLI, when available
 obsidian read file="{note}"
 obsidian append file="{note}" content="{content}"
-
-# File fallback
-cat {BRAIN_PATH}/path/to/{note}.md
 ```
 
 ### Daily Notes

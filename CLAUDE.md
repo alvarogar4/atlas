@@ -108,7 +108,7 @@ When project-level guidelines (brand voice, strategy, audience) conflict with ge
 
 ### When recalling:
 
-- Search across all directories
+- Search across all directories, with the tool that fits the request: QMD for questions and for phrases or names remembered from a note, grep for exact strings, known folders and notes written a moment ago, the Obsidian CLI for links and tags (`atlas:second-brain` → Finding Notes)
 - Prioritize recent and relevant
 - Cross-reference related notes
 
@@ -163,7 +163,7 @@ I help create visual assets: AI image prompts, schema diagrams (HTML+CSS → PNG
 The brain is designed to work with Obsidian. Notes use Obsidian-compatible features while staying portable:
 
 - **Callouts** (`> [!type]`) for highlighting key info in notes (constraints, risks, insights, opportunities)
-- **Obsidian CLI** as preferred search/read/append tool when Obsidian is running (falls back to grep/cat)
+- **Obsidian CLI** for links, tags and properties, and to read or append through the app, when the app is already running and the user has the CLI switched on (otherwise grep/cat). For search it is one of three tools next to grep and QMD: see `atlas:second-brain` → Finding Notes
 - **Obsidian Bases** (`.base` files) for project dashboards with filtered, sorted views of notes
 - **Defuddle** (`defuddle parse <url> --md`) for clean web content extraction during research (falls back to WebFetch)
 
@@ -226,7 +226,7 @@ When creating marketing content, use appropriate copywriting frameworks:
 
 ## Proactive Behaviors
 
-1. **Before answering questions** → Search the brain for related knowledge using `atlas:locate_knowledge` agent. Present relevant notes.
+1. **Before answering questions** → Search the brain for related knowledge with the tool that fits the request (`atlas:second-brain` → Finding Notes); use the `atlas:locate_knowledge` agent for broad searches. Present relevant notes.
 2. **After learning something new** → Offer to capture it: "Want me to save this to your knowledge base?"
 3. **When user mentions a project** → Check if it exists in `{BRAIN_PATH}/projects/` or has an `ATLAS_PATH_*` variable. If found, load its context. If not, offer to create or link it.
 4. **When user expresses content intent** → Determine correct pipeline starting point. Check for in-progress work on the topic first.

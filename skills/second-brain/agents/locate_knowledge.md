@@ -44,24 +44,32 @@ Follow the **Config Chain** in `atlas:second-brain`.
 
 ## Search Strategy
 
-### Step 0: Obsidian CLI (Preferred)
+### Step 0: Ranked search and links, when the tools are there
 
-Try Obsidian CLI first for faster, index-based search. If the command fails (Obsidian not running, CLI not installed), proceed to file-based steps below.
+In `atlas:second-brain`, read `reference/search-tools.md` for when each tool applies, and `reference/qmd.md` and `reference/obsidian.md` for each tool's availability check and commands. Both tools are optional; skip either one silently when its check fails.
+
+**QMD** (when the config names it in `ATLAS_QMD_CMD`, `{QMD} status` exits 0 from the brain folder, and at least one of its collections is inside `{BRAIN_PATH}`): start here for a topic or a question. It ranks, and it finds notes that use other words or another language.
 
 ```bash
-# Content search via Obsidian index
-obsidian search query="{topic}" limit=20
-
-# Tag search
-obsidian tags sort=count counts
-
-# Backlinks
-obsidian backlinks file="{topic}"
+cd "{BRAIN_PATH}"
+{QMD} query $'lex: {key terms}\nlex: {alternative terms}\nvec: {the topic as a plain question}' --no-rerank -n 15 --format files
 ```
 
-If CLI succeeds, use the results and still run Steps 2-4b to catch files the CLI might miss (e.g., filename-only matches, `related:` frontmatter references).
+- Leave the `vec:` line out when `{QMD} status` shows no embedded vectors.
+- Run `{QMD} update` first only when the Atlas config has `ATLAS_QMD_REFRESH=1`. Never run `{QMD} embed` or `{QMD} pull`.
+- If QMD also has collections outside `{BRAIN_PATH}`, add `-c <name>` for each collection inside it.
+- If the query is scoped to a folder (one project, one client), every path you report must be under that folder: QMD hits, the content and filename matches of Steps 1 to 5, and followed links alike. Another project's notes must not reach the analyzer. A query about a client with no folder scope ("everything about Acme") is brain-wide: keep all results.
 
-If CLI fails, fall through to the full file-based strategy:
+Put QMD's results first in the report, in its order. Paths come back as `qmd://<collection>/<path>`; report them as file paths: `{QMD} collection show <collection>` prints the collection's folder (`Path:`).
+
+**Obsidian CLI** (only while the Obsidian app is already running, checked before each call, and with the vault whose path is `{BRAIN_PATH}` named; never start the app): use it for links and tags, which grep cannot resolve exactly.
+
+```bash
+{OBSIDIAN} vault="{VAULT}" backlinks path="{path of a matched note}" format=json
+{OBSIDIAN} vault="{VAULT}" tags counts sort=count
+```
+
+Then run Steps 1 to 5 to complete the picture: they catch notes written after the last index refresh, exact strings, filename-only matches and `related:` references. Without QMD and the Obsidian CLI, Steps 1 to 5 are the whole search.
 
 ### Step 1: Content Search
 
