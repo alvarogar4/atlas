@@ -46,10 +46,10 @@ What Atlas never does on its own:
 cd "{BRAIN_PATH}"
 
 # A question or a topic: 1 to 3 keyword lines (alternatives) and one sentence in plain words
-{QMD} query $'lex: Newton School SOW\nlex: Newton School statement of work\nvec: the draft statement of work for Newton School' --no-rerank -n 5 --format files
+{QMD} query $'lex: Acme pricing proposal\nlex: Acme quote\nvec: the draft pricing proposal for Acme' --no-rerank -n 5 --format files
 
 # A phrase or a name you remember: all words must appear, quotes make an exact phrase
-{QMD} search '"hidden-resentment trap"' -n 5 --format files
+{QMD} search '"single source of truth"' -n 5 --format files
 
 # One collection only; json adds the title, the line and a snippet
 {QMD} search 'weekly review' -c brain -n 5 --format json
@@ -58,7 +58,7 @@ cd "{BRAIN_PATH}"
 - **The command comes first**, options after it: `{QMD} query '...' -n 5`, not `{QMD} -n 5 query '...'`.
 - **Write the lines yourself.** Each `lex:` line is a set of words that must all appear; several lines are alternatives. The `vec:` line is the question as you would ask a person, and it can stay in the user's language: a Spanish question finds English notes.
 - **No vectors?** If `{QMD} status` shows nothing embedded, leave the `vec:` line out: keyword lines and `search` work on their own.
-- **Don't use the automatic modes** (`{QMD} query "question"` without lines, `vsearch`, reranking) unless the user asks. They make QMD's own small models rewrite and rerank the query: slower, needs those models on the machine, and less accurate than lines you write.
+- **Don't use the automatic modes unless the user asks.** `{QMD} query "question"` without lines has QMD's own small model write the query, and `vsearch` searches by meaning only: both found fewer notes than lines an agent writes (see the measurements below), and both need QMD's models on the machine. Reranking was not measured and needs one more model, so the examples pass `--no-rerank`.
 - **Stay inside the brain.** QMD may index other folders too. If some collections live outside `{BRAIN_PATH}`, pass `-c <name>` for each collection that is inside it, on every search. With no collection inside it, don't use QMD (see the check above).
 - **Stay inside the scope.** When the request says to look inside one project's or one client's folder, QMD still ranks notes from the whole collection: keep only the results under that folder, or search that folder with grep instead. A request about a client with no folder named ("everything about Acme") is brain-wide: keep all results.
 - **Quote the command** if its path has spaces: `"{QMD}" query ...`.
@@ -77,8 +77,8 @@ cd "{BRAIN_PATH}"
 {OBSIDIAN} vault="{VAULT}" properties
 
 # Search of the live files, with Obsidian's operators
-{OBSIDIAN} vault="{VAULT}" search query='"disk encryption" path:areas/setup' limit=20 format=json
-{OBSIDIAN} vault="{VAULT}" search query="tenor (iceberg OR delta)" limit=20 format=json
+{OBSIDIAN} vault="{VAULT}" search query='"disk encryption" path:resources' limit=20 format=json
+{OBSIDIAN} vault="{VAULT}" search query="onboarding (checklist OR template)" limit=20 format=json
 ```
 
 - Words separated by spaces must all appear. `OR`, quoted phrases, `path:` and `tag:` work. Case and accents are ignored.
@@ -90,7 +90,7 @@ cd "{BRAIN_PATH}"
 
 ```bash
 # An exact string, anywhere in the brain
-grep -rlF 'review-mwsd317q' --include='*.md' "{BRAIN_PATH}"
+grep -rlF 'INV-2026-0417' --include='*.md' "{BRAIN_PATH}"
 
 # A file by its name
 find "{BRAIN_PATH}" -iname '*budget*' -not -path '*/.*'
@@ -122,6 +122,7 @@ Measured on a 2,584-note brain in November 2026.
 - grep and Obsidian usually do contain the note (about 9 times in 10), but among a median of 9 to 19 unranked matches. QMD's gain is the ranking.
 - The tool matters more than the model that writes the query: the five models are within a few points of each other on every tool.
 - Meaning alone found 0 to 10% of literal phrases. It is one line to add to keyword lines, not a mode of its own.
+- A raw question that QMD's own model expands into a query found fewer notes than keyword lines plus a meaning line in every kind of request (an earlier pass with one set of queries), and took 12 to 23 s a call on a CPU. Reranking was not measured.
 - For backlinks, the Obsidian CLI returned 231 real links where grepping for the note names returned 1,321 hits, 1,091 of them not links.
 
 **End to end.** 30 requests, each answered by an agent following either the previous instructions (Obsidian CLI first, then grep) or this routing, free to retry.
