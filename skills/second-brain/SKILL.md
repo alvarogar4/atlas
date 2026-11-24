@@ -82,6 +82,12 @@ Three tools can find a note, and each wins a different kind of request: QMD for 
 
 Before the first QMD call read `reference/qmd.md` (config, check, commands, query syntax). Before the first Obsidian CLI call read `reference/obsidian.md` → Obsidian CLI (check, commands).
 
+## Brain Paths in Replies
+
+When a chat reply, summary or report names a file or folder inside the brain, write the path relative to the brain root (`{BRAIN_PATH}`), with no leading `/`: `projects/acme-app/marketing/brand-voice.md`, `areas/health/README.md`. It is shorter, and it is the same form the `related` wikilinks use (`reference/cross-referencing.md`). A project that is its own git repo nested inside the brain gets the same form (`projects/{name}/...`).
+
+Files outside the brain (code repos, scratch folders, agent config) keep their absolute paths, since they have no root the user would read them against. Shell commands still use the full path (`{BRAIN_PATH}/projects/...`); this rule is only about how paths are shown to the user.
+
 ## Capabilities
 
 ### Knowledge Operations
@@ -173,7 +179,7 @@ Atlas runs in Claude Code as a plugin and in any other agent that loads Agent Sk
 ### General Principles
 
 1. Never fail silently — always inform user
-2. Be specific — include file paths, exact errors, clear next steps
+2. Be specific — include file paths (brain paths relative to the brain root, see [Brain Paths in Replies](#brain-paths-in-replies)), exact errors, clear next steps
 3. Don't guess — if data is missing, say so
 4. Offer solutions — every error includes what to do next
 5. Preserve work — save partial progress when possible

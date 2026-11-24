@@ -94,6 +94,7 @@ After saving the draft, check the channel guidelines (`channels/{channel}.md`) f
 - Save prompts and any generated assets to `${CONTENT_FOLDER}/resources/`
 - If the channel guidelines say no images are needed, skip and note "No images required for this channel" in the output
 - **Reuse across channels**: Images in `resources/` are shared. When writing for a second channel on the same topic, check existing assets before generating new ones — if they fit for the use case, you can reuse or adapt across channels if they serve the purpose.
+- **Link, don't copy**: an image that already lives in another content folder or project is linked from there, never copied into this folder's `resources/` (see SKILL.md → Visual Assets).
 
 10. **Populate `related` in frontmatter** (see `second-brain/reference/cross-referencing.md`): Add vault-root paths to siblings in the content folder, calendar entry, and any referenced theme/audience files.
 

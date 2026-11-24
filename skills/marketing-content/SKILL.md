@@ -165,6 +165,23 @@ These apply across all channels:
 - Scannable structure: Subheadings, bullets, numbered lists
 - Read aloud test: If it sounds unnatural, rewrite it
 
+**Ideas First:**
+
+Opinion, lessons-learned and founder-journey pieces are built on ideas, not on a list of anecdotes:
+
+- Outline the 2-3 ideas the reader should take away before writing anything else, and state each one plainly.
+- Examples come after the idea, as light proof: one short line or sentence each. A string of examples with no stated idea reads as a list and leaves the reader with nothing.
+- Never describe an identifiable person without their consent. That covers names, and also a role plus a date, an event or a company that points to one person ("the investor I met at last week's meetup"). Describe what happened as a pattern ("people offered intros before asking for anything") instead.
+- Don't put feelings, motives or opinions in the author's mouth that the author hasn't stated. Ask.
+
+**Technical Depth:**
+
+Technical pieces should be easy to follow for an ordinary software engineer and still pass an expert's reading:
+
+- Use the correct terms (embedding, approximate nearest neighbour, recall, quantization, sort key) and make each one clear from the sentence it appears in. Never swap a term for a simplified analogy that an expert would mock ("a list of numbers" for an embedding, "a graph that hops around" for an index).
+- Readability comes from short sentences, one idea per paragraph and concrete numbers (rows, milliseconds, GB, recall), not from a smaller vocabulary.
+- Lead with a result any engineer understands ("the index returned 0 of the 50 matching rows"), then explain why.
+
 **Trademark & Attribution:**
 
 When referencing third-party products, technologies, or brands in any content:
@@ -204,6 +221,8 @@ Whenever content involves visual assets, you MUST load the `atlas:marketing-visu
 - Any task involving the `resources/` folder for visual content
 
 Do not attempt image work with ad-hoc approaches (raw Python/Pillow, manual prompt composition). The skill contains structured prompt templates, dedicated CLI tools (`bun crop`, `bun polish`, `bun optimize`), and brand-consistent visual guidelines from `visual-identity.md`. Load the skill, follow its decision tree.
+
+**Link images, don't copy them:** when a piece reuses an image that already lives in another content folder (a social companion to a blog post, a post in another project of the same brain), link to the existing file instead of copying it into this folder's `resources/`. Copies drift from the original and bloat the repo. Only create `resources/` files for assets that exist nowhere else, such as a restyled version of an image.
 
 ## Agent Dependencies
 
