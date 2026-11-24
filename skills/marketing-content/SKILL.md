@@ -210,8 +210,6 @@ Whenever you write or edit marketing content, you MUST load the `atlas:humanizer
 
 Load the skill, read all four of its reference files, and apply the 43 anti-patterns as generation-time constraints (not post-processing). Run `tools/lint.sh` on the draft before showing it. Never show the user AI-patterned text and ask them to humanize it separately. The humanizer pass is automatic and non-negotiable.
 
-The one exception is a translation (for example a translated edition of a blog post): it goes through `atlas:translator` only, with no humanizer pass on top. See `atlas:translator` → This Skill Only.
-
 **Visual Assets (MANDATORY):**
 
 Whenever content involves visual assets, you MUST load the `atlas:marketing-visuals` skill BEFORE proceeding with any visual work. This includes:
