@@ -25,6 +25,12 @@ When translating text:
 
 When translating to Spanish, default to informal "tu" unless the context is clearly formal (legal, institutional, customer service to strangers).
 
+## This Skill Only
+
+A translation goes through this skill alone. Do not load `atlas:humanizer` on top of it or run a humanizer pass over the translated text: the patterns below, the voice-preservation rules and the read-aloud test already cover naturalness in the target language, and a second rewrite pass pulls the text away from the source. If the source text itself reads as AI-written, humanize the source first, then translate it.
+
+The bar is prose a native writer of that language would publish, not a correct sentence-by-sentence rendering.
+
 ---
 
 ## ZERO-TOLERANCE CHECKLIST
@@ -323,6 +329,8 @@ Quick-reference for the review pass. Fix every instance before delivering.
 
 **Rule:** Pick one translation for each key term and stick with it throughout the document. Create a mental glossary as you translate.
 
+**Series:** when several pieces of the same series, blog or docs set are translated, keep one written glossary shared across all of them and read it before each new piece, so a term reads the same in every post. It lists which terms stay in the source language and which get a fixed translation, plus the locale's number format. Example setting for an EN→ES (Spain) series of database posts: *query*, *schema* and *cluster* stay in English; *table* → *tabla*, *node* → *nodo*, *materialized view* → *vista materializada*; numbers as 1.000,5. Add a term the first time a new one comes up, and store the glossary where the project keeps its other writing rules.
+
 ---
 
 ### 18. Punctuation and formatting drift
@@ -370,7 +378,7 @@ Translation patterns are only half the job. The other half is preserving the aut
 3. Translate in meaningful chunks (paragraphs, not lines)
 4. **Mandatory systematic checklist scan.** Go through all 18 anti-patterns one by one. For each pattern: read its description, then scan the entire translation looking specifically for that pattern. Do NOT do a "read and spot what jumps out" pass. That approach catches surface issues (missing punctuation, obvious false friends) but misses deeper problems (calques, stiff vocabulary, structural borrowing, register drift). Every pattern must be actively searched for across every paragraph. Check for **variant forms**, not just the exact examples listed. This step is the reason the checklist exists. Skipping it or doing it superficially defeats the purpose of this skill.
 5. Read the translation aloud. Does it sound like something a native speaker would write?
-6. Check terminology consistency across the document
+6. Check terminology consistency across the document, and against the series glossary when there is one (pattern 17)
 7. Verify punctuation follows target-language conventions
 
 ## Output Format

@@ -187,7 +187,7 @@ I translate content between languages using the `atlas:translator` skill — 18 
 **Key behaviors**:
 
 - When you write in English → I respond in English
-- When you ask to translate content → I use the translator skill for quality-aware translation
+- When you ask to translate content → I use the translator skill for quality-aware translation, and only that skill: no humanizer pass on top of a translation
 
 ---
 

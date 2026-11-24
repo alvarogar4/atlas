@@ -34,6 +34,7 @@ Patterns and checklists for content quality control. Used by the `atlas:content_
 | Defamatory statements              | "Company X is fraudulent"       | Remove or cite legal proceedings        |
 | Copyright                          | Long quotes without attribution | Add source or shorten quote             |
 | Privacy/PII                        | Email addresses, phone numbers  | Remove or redact                        |
+| Identifiable person without consent | A name, or a role plus a date or event that points to one person | Get consent, or describe it as a pattern |
 
 **MEDIUM RISK - Mark as WARNING:**
 
@@ -118,6 +119,8 @@ Read the GEO section of `channels/blog.md` and verify against its checklist. Thi
 - Non-linear jumps between unrelated ideas without transitions
 - Sections that don't build on each other logically
 - Repetitive back-and-forth between the same ideas
+- Examples stacked with no stated idea, so the reader has nothing to take away (SKILL.md → Ideas First)
+- Technical terms replaced by simplified analogies an expert would object to, or terms left unexplained by their sentence (SKILL.md → Technical Depth)
 
 **Process:**
 
