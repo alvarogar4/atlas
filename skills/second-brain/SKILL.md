@@ -84,17 +84,18 @@ Pick the search tool by the request, not by habit. grep is the habit, and it is 
 | A phrase or a name you remember from a note                                   | **QMD** `search` with the phrase in quotes                 | Finds it and ranks it first                                         |
 | An exact string inside a note (identifier, code, error), a regular expression | `grep -F` or `grep -E`                                     | Byte-exact                                                          |
 | A file name, or part of one                                                   | `find` or Glob                                             | grep reads contents, not names                                      |
-| A note written a moment ago, a file that is not Markdown                      | grep                                                       | Reads the files as they are now                                     |
+| A note written or edited a moment ago, a file that is not Markdown            | grep                                                       | Reads the files as they are now                                     |
 | What links to a note, tags, orphans, properties                               | **Obsidian CLI**                                           | Resolves links; a grep for a name also returns plain mentions       |
 | QMD or the Obsidian CLI is not available here                                 | grep                                                       | Always there                                                        |
 
 ### The defaults, ready to run
 
-When the check for a tool passes (below), these are the first call, before any grep across the whole brain:
+When the check for a tool passes (below), these are the first call for a question, a topic or a remembered phrase, before any grep across the whole brain:
 
 ```bash
 cd "{BRAIN_PATH}"
-# A question or a topic, location unknown
+{QMD} update   # once per session, before the first search, only with ATLAS_QMD_REFRESH=1
+# A question or a topic, location unknown. Add the vec: line only when `{QMD} status` shows embedded vectors
 {QMD} query $'lex: key words\nlex: other key words\nvec: the question in plain words' --no-rerank -n 5 --format files
 # A phrase or a name you remember
 {QMD} search '"the phrase"' -n 5 --format files
@@ -102,11 +103,13 @@ cd "{BRAIN_PATH}"
 {OBSIDIAN} vault="{VAULT}" backlinks path="folder/note.md" format=json
 ```
 
+If QMD also indexes collections outside `{BRAIN_PATH}`, add `-c <name>` for each collection inside it to every search. If the request is scoped to one folder (a project, a client), drop every result outside that folder before opening any, and search the folder with grep if none is left.
+
 Three moments to switch tools:
 
-- **A grep across the whole brain returned more than about 10 files**, or none of the first ones fits: rerun the request as a QMD query instead of narrowing the grep by hand.
-- **Before you move, rename or delete a note**: list its backlinks with the Obsidian CLI, so no link is left pointing at nothing. Update them in the same change.
-- **A question in another language than the notes**: QMD with the `vec:` line in the user's language. grep will not find it.
+- **A topic or question searched with grep across the whole brain returned more than about 10 files**, or none of the first ones fits, and QMD has not been tried yet: rerun it as a QMD query instead of narrowing the grep by hand. Exact strings, regular expressions, just-edited notes and non-Markdown files stay on grep, however many files match.
+- **Before you move, rename or delete a note**: list its backlinks with the Obsidian CLI while the app is running, and update them in the same change. Without the CLI, grep for the note's name and path, but treat the hits as candidates: edit only links that resolve to the old path (another folder can hold a note with the same name, and many hits are plain mentions), and check `related` entries for the old path too.
+- **A question in another language than the notes**: QMD with the `vec:` line in the user's language, when vectors are embedded. Without vectors, write the `lex:` lines in the notes' language.
 
 Read the top 3 to 5 results before answering. If none fits, rephrase once, then fall back to grep.
 
