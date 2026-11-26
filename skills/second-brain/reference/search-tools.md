@@ -4,25 +4,13 @@ Three tools can find a note. Each wins a different kind of request, so pick by t
 
 ## Which tool
 
-| The request is...                                                                       | Use                                                                    | Why                                                                            |
-| --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| A note whose path you already have (given by the user, in memory, a known convention)   | Read it                                                                | No search needed                                                               |
-| Work inside a folder you already know (a client folder, a draft, a calendar)            | grep and ls in that folder                                             | Few files, and exact strings pin things down                                   |
-| A question, a topic, or "the note about X", location unknown                            | QMD: keyword lines plus one meaning line                               | Ranked; finds notes that use other words or another language                   |
-| A phrase or a name you remember from a note                                             | QMD `search` with the phrase in quotes                                 | Finds it and ranks it first                                                    |
-| An exact string inside a note (an identifier, a code, an error message), a regular expression | `grep -F` (or `-E`)                                              | Byte-exact. An index splits identifiers into words                             |
-| A file name, or part of one                                                             | `find` or the harness's Glob                                           | grep reads contents, not names                                                 |
-| A note written or edited a moment ago, a file that is not Markdown                      | grep                                                                   | It reads the files as they are now                                             |
-| What links to a note, tags, orphans, unresolved links, properties                       | Obsidian CLI                                                           | It resolves links; grepping for a name also returns mentions that aren't links |
-| QMD or the Obsidian CLI is not available here (another machine, a cloud session)        | grep                                                                   | Always there                                                                   |
-
-After any search: read the top 3 to 5 results before answering. If none fits, rephrase once, then fall back to grep.
+The routing table is in `SKILL.md` → Finding Notes, together with the default commands: it is the only copy, kept there so it is in front of the agent before its first search. This file holds what is behind it: the checks, the grep commands and the measurements.
 
 ## Before using a tool
 
 QMD and the Obsidian CLI each have a check to pass first. A failed check is not an error to report: use grep.
 
-- **QMD**: only when the Atlas config names it (`ATLAS_QMD_CMD`) and it indexes this brain. Read `qmd.md` before the first QMD call: the check, the commands, the query syntax, and what Atlas never runs.
+- **QMD**: only when the Atlas config names it (`ATLAS_QMD_CMD`) and it indexes this brain. Read `qmd.md` once, before the first QMD call: the check, the commands, the query syntax, and what Atlas never runs.
 - **Obsidian CLI**: only while the Obsidian app is already running, and always with the brain's vault named. Read `obsidian.md` (Obsidian CLI) before the first call: the check and the commands.
 - **grep and find**: always. Use the harness's own tools (Grep, Glob, ripgrep) when it has them.
 

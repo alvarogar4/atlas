@@ -163,7 +163,7 @@ See `reference/cross-referencing.md` for what to link in `related` and tag guide
 
 ## Operations
 
-File operations always work. The Obsidian CLI adds links, tags and daily notes when the app is already running and the user has the CLI switched on (`reference/obsidian.md`). For search, pick the tool by the request: `reference/search-tools.md`.
+File operations always work. The Obsidian CLI adds links, tags and daily notes when the app is already running and the user has the CLI switched on (`reference/obsidian.md`). For search, pick the tool by the request: `SKILL.md` → Finding Notes.
 
 ### Search Notes
 

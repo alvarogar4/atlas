@@ -10,7 +10,7 @@ Execute **Basic** config from SKILL.md.
 
 ### Process
 
-1. Pick the tool by the kind of request and search directly. The routing table is in `reference/search-tools.md` (the only copy: read it before the first search of a session). The commands are in `reference/qmd.md`, `reference/obsidian.md` and, for grep, `reference/search-tools.md`.
+1. Pick the tool by the kind of request and search directly, with the routing table and the default commands in SKILL.md → Finding Notes. For a question or a topic, that is QMD first when its check passes, not grep. Details: `reference/qmd.md`, `reference/obsidian.md` and, for grep, `reference/search-tools.md`.
 
    Read the top 3 to 5 results. If none fits, rephrase once, then fall back to grep.
 

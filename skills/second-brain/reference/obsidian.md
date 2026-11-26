@@ -145,7 +145,7 @@ Tags in frontmatter (array format) and inline (`#tag`) are both searchable.
 
 ## Obsidian CLI
 
-Interact with Obsidian vaults through its command line when Obsidian is running. It resolves links, tags and properties the way the app does, which raw file access cannot. For choosing between it, grep and QMD when searching, see `search-tools.md`.
+Interact with Obsidian vaults through its command line when Obsidian is running. It resolves links, tags and properties the way the app does, which raw file access cannot. For choosing between it, grep and QMD when searching, see `SKILL.md` → Finding Notes.
 
 ### Prerequisites
 
@@ -214,7 +214,7 @@ Without `vault=`, the CLI answers for whichever vault was focused last. Always p
 | Backlinks | `obsidian backlinks file="X"` (exact) | `grep -r "X" {BRAIN_PATH}/ --include="*.md"` (also returns mentions that are not links) |
 | Daily | `obsidian daily:read` | Find today's daily note file |
 
-Use the CLI where it answers something files cannot (links, tags, properties) or where the user wants the change made through the app, and only when the prerequisites above hold. Otherwise use file operations, silently. For search, pick the tool by the request: `search-tools.md`.
+Use the CLI where it answers something files cannot (links, tags, properties) or where the user wants the change made through the app, and only when the prerequisites above hold. Otherwise use file operations, silently. For search, pick the tool by the request: `SKILL.md` → Finding Notes.
 
 ## Defuddle (Web Content Extraction)
 
