@@ -10,6 +10,7 @@ import json
 import os
 import re
 import shlex
+import stat
 import sys
 import time
 
@@ -44,6 +45,7 @@ class Brain:
         self.spellings = sorted({path.rstrip("/"), self.root}, key=len, reverse=True)
         self.qmd = qmd
         self.obsidian = obsidian
+        self.vaults = {os.path.basename(self.root), os.path.basename(path.rstrip("/"))}
 
     def rel(self, path: str, cwd: str):
         """Brain-relative path, or None when the path is outside the brain."""
@@ -62,13 +64,16 @@ def clip(text: str) -> str:
     return text if len(text) <= QUERY_MAX else text[:QUERY_MAX] + "..."
 
 
-HEREDOC = re.compile(r"<<-?\s*(['\"]?)(\w+)\1[^\n]*\n.*?^\s*\2\s*$", re.S | re.M)
+HEREDOC = re.compile(r"<<-?\s*(['\"]?)([^\s'\"<>;&|()]+)\1[^\n]*\n.*?^\t*\2\s*$", re.S | re.M)
 
 
 def words(command: str):
     """Shell words of a command, split into simple commands. Heredoc bodies are dropped (they are
     text, often a note being written), and $'..' quoting becomes '..'."""
-    command = HEREDOC.sub(" ", command).replace("$'", "'")
+    command = HEREDOC.sub(" ", command)
+    if re.search(r"<<(?!<)", command):
+        command = command[:command.index("<<")]  # a heredoc we could not delimit: drop its text
+    command = command.replace("$'", "'")
     lexer = shlex.shlex(command, posix=True, punctuation_chars=";&|()\n")
     lexer.whitespace = " \t\r"
     lexer.whitespace_split = True
@@ -118,7 +123,9 @@ def shell_events(command: str, cwd: str, brain: Brain):
             here = os.path.join(here, os.path.expanduser(args[0]))
             continue
         in_brain = brain.rel(here, "/") is not None
-        is_qmd = (brain.qmd and argv[0] == brain.qmd) or name == "qmd" or re.match(r"^\$\{?\w+\}?$", argv[0])
+        # QMD and Obsidian can serve other vaults: count them only when they are the brain's.
+        is_qmd = (brain.qmd and argv[0] == brain.qmd) or (in_brain and (
+            name == "qmd" or re.match(r"^\$\{?\w+\}?$", argv[0])))
         if is_qmd and args and args[0] in ("query", "search", "vsearch", "get"):
             sub, rest = args[0], args[1:]
             operand, _ = first_operand(rest, ("-n", "-c", "--format", "--collection", "--min-score"))
@@ -132,6 +139,8 @@ def shell_events(command: str, cwd: str, brain: Brain):
         if (brain.obsidian and argv[0] == brain.obsidian) or name.lower() == "obsidian":
             sub = next((a for a in args if "=" not in a and not a.startswith("-")), "")
             opts = dict(a.split("=", 1) for a in args if "=" in a)
+            if opts.get("vault") not in brain.vaults:
+                continue
             if sub in ("search", "search:context", "backlinks", "links", "tags", "tag", "read", "files", "outline"):
                 event = {"kind": "read" if sub == "read" else "obsidian", "tool": f"obsidian {sub}"}
                 if opts.get("query") or opts.get("name"):
@@ -155,6 +164,8 @@ def shell_events(command: str, cwd: str, brain: Brain):
                 events.append({"kind": "grep", "tool": name, "query": clip(pattern)})
             continue
         if name in READERS:
+            if any(a.startswith(">") or a in ("-i", "--in-place") for a in args):
+                continue  # writes a file (`cat > note.md`, `sed -i`): not a lookup
             paths = [brain.rel(a, here) for a in args if a.endswith(".md") and not a.startswith("-")]
             paths = [p for p in paths if p]
             if paths:
@@ -209,8 +220,11 @@ def append(record_lines) -> None:
     folder = os.path.join(state, "atlas")
     os.makedirs(folder, mode=0o700, exist_ok=True)
     path = os.path.join(folder, "retrieval-events.jsonl")
-    fd = os.open(path, os.O_WRONLY | os.O_APPEND | os.O_CREAT | os.O_NOFOLLOW, 0o600)
+    # Non-blocking, and only a regular file: a FIFO or device there must not stall the agent.
+    fd = os.open(path, os.O_WRONLY | os.O_APPEND | os.O_CREAT | os.O_NOFOLLOW | os.O_NONBLOCK, 0o600)
     try:
+        if not stat.S_ISREG(os.fstat(fd).st_mode):
+            return
         if os.fstat(fd).st_mode & 0o077:
             os.fchmod(fd, 0o600)
         os.write(fd, "".join(record_lines).encode())

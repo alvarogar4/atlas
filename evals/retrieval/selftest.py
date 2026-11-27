@@ -43,22 +43,22 @@ def scoring(tmp):
     stale = (0, 0, 0, True, True, 1, None, None, None, None, 0, None)
     direct = (1, 1, 1, False, False, 1, 1, 2.5, 1, 2.5, 0, None)
     felt = (1, 1, None, False, False, 1, 1, 2.5, 1, 2.5, 0, None)
-    exact = (1, 1, None, False, False, 1, 1, 1.25, None, None, 0, "grep")
+    exact = (1, 1, None, False, False, 1, 1, 1.4, None, None, 0, "grep")
     one = (1/3, 1/3, None, False, False, 1, 1, 2.5, 1, 2.5, 0, None)
-    only = (1, 1, 1, False, False, 1, 1, 1.25, None, None, 0, "grep")
+    only = (1, 1, 1, False, False, 1, 1, 1.4, None, None, 0, "grep")
     expected = {
         "opus": [
-            (stale, (1, 1, 1, False, False, 2, 1, 1.25, 2, 2.5, 0, "qmd_query")),
-            ((1, 1, 0, True, False, 1, 1, 1.25, None, None, 0, "grep"), only),
+            (stale, (1, 1, 1, False, False, 2, 1, 1.4, 2, 2.5, 0, "qmd_query")),
+            ((1, 1, 0, True, False, 1, 1, 1.4, None, None, 0, "grep"), only),
             (felt, felt), (one, exact)],
         "codex": [
-            (stale, (1, 1, 1, False, False, 3, 2, 1.25, 3, 2.5, 0, "grep")),
-            (direct, (1, 1, 1, False, False, 2, 2, 1.25, None, None, 1, "grep")),
+            (stale, (1, 1, 1, False, False, 3, 2, 1.4, 3, 2.5, 0, "grep")),
+            (direct, (1, 1, 1, False, False, 2, 2, 1.4, None, None, 1, "grep")),
             (exact, None), (exact, one)],
         "grok": [
-            (stale, (1, 1, 1, False, False, 2, 1, 1.25, 2, 2.5, 0, "grep")),
+            (stale, (1, 1, 1, False, False, 2, 1, 1.4, 2, 2.5, 0, "grep")),
             (direct, direct),
-            (felt, (1, 1, None, False, False, 1, 1, .75, None, None, 0, "grep")), (exact, exact)]}
+            (felt, (1, 1, None, False, False, 1, 1, .9, None, None, 0, "grep")), (exact, exact)]}
     fields = ("found", "surfaced", "latest", "stale_only", "superseded_only", "calls",
               "calls_to_relevant", "secs_to_relevant", "opened_calls", "opened_secs", "waste", "first_search")
     by_id = {(r["agent"], r["case"], r["version"]): r for r in rows}
@@ -354,16 +354,37 @@ sys.exit(run.main())
     check(str(interrupted) in run.git(repo, "worktree", "list", "--porcelain"), False, "SIGTERM removes worktrees")
 
 
+def killed_run(tmp):
+    """A run killed with SIGKILL is undone by the next run, whatever --out that one uses."""
+    dead = tmp / "killed-out"
+    dead.mkdir()
+    trust_file = tmp / "killed-trust.toml"
+    trust_file.write_text('[folders."/tmp/other"]\ntrusted = true\n')
+    home = tmp / "killed-home"
+    run.trust(trust_file, home, True, run.Journal(dead))
+    (dead / "codexhome-main").mkdir()
+    (dead / "codexhome-main/auth.json").write_text("{}")
+    agents.write_json(run.registry() / "dead.json", dict(out=str(dead)))
+    result = subprocess.run([sys.executable, "-I", HERE / "run.py", "--out", tmp / "fresh-out", "--cleanup"],
+                            cwd=tmp, env=dict(os.environ), capture_output=True, text=True)
+    check(result.returncode, 0, result.stderr)
+    check(str(home) in trust_file.read_text(), False, "killed run: Grok trust removed")
+    check((dead / "codexhome-main").exists(), False, "killed run: credentials deleted")
+    check(list(run.registry().glob("*.json")), [], "killed run: registry emptied")
+
+
 def main():
     classification()
     with tempfile.TemporaryDirectory() as folder, patch.dict(os.environ, {
             "GIT_CONFIG_GLOBAL": os.devnull, "GIT_CONFIG_NOSYSTEM": "1"}):
         tmp = Path(folder).resolve()
+        os.environ["XDG_STATE_HOME"] = str(tmp / "state")
         scoring(tmp)
         config_checks(tmp)
         recovery(tmp)
         capture_checks(tmp)
         runner_cli(tmp)
+        killed_run(tmp)
     print(f"selftest ok ({checks} checks)")
 
 

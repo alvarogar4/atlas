@@ -85,7 +85,9 @@ def metrics(record, meta, case, brain):
         if kind in SEARCH:
             searches.append(kind)
         if hits and first[0] is None:
-            first = (n, call["t"])
+            # A path only in the output counts from when the result arrived, not when the call began.
+            in_input = any(matches(p, inp) for p in hits)
+            first = (n, call["t"] if in_input else call.get("t_end", call["t"]))
         if kind in ("read", "qmd_get"):
             if opened[0] is None and any(matches(p, inp) for p in must):
                 opened = (n, call["t"])
@@ -210,7 +212,7 @@ def report(case_path, spec, versions, agents, rows, failed, smoke):
     lines += table(["A", "B", "Agent", "A wins", "B wins", "Ties", "Exact p"], comparisons)
     lines += ["## Cases", "", "Agent cells show found share. Times are medians over runs with a hit.", ""]
     per_case = []
-    for c in spec["cases"]:
+    for c in [c for c in spec["cases"] if any(r["case"] == c["id"] for r in rows + failed)]:
         for v in versions:
             group = [r for r in rows if r["case"] == c["id"] and r["version"] == v]
             per_case.append([c["id"], c["kind"], v, pct(r["metrics"]["found"] for r in group),
@@ -286,7 +288,8 @@ def judges(out, brain, cases, versions, rows):
                     for field in ("answer", "trajectory", "overall"):
                         votes[name][field, result[field + "_winner"]] += 1
                 except (OSError, ValueError, KeyError, subprocess.SubprocessError) as exc:
-                    print(f"Judge failed for {path}: {exc}", file=sys.stderr)
+                    # Never print the exception: a failed command's text holds the prompt (notes).
+                    print(f"Judge {name} failed for {path}: {type(exc).__name__}", file=sys.stderr)
                     errors[name] += 1
         for name, tally_by in votes.items():
             for field in ("answer", "trajectory", "overall"):

@@ -59,7 +59,7 @@ def parse(agent, jsonl_path, times_path):
             return
         value = unwrap(args["command"]) if isinstance(args, dict) and "command" in args else (
             json.dumps(args, ensure_ascii=False, separators=(",", ":")))
-        call = dict(i=len(by_id) + 1, t=t, tool=tool, input=value, output="", error=False)
+        call = dict(i=len(by_id) + 1, t=t, t_end=None, tool=tool, input=value, output="", error=False)
         by_id[key] = call
         record["calls"].append(call)
 
@@ -84,7 +84,7 @@ def parse(agent, jsonl_path, times_path):
                         start(block["id"], block["name"], block.get("input", {}), t)
                     if block.get("type") == "tool_result":
                         results[block["tool_use_id"]] = dict(output=content(block.get("content"))[:20000],
-                                                             error=bool(block.get("is_error")))
+                                                             error=bool(block.get("is_error")), t_end=t)
                 if kind == "result":
                     record.update(answer=event.get("result", ""), cost_usd=event.get("total_cost_usd"),
                                   usage=event.get("usage", {}), session_ok=not event.get("is_error"))
@@ -96,7 +96,7 @@ def parse(agent, jsonl_path, times_path):
                     if kind == "item.completed":
                         code = item.get("exit_code")
                         results[key] = dict(output=(item.get("aggregated_output") or "")[:20000],
-                                            exit_code=code, error=code not in (0, 1))
+                                            exit_code=code, error=code not in (0, 1), t_end=t)
                 if kind == "item.completed" and item.get("type") == "agent_message":
                     record["answer"] = item["text"]
                 if kind == "turn.completed":
@@ -116,7 +116,7 @@ def parse(agent, jsonl_path, times_path):
                         if output or event.get("status") in ("completed", "failed"):
                             previous = results.get(key, {})
                             results[key] = dict(output=(output or previous.get("output", ""))[:20000],
-                                                error=event.get("status") == "failed")
+                                                error=event.get("status") == "failed", t_end=t)
                 if kind == "text":
                     record["answer"] += event.get("data", "")
                 if kind == "usage":

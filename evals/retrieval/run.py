@@ -95,7 +95,7 @@ def trust(path, home, add, journal=None, created=False, stage=None):
     fd = os.open(path.parent, os.O_RDONLY)
     try:
         fcntl.flock(fd, fcntl.LOCK_EX)
-        text = path.read_text() if path.exists() else ""
+        text = original = path.read_text() if path.exists() else ""
         span = table_span(text, "folders", str(home))
         if add:
             if span:
@@ -118,6 +118,7 @@ def trust(path, home, add, journal=None, created=False, stage=None):
                 return
             if not span:
                 return
+        tomllib.loads(text)  # never publish a trust file Grok can't read
         tmp = path.parent / (stage or (".retrieval-" + uuid.uuid4().hex))
         try:
             fd_tmp = os.open(tmp, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
@@ -125,6 +126,8 @@ def trust(path, home, add, journal=None, created=False, stage=None):
                 f.write(text)
             if path.exists():
                 tmp.chmod(path.stat().st_mode & 0o777)
+            if (path.read_text() if path.exists() else "") != original:
+                raise ValueError(f"{path} changed while it was being edited; run --cleanup again")
             tmp.replace(path)
         finally:
             tmp.unlink(missing_ok=True)
@@ -182,6 +185,12 @@ class Journal:
         write_json(self.path, self.entries)
 
     def undo(self):
+        # Copied credentials go first, whatever else fails (a full disk can stop the journal write).
+        for home in self.out.glob("codexhome-*"):
+            try:
+                erase(home)
+            except OSError as exc:
+                LOG.error("CLEANUP REQUIRED: delete %s (copied Codex credentials): %s", home, exc)
         pending = []
         for entry in reversed(self.entries):
             try:
@@ -191,9 +200,7 @@ class Journal:
                 pending.append(entry)
         self.entries = pending[::-1]
         write_json(self.path, self.entries)
-        for home in self.out.glob("codexhome-*"):
-            erase(home)
-        return not pending
+        return not pending and not any(self.out.glob("codexhome-*"))
 
     def undo_one(self, e):
         action, path = e["action"], Path(e["path"])
@@ -556,9 +563,42 @@ def execute(args, journal, stop):
     return summary(args, versions, jobs(args, versions, cases, stop))
 
 
+def registry():
+    state = Path(os.environ.get("XDG_STATE_HOME") or Path.home() / ".local/state")
+    folder = state / "atlas" / "eval-runs"
+    folder.mkdir(mode=0o700, parents=True, exist_ok=True)
+    return folder
+
+
+def recover_others(own):
+    """Undo what a killed run left (Grok trust, credentials, hidden notes), whatever its --out."""
+    for entry in registry().glob("*.json"):
+        try:
+            out = Path(load_json(entry)["out"])
+        except (OSError, ValueError, KeyError):
+            continue
+        if out == own:
+            continue
+        if not out.is_dir():
+            entry.unlink(missing_ok=True)
+            continue
+        with (out / ".lock").open("a") as lock:
+            try:
+                fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except OSError:
+                continue  # still running
+            LOG.warning("Cleaning up an interrupted run in %s", out)
+            if Journal(out).undo():
+                entry.unlink(missing_ok=True)
+
+
 def main():
     args = arguments()
+    os.umask(0o077)  # transcripts hold note text
     args.out.mkdir(mode=0o700, parents=True, exist_ok=True)
+    if args.out.stat().st_uid != os.getuid():
+        sys.exit(f"Run stopped: {args.out} belongs to another user")
+    args.out.chmod(0o700)
     logging.basicConfig(level=logging.INFO, format="%(message)s",
                         handlers=[logging.StreamHandler(), logging.FileHandler(args.out / "progress.log")])
     with (args.out / ".lock").open("a") as lock:
@@ -573,9 +613,12 @@ def main():
         for sig in (signal.SIGINT, signal.SIGTERM):
             signal.signal(sig, interrupt)
         atexit.register(journal.undo)
+        entry = registry() / (hashlib.sha256(os.fsencode(args.out)).hexdigest()[:16] + ".json")
         try:
+            recover_others(args.out)
             if not journal.undo():
                 return 1
+            write_json(entry, dict(out=str(args.out)))
             if args.cleanup:
                 return 0
             return execute(args, journal, stop)
@@ -584,6 +627,8 @@ def main():
                 signal.signal(sig, signal.SIG_IGN)
             clean = journal.undo()
             atexit.unregister(journal.undo)
+            if clean:
+                entry.unlink(missing_ok=True)
             if not clean:
                 raise RuntimeError("Cleanup incomplete; resolve the reported conflict and run --cleanup")
 

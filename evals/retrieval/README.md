@@ -18,16 +18,18 @@ The recording has 24 trials, including one quota failure. The report compares th
 
 ## Run on private notes
 
-Keep the answer key in its own folder below the brain. Choose a dedicated output directory outside the brain. Transcripts, errors, judge files and reports can contain private note text.
+Keep the answer key in its own folder below the brain. Choose a dedicated output directory outside the brain and outside temporary folders that the system clears: transcripts, errors, judge files and reports contain private note text, and hidden notes wait there until the run ends. The runner makes the folder private (mode 700, files 600).
+
+If a run is killed outright (SIGKILL, a crash), the next `run.py`, with any `--out`, undoes what it left: Grok trust entries, copied Codex credentials, hidden notes and worktrees. Runs register in `${XDG_STATE_HOME:-~/.local/state}/atlas/eval-runs/` for that.
 
 ```sh
 python3 -I evals/retrieval/run.py --brain /home/user/brain \
   --cases /home/user/brain/private-cases/cases.json \
   --refs main=origin/main,pr=feat/lookup --agents opus,codex,grok \
   --reps 2 --parallel 4 --hide private-cases previous-results \
-  --out /tmp/pier-eval
+  --out ~/atlas-evals/pier-eval
 
-python3 -I evals/retrieval/score.py --out /tmp/pier-eval \
+python3 -I evals/retrieval/score.py --out ~/atlas-evals/pier-eval \
   --cases /home/user/brain/private-cases/cases.json
 ```
 
@@ -44,7 +46,7 @@ Rerun the same command to resume. Add `--retry-failed` to repeat failed trials, 
 The runner journals worktree registrations, trust edits and hidden paths before changing them. It replays the journal on exit and at the next startup, and removes temporary Codex homes with their credentials and sessions. To recover after an interruption, run:
 
 ```sh
-python3 -I evals/retrieval/run.py --cleanup --out /tmp/pier-eval
+python3 -I evals/retrieval/run.py --cleanup --out ~/atlas-evals/pier-eval
 ```
 
 If a note reappears while hidden, cleanup preserves both copies and prints the paths. Move the replacement to a safe location and rerun cleanup to restore the original. Keep the output directory until recovery finishes.
