@@ -44,7 +44,8 @@ def main():
             bash(f"cat > {b}/inbox/new.md <<'NOTE-END'\nsecret text\ncd {b} && qmd query 'secret phrase'\nNOTE-END"),
             bash("obsidian vault=other search query='other vault'"),
             bash("cd /tmp && qmd search 'other index'"),
-            bash("ls; grep foo /etc/hosts"),
+            bash("ls; grep foo /etc/hosts; cat README.md"),
+            bash("sed -n 1,5p inbox/a.md; rg -n acme areas/missing"),  # after a `cd` into the brain
             dict(session_id="s1", cwd=str(b), tool_name="Read", tool_input=dict(file_path=str(b / "inbox/a.md")),
                  agent_id="x", agent_type="general-purpose", duration_ms=4),
             dict(hookEventName="post_tool_use", sessionId="g1", cwd="/tmp", toolName="read_file",
@@ -58,12 +59,13 @@ def main():
             ("claude", "read", None, ["inbox/a.md"]),
             ("claude", "grep", "ACME-4821", None),
             ("claude", "read", None, ["inbox/a.md"]),
+            ("claude", "read", None, ["inbox/a.md"]),
             ("grok", "read", None, ["inbox/a.md"]),
             ("codex", "grep", "acme", None),
         ]
         assert got == want, got
         assert events[2]["exit"] == 1 and events[2]["hits"] == 2, events[2]
-        assert events[3]["subagent"] == "general-purpose" and events[3]["duration_ms"] == 4, events[3]
+        assert events[4]["subagent"] == "general-purpose" and events[4]["duration_ms"] == 4, events[4]
         text = (tmp / "state/atlas/retrieval-events.jsonl").read_text()
         assert "secret" not in text and "other" not in text, "note text or a foreign vault was logged"
         mode = stat.S_IMODE((tmp / "state/atlas/retrieval-events.jsonl").stat().st_mode)

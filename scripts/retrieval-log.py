@@ -54,6 +54,12 @@ class Brain:
         full = os.path.realpath(os.path.join(cwd, os.path.expanduser(path)))
         if full == self.root or full.startswith(self.root + os.sep):
             return os.path.relpath(full, self.root)
+        # Claude Code reports the session's folder, not the shell's after a `cd` into the brain:
+        # a relative path that exists in the brain is taken as the brain's.
+        if path and not os.path.isabs(path) and not path.startswith(("~", "..")):
+            inside = os.path.realpath(os.path.join(self.root, path))
+            if inside.startswith(self.root + os.sep) and os.path.exists(inside):
+                return os.path.relpath(inside, self.root)
         return None
 
     def mentioned(self, text: str) -> bool:

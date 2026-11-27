@@ -25,10 +25,10 @@ brain=${brain%/}
 [ -n "$brain" ] && [ -d "$brain" ] || exit 0
 real=$(cd "$brain" 2>/dev/null && pwd -P) || exit 0
 # Most tool calls never touch the brain: skip them without starting Python (Grok runs this hook
-# in the foreground). Anything that names the brain, QMD or Obsidian goes on to the parser.
+# in the foreground). Anything that names the brain, QMD, Obsidian or a note goes on to the parser.
 payload=$(cat)
 case "$payload" in
-  *"$brain"* | *"$real"* | *qmd* | *bsidian*) ;;
+  *"$brain"* | *"$real"* | *qmd* | *bsidian* | *.md*) ;;
   *) exit 0 ;;
 esac
 py=$(command -v python3 2>/dev/null) || exit 0
