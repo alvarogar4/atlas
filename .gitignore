@@ -1,1 +1,4 @@
 .env
+
+# Feedback entries (compound) are private: they describe real sessions.
+.claude/learnings/
