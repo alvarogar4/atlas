@@ -37,6 +37,8 @@ def main():
         b = tmp / "brain"
         (b / "inbox").mkdir(parents=True)
         (b / "inbox/a.md").write_text("note\n")
+        (tmp / "other-project/inbox").mkdir(parents=True)
+        (tmp / "other-project/inbox/a.md").write_text("other\n")
         assert run(tmp, [bash(f"grep -rn acme {b}")], enabled=False) == [], "off unless opted in"
         events = run(tmp, [
             bash(f"cd {b} && /opt/q/qmd query $'lex: acme price\\nvec: what acme pays' -n 5; sed -n 1,9p inbox/a.md"),
@@ -46,6 +48,8 @@ def main():
             bash("cd /tmp && qmd search 'other index'"),
             bash("ls; grep foo /etc/hosts; cat README.md"),
             bash("sed -n 1,5p inbox/a.md; rg -n acme areas/missing"),  # after a `cd` into the brain
+            bash("cat inbox/a.md", cwd=str(tmp / "other-project")),  # its own inbox/a.md, not the brain's
+            bash(f"cat > {b}/inbox/n.md <<EOF \nqmd search 'secret one'\nEOF \ngrep -rn found {b}"),
             dict(session_id="s1", cwd=str(b), tool_name="Read", tool_input=dict(file_path=str(b / "inbox/a.md")),
                  agent_id="x", agent_type="general-purpose", duration_ms=4),
             dict(hookEventName="post_tool_use", sessionId="g1", cwd="/tmp", toolName="read_file",

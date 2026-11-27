@@ -113,6 +113,8 @@ def trust(path, home, add, journal=None, created=False, stage=None):
                 (path.parent / stage).unlink(missing_ok=True)
             if span:
                 text = text[:span[0]] + text[span[2]:]
+            if str(home) in tomllib.loads(text).get("folders", {}):
+                raise ValueError(f"{path} still trusts {home} in a form this script can't edit")
             if created and not text.strip():
                 path.unlink(missing_ok=True)
                 return
@@ -580,7 +582,11 @@ def recover_others(own):
         if out == own:
             continue
         if not out.is_dir():
-            entry.unlink(missing_ok=True)
+            LOG.warning("Interrupted run %s is not reachable; run --cleanup --out on it", out)
+            continue
+        info = out.stat()
+        if info.st_uid != os.getuid() or info.st_mode & 0o077 or not (out / "run.json").is_file():
+            LOG.warning("Skipping registry entry %s: not a private run folder", out)
             continue
         with (out / ".lock").open("a") as lock:
             try:

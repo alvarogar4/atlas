@@ -357,7 +357,8 @@ sys.exit(run.main())
 def killed_run(tmp):
     """A run killed with SIGKILL is undone by the next run, whatever --out that one uses."""
     dead = tmp / "killed-out"
-    dead.mkdir()
+    dead.mkdir(mode=0o700)
+    agents.write_json(dead / "run.json", {})
     trust_file = tmp / "killed-trust.toml"
     trust_file.write_text('[folders."/tmp/other"]\ntrusted = true\n')
     home = tmp / "killed-home"

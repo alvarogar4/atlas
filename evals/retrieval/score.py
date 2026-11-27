@@ -84,10 +84,15 @@ def metrics(record, meta, case, brain):
         n += 1
         if kind in SEARCH:
             searches.append(kind)
-        if hits and first[0] is None:
-            # A path only in the output counts from when the result arrived, not when the call began.
+        if hits:
+            # A path only in the output counts from when the result arrived, not when the call began;
+            # calls can overlap, so keep the earliest time and the first call.
             in_input = any(matches(p, inp) for p in hits)
-            first = (n, call["t"] if in_input else call.get("t_end", call["t"]))
+            t = call["t"] if in_input else call.get("t_end", call["t"])
+            if first[0] is None:
+                first = (n, t)
+            elif t is not None and (first[1] is None or t < first[1]):
+                first = (first[0], t)
         if kind in ("read", "qmd_get"):
             if opened[0] is None and any(matches(p, inp) for p in must):
                 opened = (n, call["t"])
@@ -112,7 +117,8 @@ def read_runs(out, cases, brain, reparse=False):
         meta = load_json(path)
         base = path.with_name(path.name.removesuffix(".meta.json"))
         rec = artifact(base, ".record.json")
-        if (reparse or not rec.exists()) and artifact(base, ".jsonl").exists():
+        stale = rec.exists() and any("t_end" not in c for c in load_json(rec).get("calls", []))
+        if (reparse or stale or not rec.exists()) and artifact(base, ".jsonl").exists():
             write_json(rec, parse(meta["agent"], artifact(base, ".jsonl"), artifact(base, ".times")))
         if meta["status"] != "ok":
             failed.append(meta)

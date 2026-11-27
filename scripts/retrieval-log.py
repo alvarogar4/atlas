@@ -56,7 +56,8 @@ class Brain:
             return os.path.relpath(full, self.root)
         # Claude Code reports the session's folder, not the shell's after a `cd` into the brain:
         # a relative path that exists in the brain is taken as the brain's.
-        if path and not os.path.isabs(path) and not path.startswith(("~", "..")):
+        if (path and not os.path.isabs(path) and not path.startswith(("~", ".."))
+                and not os.path.exists(os.path.join(cwd, path))):
             inside = os.path.realpath(os.path.join(self.root, path))
             if inside.startswith(self.root + os.sep) and os.path.exists(inside):
                 return os.path.relpath(inside, self.root)
@@ -70,15 +71,11 @@ def clip(text: str) -> str:
     return text if len(text) <= QUERY_MAX else text[:QUERY_MAX] + "..."
 
 
-HEREDOC = re.compile(r"<<-?\s*(['\"]?)([^\s'\"<>;&|()]+)\1[^\n]*\n.*?^\t*\2\s*$", re.S | re.M)
-
-
 def words(command: str):
-    """Shell words of a command, split into simple commands. Heredoc bodies are dropped (they are
-    text, often a note being written), and $'..' quoting becomes '..'."""
-    command = HEREDOC.sub(" ", command)
-    if re.search(r"<<(?!<)", command):
-        command = command[:command.index("<<")]  # a heredoc we could not delimit: drop its text
+    """Shell words of a command, split into simple commands; nothing for a command with a heredoc.
+    $'..' quoting becomes '..'."""
+    if re.search(r"(?<!<)<<(?!<)", command):
+        return  # a heredoc carries text (often a note being written): log nothing from it
     command = command.replace("$'", "'")
     lexer = shlex.shlex(command, posix=True, punctuation_chars=";&|()\n")
     lexer.whitespace = " \t\r"
