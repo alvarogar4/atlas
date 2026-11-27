@@ -1,0 +1,145 @@
+{
+  "as_of": "2030-03-14",
+  "brain_note": "Fictional pier workshop.",
+  "cases": [
+    {
+      "id": "c01",
+      "kind": "recency",
+      "question": "Which build runs on the Quay tally board?",
+      "must_find": [
+        "areas/log/2030-03-11"
+      ],
+      "facts": "Both screens run v2.1.4.",
+      "current_fact": "v2\\.1\\.4",
+      "stale_facts": [
+        "v1\\.6\\.0"
+      ],
+      "superseded": [
+        "projects/quay/README"
+      ],
+      "may_find": [
+        "projects/quay/README"
+      ]
+    },
+    {
+      "id": "c02",
+      "kind": "recency",
+      "question": "What does a weekly skiff pass cost now?",
+      "must_find": [
+        "areas/log/2030-03-12"
+      ],
+      "facts": "The desk charges 23 shells.",
+      "current_fact": "23 shells",
+      "stale_facts": [
+        "18 shells"
+      ],
+      "superseded": [
+        "inbox/fare-card"
+      ],
+      "may_find": [
+        "inbox/fare-card"
+      ]
+    },
+    {
+      "id": "c03",
+      "kind": "paraphrase",
+      "question": "How should fragile bottles be protected for shipment?",
+      "must_find": [
+        "resources/frost-sleeve"
+      ],
+      "facts": "Felt around the ceramic vial cushions the glaze."
+    },
+    {
+      "id": "c04",
+      "kind": "exact",
+      "question": "Trace ACME-4821 through the original slip, repair and test.",
+      "must_find": [
+        "inbox/jam-slip",
+        "projects/quay/repairs/pawl",
+        "archives/workshop/bench-test"
+      ],
+      "facts": "A stall led to filing the pawl. The weighted test passed."
+    },
+    {
+      "id": "c05",
+      "kind": "recency",
+      "question": "Which day does the Gull crew meet?",
+      "must_find": [
+        "areas/log/2030-03-13"
+      ],
+      "facts": "The crew moved its briefing to Thursday.",
+      "current_fact": "Thursday",
+      "stale_facts": [
+        "Monday"
+      ],
+      "superseded": [
+        "projects/gull/README"
+      ],
+      "may_find": [
+        "projects/gull/README"
+      ]
+    },
+    {
+      "id": "c06",
+      "kind": "backlinks",
+      "question": "Which two notes link to the pivot pin?",
+      "must_find": [
+        "resources/kiln-door",
+        "projects/quay/repairs/hinge"
+      ],
+      "facts": "Kiln door and Hinge refit both link to Pivot pin.",
+      "may_find": [
+        "resources/pivot-pin"
+      ]
+    },
+    {
+      "id": "c07",
+      "kind": "tags",
+      "question": "Which notes carry the night-round tag?",
+      "must_find": [
+        "areas/watch/float",
+        "inbox/pier-lamp"
+      ],
+      "facts": "Float watch and Pier lamp."
+    },
+    {
+      "id": "c08",
+      "kind": "fresh",
+      "question": "Which sling did we use for the beacon in today's first lift?",
+      "must_find": [
+        "areas/log/2030-03-14"
+      ],
+      "facts": "The crew used the violet sling.",
+      "current_fact": "violet",
+      "as_of": "2030-03-14"
+    },
+    {
+      "id": "c09",
+      "kind": "person",
+      "question": "Where does Vesi Pell keep the spare keys?",
+      "must_find": [
+        "projects/gull/people/vesi-pell"
+      ],
+      "facts": "In a stone cup behind the bell."
+    },
+    {
+      "id": "c10",
+      "kind": "folder",
+      "question": "Find a Gull project note that says where the folded mesh goes.",
+      "must_find": [
+        "projects/gull/"
+      ],
+      "facts": "The net loft note specifies the alder shelf.",
+      "current_fact": "alder shelf"
+    },
+    {
+      "id": "c11",
+      "kind": "exact",
+      "question": "Which mark identifies the kiln-dried boards?",
+      "must_find": [
+        "resources/plank-stamp.md"
+      ],
+      "facts": "A silver fern stamp."
+    }
+  ]
+}

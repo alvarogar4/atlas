@@ -1,0 +1,5 @@
+{"type":"item.started","item":{"id":"tool-1","type":"command_execution","command":"/bin/zsh -lc 'rg -l wool /fixture/brain'","aggregated_output":"","exit_code":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"tool-1","type":"command_execution","command":"/bin/zsh -lc 'rg -l wool /fixture/brain'","aggregated_output":"/fixture/brain/resources/frost-sleeve.md","exit_code":0,"status":"completed"}}
+{"type":"item.completed","item":{"id":"msg-0","type":"agent_message","text":"Checking the notes."}}
+{"type":"item.completed","item":{"id":"msg-1","type":"agent_message","text":"Wrap the ceramic vial in felt. resources/frost-sleeve.md"}}
+{"type":"turn.completed","usage":{"input_tokens":100,"cached_input_tokens":65,"output_tokens":22,"reasoning_output_tokens":2}}

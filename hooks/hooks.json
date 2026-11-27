@@ -11,6 +11,17 @@
             "timeout": 30
           }
         ]
+      },
+      {
+        "matcher": "Bash|Read|Grep|Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/retrieval-log.sh\"",
+            "async": true,
+            "timeout": 5
+          }
+        ]
       }
     ]
   }

@@ -1,0 +1,8 @@
+{"type":"text","data":"I will check."}
+{"type":"thought","data":"Look in the pier notes."}
+{"type":"usage","usage":{"input_tokens":40,"output_tokens":7}}
+{"type":"tool_call","toolCallId":"tool-1","title":"grep","kind":"grep","toolName":"grep","rawInput":{"pattern":"felt","path":"/fixture/brain"}}
+{"type":"tool_call_update","toolCallId":"tool-1","status":"completed","rawOutput":{"type":"GrepSearch","stdout":[47,102,105,120,116,117,114,101,47,98,114,97,105,110,47,114,101,115,111,117,114,99,101,115,47,102,114,111,115,116,45,115,108,101,101,118,101,46,109,100]}}
+{"type":"text","data":"Wrap th"}
+{"type":"text","data":"e ceramic vial in felt. resources/frost-sleeve.md"}
+{"type":"usage","usage":{"input_tokens":63,"output_tokens":17}}

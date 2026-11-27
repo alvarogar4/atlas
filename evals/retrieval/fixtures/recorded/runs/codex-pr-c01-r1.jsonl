@@ -1,0 +1,10 @@
+{"type":"item.started","item":{"id":"tool-1","type":"command_execution","command":"/bin/zsh -lc 'rg -l missing-brass /fixture/brain'","aggregated_output":"","exit_code":null,"status":"in_progress"}}
+{"type":"item.started","item":{"id":"tool-1","type":"command_execution","command":"/bin/zsh -lc 'rg -l missing-brass /fixture/brain'","aggregated_output":"","exit_code":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"tool-1","type":"command_execution","command":"/bin/zsh -lc 'rg -l missing-brass /fixture/brain'","aggregated_output":"","exit_code":1,"status":"completed"}}
+{"type":"item.started","item":{"id":"tool-2","type":"command_execution","command":"/bin/zsh -lc 'rg -l board /fixture/brain'","aggregated_output":"","exit_code":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"tool-2","type":"command_execution","command":"/bin/zsh -lc 'rg -l board /fixture/brain'","aggregated_output":"/fixture/brain/areas/log/2030-03-11.md","exit_code":0,"status":"completed"}}
+{"type":"item.started","item":{"id":"tool-3","type":"command_execution","command":"/bin/zsh -lc 'cat /fixture/brain/areas/log/2030-03-11.md'","aggregated_output":"","exit_code":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"tool-3","type":"command_execution","command":"/bin/zsh -lc 'cat /fixture/brain/areas/log/2030-03-11.md'","aggregated_output":"Both screens run v2.1.4.","exit_code":0,"status":"completed"}}
+{"type":"item.completed","item":{"id":"msg-0","type":"agent_message","text":"Checking the notes."}}
+{"type":"item.completed","item":{"id":"msg-1","type":"agent_message","text":"Both screens run v2.1.4. areas/log/2030-03-11.md"}}
+{"type":"turn.completed","usage":{"input_tokens":100,"cached_input_tokens":65,"output_tokens":22,"reasoning_output_tokens":2}}

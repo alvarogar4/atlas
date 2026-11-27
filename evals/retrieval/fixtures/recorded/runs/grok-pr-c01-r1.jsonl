@@ -1,0 +1,10 @@
+{"type":"text","data":"I will check."}
+{"type":"thought","data":"Look in the pier notes."}
+{"type":"usage","usage":{"input_tokens":40,"output_tokens":7}}
+{"type":"tool_call","toolCallId":"tool-1","title":"grep","kind":"grep","toolName":"grep","rawInput":{"pattern":"board","path":"/fixture/brain"}}
+{"type":"tool_call_update","toolCallId":"tool-1","status":"completed","rawOutput":{"type":"GrepSearch","stdout":[47,102,105,120,116,117,114,101,47,98,114,97,105,110,47,97,114,101,97,115,47,108,111,103,47,50,48,51,48,45,48,51,45,49,49,46,109,100]}}
+{"type":"tool_call","toolCallId":"tool-2","title":"read_file","kind":"read","toolName":"read_file","rawInput":{"target_file":"/fixture/brain/areas/log/2030-03-11.md"}}
+{"type":"tool_call_update","toolCallId":"tool-2","status":"completed","content":[{"type":"content","content":{"type":"text","text":"Both screens run v2.1.4."}}]}
+{"type":"text","data":"Both sc"}
+{"type":"text","data":"reens run v2.1.4. areas/log/2030-03-11.md"}
+{"type":"usage","usage":{"input_tokens":63,"output_tokens":17}}

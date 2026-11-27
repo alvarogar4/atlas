@@ -1,0 +1,9 @@
+{
+  "agent": "codex",
+  "version": "pr",
+  "case": "c03",
+  "rep": 1,
+  "rc": 1,
+  "secs": 0.35,
+  "status": "quota"
+}

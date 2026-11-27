@@ -1,7 +1,7 @@
 {
   "name": "atlas",
   "description": "Personal second brain assistant. Captures ideas, stores knowledge, recalls context, and acts as a proactive assistant that knows your preferences and history.",
-  "version": "3.9.2",
+  "version": "3.10.0",
   "author": {
     "name": "Alvaro"
   },
