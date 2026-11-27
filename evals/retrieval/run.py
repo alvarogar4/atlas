@@ -27,8 +27,11 @@ sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from agents import AGENTS, agent_env, artifact, command, load_json, parse, write_json
 
-SMOKE = ('List every skill available to you whose name contains "brain", with the full path '
-         'of its SKILL.md. Reply with the paths only, one per line.')
+# Ask the agent to load the skill rather than recall it: a model asked for a path it was not shown
+# guesses or searches the whole disk. Claude's Skill tool prints the skill's base directory.
+SMOKE = ('Load each skill available to you whose name contains "brain" (with your skill tool if you '
+         'have one, otherwise by reading its SKILL.md) and do nothing else: no searches, no other '
+         'files. Reply with the full path of each such SKILL.md, one per line, and nothing else.')
 PLUGIN = "atlas@atlas-marketplace"
 QUOTA = re.compile(rb"\b(?:http(?:[/ ]\d+(?:\.\d+)?)?\s*(?:error\s*|:\s*)?402|402\s+payment|insufficient|usage limit|rate limit|quota exceeded)\b", re.I)
 LOG = logging.getLogger("retrieval")
@@ -588,5 +591,7 @@ def main():
 if __name__ == "__main__":
     try:
         sys.exit(main())
-    except (ValueError, OSError, RuntimeError, subprocess.SubprocessError, KeyboardInterrupt) as exc:
+    except KeyboardInterrupt:
+        sys.exit("Run stopped: interrupted; changes outside --out were undone")
+    except (ValueError, OSError, RuntimeError, subprocess.SubprocessError) as exc:
         sys.exit(f"Run stopped: {exc}")

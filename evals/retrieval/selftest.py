@@ -294,7 +294,7 @@ assert not (Path(brain) / "private").exists()
 assert os.environ["ATLAS_CONFIG"] == config and "ATLAS_RETRIEVAL_LOG" not in os.environ
 assert sys.stdin.read() == ""
 answer = "Both screens run v2.1.4. areas/log/2030-03-11.md"
-if prompt.startswith("List every skill"):
+if prompt.startswith("Load each skill"):
     answer = str(Path.cwd() / ".agents/skills/second-brain/SKILL.md")
     if Path(gate).exists() and version == "pr":
         answer = "/tmp/foreign/second-brain/SKILL.md"
