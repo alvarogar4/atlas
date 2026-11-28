@@ -1,6 +1,6 @@
 # QMD Reference
 
-[QMD](https://github.com/tobi/qmd) keeps an index of the notes: keywords (BM25) and, when embeddings are set up, meaning (vectors). It ranks its results, which grep and the Obsidian CLI do not. It is optional: Atlas works without it. For choosing between it, grep and the Obsidian CLI when searching, see `search-tools.md`.
+[QMD](https://github.com/tobi/qmd) keeps an index of the notes: keywords (BM25) and, when embeddings are set up, meaning (vectors). It ranks its results, which grep and the Obsidian CLI do not. It is optional: Atlas works without it. For choosing between it, grep and the Obsidian CLI when searching, see `SKILL.md` → Finding Notes.
 
 In the commands below `{QMD}` is the value of `ATLAS_QMD_CMD`.
 

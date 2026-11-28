@@ -74,13 +74,52 @@ Personal notes (career, feedback, journal, anything outside a team-shared projec
 
 ## Finding Notes
 
-Three tools can find a note, and each wins a different kind of request: QMD for questions and for phrases or names remembered from a note, grep for exact strings, known folders and notes written a moment ago, the Obsidian CLI for links and tags. That sentence is only the outline. **Before the first search of a session, read `reference/search-tools.md`**: it holds the routing table (which tool for which request, and why), and it is the only copy.
+Pick the search tool by the request, not by habit. grep is the habit, and it is the wrong default for a question: it returns unranked matches, and it misses notes written in other words or another language. This table is the only copy of the routing; `reference/search-tools.md` holds the measurements behind it and the grep commands.
 
-- **grep and find always work.** QMD and the Obsidian CLI are optional, and each has a check to pass first (`reference/qmd.md`, `reference/obsidian.md`). QMD is used only when the config names it (`ATLAS_QMD_CMD`, the absolute path of one executable) and it indexes the brain. The Obsidian CLI (`ATLAS_OBSIDIAN_CMD`, or `obsidian`) only while the app is already running, and always with the brain's vault named. Where a check fails, use grep.
+| The request is...                                                             | Use                                                        | Why                                                                 |
+| ----------------------------------------------------------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------- |
+| A path you already have (given, in memory, a convention)                      | Read it. No search                                         | Nothing to find                                                     |
+| Inside a folder you already know (a client folder, a draft)                   | grep and ls in that folder                                 | Few files, exact strings pin them down                              |
+| A question, a topic, "the note about X", location unknown                     | **QMD**: `lex:` keyword lines plus one `vec:` sentence     | Ranked; finds other words and other languages                       |
+| A phrase or a name you remember from a note                                   | **QMD** `search` with the phrase in quotes                 | Finds it and ranks it first                                         |
+| An exact string inside a note (identifier, code, error), a regular expression | `grep -F` or `grep -E`                                     | Byte-exact                                                          |
+| A file name, or part of one                                                   | `find` or Glob                                             | grep reads contents, not names                                      |
+| A note written or edited a moment ago, a file that is not Markdown            | grep                                                       | Reads the files as they are now                                     |
+| What links to a note, tags, orphans, properties                               | **Obsidian CLI**                                           | Resolves links; a grep for a name also returns plain mentions       |
+| QMD or the Obsidian CLI is not available here                                 | grep                                                       | Always there                                                        |
+
+### The defaults, ready to run
+
+When the check for a tool passes (below), these are the first call for a question, a topic or a remembered phrase, before any grep across the whole brain:
+
+```bash
+cd "{BRAIN_PATH}"
+{QMD} update   # once per session, before the first search, only with ATLAS_QMD_REFRESH=1
+# A question or a topic, location unknown. Add the vec: line only when `{QMD} status` shows embedded vectors
+{QMD} query $'lex: key words\nlex: other key words\nvec: the question in plain words' --no-rerank -n 5 --format files
+# A phrase or a name you remember
+{QMD} search '"the phrase"' -n 5 --format files
+# What links to a note (only while the Obsidian app is already running)
+{OBSIDIAN} vault="{VAULT}" backlinks path="folder/note.md" format=json
+```
+
+If QMD also indexes collections outside `{BRAIN_PATH}`, add `-c <name>` for each collection inside it to every search. If the request is scoped to one folder (a project, a client), drop every result outside that folder before opening any, and search the folder with grep if none is left.
+
+Three moments to switch tools:
+
+- **A topic or question searched with grep across the whole brain returned more than about 10 files**, or none of the first ones fits, and QMD has not been tried yet: rerun it as a QMD query instead of narrowing the grep by hand. Exact strings, regular expressions, just-edited notes and non-Markdown files stay on grep, however many files match.
+- **Before you move, rename or delete a note**: list its backlinks with the Obsidian CLI while the app is running, and update them in the same change. Without the CLI, grep for the note's name and path, but treat the hits as candidates: edit only links that resolve to the old path (another folder can hold a note with the same name, and many hits are plain mentions), and check `related` entries for the old path too.
+- **A question in another language than the notes**: QMD with the `vec:` line in the user's language, when vectors are embedded. Without vectors, write the `lex:` lines in the notes' language.
+
+Read the top 3 to 5 results before answering. If none fits, rephrase once, then fall back to grep.
+
+### Checks and limits
+
+- **grep and find always work.** QMD and the Obsidian CLI are optional. QMD is used only when the config names it (`ATLAS_QMD_CMD`, the absolute path of one executable) and it indexes the brain; check once per session. The Obsidian CLI (`ATLAS_OBSIDIAN_CMD`, or `obsidian`) only while the app is already running (check before every call) and always with the brain's vault named. Where a check fails, use grep and say nothing.
 - **A quick lookup needs no agent.** Search directly, read the top 3 to 5 results, answer. Spawn `atlas:locate_knowledge` and `atlas:analyze_knowledge` for deep recall across many notes.
 - **Atlas uses these tools, it does not set them up.** Never install QMD, run `{QMD} embed` or `{QMD} pull`, switch the Obsidian CLI on, or start Obsidian to search. Run `{QMD} update` only when the config has `ATLAS_QMD_REFRESH=1`.
 
-Before the first QMD call read `reference/qmd.md` (config, check, commands, query syntax). Before the first Obsidian CLI call read `reference/obsidian.md` → Obsidian CLI (check, commands).
+The full check, the query syntax and the rules on collections are in `reference/qmd.md`; the Obsidian CLI's check and commands in `reference/obsidian.md` (Obsidian CLI). Read each once, before that tool's first call in a session.
 
 ## Brain Paths in Replies
 
@@ -123,7 +162,7 @@ Files outside the brain (code repos, scratch folders, agent config) keep their a
 These should happen automatically without the user needing to ask:
 
 - When user expresses any idea → offer to capture it
-- When user asks about a topic → decide between search (file discovery) and recall (deep synthesis) based on the question, and pick the search tool by the kind of request per [Finding Notes](#finding-notes)
+- When user asks about a topic → decide between search (file discovery) and recall (deep synthesis) based on the question, and pick the search tool by the kind of request per [Finding Notes](#finding-notes): a question or a topic goes to QMD first when it is available, not to grep
 - When user mentions a project name → check if it exists and offer to switch
 - **When a project becomes active** → check for `{PROJECT_PATH}/STRUCTURE.md`; if present, treat it as the authoritative structure/naming/frontmatter/linking spec for that project (plugin defaults are fallback) per [Project Structure Spec](#project-structure-spec)
 - **When the task relates to a project** → check its `AGENTS.md`/`STRUCTURE.md` for an external knowledge source (for example a team brain MCP). If it declares one, query it as well as the brain folder, per [Project Knowledge Sources](#project-knowledge-sources)
@@ -189,7 +228,7 @@ Atlas runs in Claude Code as a plugin and in any other agent that loads Agent Sk
 
 - **Folder structure**: `reference/folder-structure.md` — single source of truth for PARA structure
 - **Cross-referencing**: `reference/cross-referencing.md` — `related` property format, tag guidelines, series navigation
-- **Search tools**: `reference/search-tools.md` — the routing table (which of grep, the Obsidian CLI and QMD to use for which request; the only copy), grep commands, the measurements behind the routing
+- **Search tools**: `reference/search-tools.md` — grep commands and the measurements behind the routing (the routing table itself is in [Finding Notes](#finding-notes))
 - **QMD**: `reference/qmd.md` — config, availability check, commands, query syntax, index freshness
 - **Obsidian features**: `reference/obsidian.md` — callouts, embeds, highlights, comments, the CLI (availability check and commands), defuddle extraction
 - **Obsidian Bases**: `reference/obsidian-bases.md` — `.base` file schema, formulas, views, default project dashboard template
