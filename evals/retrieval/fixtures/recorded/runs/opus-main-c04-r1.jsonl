@@ -1,0 +1,4 @@
+stream ready
+{"type":"assistant","message":{"content":[{"type":"tool_use","id":"tool-1","name":"Read","input":{"file_path":"/fixture/brain/inbox/jam-slip.md"}}]}}
+{"type":"user","message":{"content":[{"type":"tool_result","tool_use_id":"tool-1","content":[{"type":"text","text":"ACME-4821"}],"is_error":false}]}}
+{"type":"result","result":"The handle stalled. inbox/jam-slip.md","total_cost_usd":0.31,"num_turns":2,"usage":{"input_tokens":110,"output_tokens":21}}

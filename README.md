@@ -81,6 +81,8 @@ atlas/
 │       └── SKILL.md                        # Translation quality patterns, voice preservation
 ├── hooks/
 │   └── hooks.json                          # Event handlers
+├── scripts/                                # Hook scripts, retrieval report
+├── evals/retrieval/                        # Retrieval evals: harness, invented fixture vault
 ├── CLAUDE.md                               # Personality & behavior (AGENTS.md symlinks here)
 └── README.md                               # This file
 ```
@@ -183,6 +185,15 @@ Exported shell variables with the same names take precedence. A legacy `.env` at
 ATLAS_BRAIN_PATH=~/brain
 ATLAS_ACTIVE_PROJECT=my-project
 ```
+
+## Measuring brain search
+
+Two tools check whether agents find the most relevant and the latest notes, and how fast.
+
+- **Retrieval evals** (`evals/retrieval/`, see its README): the same questions through Claude Code, Codex and Grok, each version of Atlas isolated in its own worktree, scored without a judge (expected notes cited, current fact vs a stale one, time and tool calls to the first relevant note, notes read for nothing, which search tool came first). Self-test with no model calls: `python3 -I evals/retrieval/selftest.py`.
+- **Live traffic**: with `ATLAS_RETRIEVAL_LOG=1` in the Atlas config, a PostToolUse hook appends one line per brain search or read to `~/.local/state/atlas/retrieval-events.jsonl` (mode 600; `XDG_STATE_HOME` moves it). It logs the query or grep pattern (up to 300 characters) and brain-relative paths, never a command line, a heredoc or a tool's output. QMD counts when it is the configured `ATLAS_QMD_CMD` or runs from the brain folder; the Obsidian CLI when its `vault=` is the brain folder's name. Checks: `python3 -I scripts/retrieval-log-test.py`. `python3 -I scripts/retrieval-report.py` turns it into per-day, per-agent numbers; `--check-newer` reruns logged queries through QMD and flags a newer note on the same topic that the session never read.
+  - Claude Code and Grok run the hook from the plugin. Grok runs it in the foreground (it ignores `async`), so the hook skips any call that doesn't name the brain, QMD or Obsidian before starting Python.
+  - Codex runs plugin hooks only once you trust them: after installing or updating Atlas, open `/hooks` in Codex and trust the Atlas hooks (an update that changes the plugin's files asks again).
 
 ## Personality
 

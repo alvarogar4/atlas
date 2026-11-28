@@ -1,0 +1,8 @@
+{"type":"text","data":"I will check."}
+{"type":"thought","data":"Look in the pier notes."}
+{"type":"usage","usage":{"input_tokens":40,"output_tokens":7}}
+{"type":"tool_call","toolCallId":"tool-1","title":"read_file","kind":"read","toolName":"read_file","rawInput":{"target_file":"/fixture/brain/areas/log/2030-03-12.md"}}
+{"type":"tool_call_update","toolCallId":"tool-1","status":"completed","content":[{"type":"content","content":{"type":"text","text":"The desk charges 23 shells."}}]}
+{"type":"text","data":"The des"}
+{"type":"text","data":"k charges 23 shells. areas/log/2030-03-12.md"}
+{"type":"usage","usage":{"input_tokens":63,"output_tokens":17}}

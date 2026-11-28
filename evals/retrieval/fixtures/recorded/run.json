@@ -1,0 +1,9 @@
+{
+  "brain": "/fixture/brain",
+  "agents": [
+    "opus",
+    "codex",
+    "grok"
+  ],
+  "reps": 1
+}

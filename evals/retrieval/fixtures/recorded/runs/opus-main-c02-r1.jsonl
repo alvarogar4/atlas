@@ -1,0 +1,4 @@
+stream ready
+{"type":"assistant","message":{"content":[{"type":"tool_use","id":"tool-1","name":"Grep","input":{"pattern":"shells","path":"/fixture/brain"}}]}}
+{"type":"user","message":{"content":[{"type":"tool_result","tool_use_id":"tool-1","content":[{"type":"text","text":"/fixture/brain/areas/log/2030-03-12.md"}],"is_error":false}]}}
+{"type":"result","result":"18 shells. areas/log/2030-03-12.md","total_cost_usd":0.31,"num_turns":2,"usage":{"input_tokens":110,"output_tokens":21}}
